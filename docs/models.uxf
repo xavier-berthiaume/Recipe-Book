@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>14</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>490</y>
+      <w>504</w>
+      <h>616</h>
+    </coordinates>
+    <panel_attributes>SharedRecipe
+--
+-id: UUID
+-original_recipe_id: UUID
+-author_id: UUID
+-like_count: uint
+-saved_count: uint
+--
++getId(): UUID
++getOriginalRecipeId(): UUID
++getAuthorId(): UUID
++getLikeCount(): uint
++getSavedCount(): uint
+
++addLike(UUID user): void
++removeLike(UUID user): void
+
++addSaved(UUID user): void
++removeSaved(UUID user): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>1162</y>
+      <w>504</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>User
+--
+-id: UUID
+-username: String
+-password_hash: String
+-shared_recipes: Recipe[]
+--
++getId(): UUID
++getUsername(): UUID
++getSharedRecipes(): Recipe[]
+
++setUsername(String): void
++</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

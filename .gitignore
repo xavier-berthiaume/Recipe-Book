@@ -1,0 +1,85 @@
+# Build directories
+build-*/
+*/build-*
+*.pro.user
+*.pro.user.*
+*.qmake.stash
+
+# Compiled object files
+*.o
+*.obj
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Qt Creator files
+CMakeLists.txt.user
+*.autosave
+
+# Qt moc files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+
+# Executables
+*.exe
+*.app
+*.out
+
+# Debug files
+*.debug
+*.ilk
+*.pdb
+
+# Release files
+*.release
+
+# Generated Makefiles
+Makefile
+*.make
+
+# Qt temporary files
+*.qmlc
+*.jsc
+
+# Qt deployment files
+*.qm
+*.ts
+
+# CMake build files
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+install_manifest.txt
+*.cmake
+
+# Ninja build files
+*.ninja
+.ninja_deps
+.ninja_log
+
+# IDE-specific files (CLion, VS Code, etc.)
+.idea/
+.vscode/
+*.code-workspace
+
+# macOS files
+.DS_Store
+._*
+
+# Windows files
+Thumbs.db
+*.lnk
+
+# Dependency directories
+.deps/
+.dirstamp
+
+# Logs and temp files
+*.log
+*.tmp
