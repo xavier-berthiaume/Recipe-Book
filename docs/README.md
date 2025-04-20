@@ -82,3 +82,8 @@ in using anything more robust.
 
 **Database:** SQLite  
 - Why: Single-user, zero-configuration, no server needed  
+
+## Files in Directory
+
+```Models.{mm,uxf}``` A Umlet file to see the UML models for the project
+
