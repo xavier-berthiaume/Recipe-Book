@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>14</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>224</x>
-      <y>490</y>
-      <w>504</w>
-      <h>616</h>
+      <x>1034</x>
+      <y>55</y>
+      <w>396</w>
+      <h>374</h>
     </coordinates>
     <panel_attributes>SharedRecipe
 --
--id: UUID
 -original_recipe_id: UUID
 -author_id: UUID
 -like_count: uint
 -saved_count: uint
 --
-+getId(): UUID
 +getOriginalRecipeId(): UUID
 +getAuthorId(): UUID
 +getLikeCount(): uint
@@ -33,24 +31,305 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>224</x>
-      <y>1162</y>
-      <w>504</w>
-      <h>350</h>
+      <x>1034</x>
+      <y>506</y>
+      <w>528</w>
+      <h>308</h>
     </coordinates>
     <panel_attributes>User
 --
--id: UUID
 -username: String
 -password_hash: String
 -shared_recipes: Recipe[]
 --
-+getId(): UUID
 +getUsername(): UUID
 +getSharedRecipes(): Recipe[]
 
 +setUsername(String): void
-+</panel_attributes>
++addSharedRecipe(Recipe): void
++removeSharedRecipe(Recipe): void
+
++authenticate(String): boolean</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1034</x>
+      <y>1320</y>
+      <w>528</w>
+      <h>583</h>
+    </coordinates>
+    <panel_attributes>Recipe
+--
+-instructions: String[]
+-prep_time: uint
+-equipment: String[]
+-notes: String
+-is_shared: boolean
+-like_count: uint
+--
++getInstructions(): String[]
++getPrepTime(): uint
++getEquipment(): String
++getNotes(): String
++getIsShared(): boolean
++getLikeCount(): uint
+
++addInstruction(String): void
++removeInstruction(String): void
++removeInstruction(int): void
++setPrepTime(uint): void
++addEquipment(String): void
++removeEquipment(String): void
++removeEquipment(int): void
++setNotes(String): void
++toggleShared(): void
++setLikeCount(uint): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1034</x>
+      <y>891</y>
+      <w>528</w>
+      <h>363</h>
+    </coordinates>
+    <panel_attributes>Ingredient
+--
+-name: String
+-description: String
+-is_recipe: boolean
+-linked_recipe_id: UUID? #Only if is_recipe = true
+--
++getName(): String
++getDescription(): String
++getIsRecipe(): boolean
++getLinkedRecipeId(): UUID
+
++setName(String): void
++setDescription(String): void
++setIsRecipe(boolean): void
++setLinkedRecipeId(UUID): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1628</x>
+      <y>451</y>
+      <w>176</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>/Storable/
+--
+-id: UUID
+--
++getId(): UUID
++setId(): UUID
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1287</x>
+      <y>451</y>
+      <w>363</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1287</x>
+      <y>473</y>
+      <w>363</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>310.0;10.0;270.0;10.0;270.0;330.0;10.0;330.0;10.0;380.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1287</x>
+      <y>1243</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1749</x>
+      <y>1210</y>
+      <w>429</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>RecipeIngredient
+--
+-recipe_id: UUID
+-ingredient_id: UUID
+-quantity: String
+-unit: String
+--
+/Regular mutator and accessor methods/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1551</x>
+      <y>1067</y>
+      <w>220</w>
+      <h>209</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>180.0;170.0;60.0;170.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1551</x>
+      <y>1265</y>
+      <w>220</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;190.0;60.0;190.0;60.0;10.0;180.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1551</x>
+      <y>1287</y>
+      <w>220</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>180.0;10.0;80.0;10.0;80.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1650</x>
+      <y>1397</y>
+      <w>352</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>A Recipe can be used as an ingredient in RecipeIngredient
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1419</x>
+      <y>253</y>
+      <w>264</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>220.0;180.0;220.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>1320</y>
+      <w>407</w>
+      <h>583</h>
+    </coordinates>
+    <panel_attributes>QtRecipeWrapper
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>891</y>
+      <w>407</w>
+      <h>363</h>
+    </coordinates>
+    <panel_attributes>QtIngredientWrapper
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1749</x>
+      <y>990</y>
+      <w>429</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>QtRecipeIngredientWrapper
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>539</x>
+      <y>506</y>
+      <w>407</w>
+      <h>319</h>
+    </coordinates>
+    <panel_attributes>QtUserWrapper
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>935</x>
+      <y>660</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>935</x>
+      <y>1056</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>935</x>
+      <y>1573</y>
+      <w>121</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1947</x>
+      <y>1133</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
