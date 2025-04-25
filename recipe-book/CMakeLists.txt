@@ -12,14 +12,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
 
-set(TS_FILES recipe-book_fr_CA.ts)
+# Instead of having this line, include the ./translation directory 
+# set(TS_FILES recipe-book_fr_CA.ts)
 
+add_subdirectory(translation)
+add_subdirectory(ui)
+add_subdirectory(models)
+
+# Only inlcude main.cpp here, as well as the different variables set in the included subdirectories
+# For example, include the ./models subdirectory, and within its CMakeLists file add all the source files to 
+# a variables called MODELS_SOURCES, which is then included here as part of PROJECT_SOURCES
 set(PROJECT_SOURCES
         main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        ${TS_FILES}
+        ${UI_SOURCES}
+        ${MODELS_SOURCES}
+        ${TRANSLATION_SOURCES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

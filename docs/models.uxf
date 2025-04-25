@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="15.1">
-  <zoom_level>11</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1034</x>
-      <y>55</y>
-      <w>396</w>
-      <h>374</h>
+      <x>660</x>
+      <y>42</y>
+      <w>216</w>
+      <h>204</h>
     </coordinates>
     <panel_attributes>SharedRecipe
 --
@@ -31,10 +31,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1034</x>
-      <y>506</y>
-      <w>528</w>
-      <h>308</h>
+      <x>660</x>
+      <y>288</y>
+      <w>288</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -55,10 +55,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1034</x>
-      <y>1320</y>
-      <w>528</w>
-      <h>583</h>
+      <x>660</x>
+      <y>732</y>
+      <w>288</w>
+      <h>318</h>
     </coordinates>
     <panel_attributes>Recipe
 --
@@ -91,10 +91,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1034</x>
-      <y>891</y>
-      <w>528</w>
-      <h>363</h>
+      <x>660</x>
+      <y>498</y>
+      <w>288</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>Ingredient
 --
@@ -118,10 +118,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1628</x>
-      <y>451</y>
-      <w>176</w>
-      <h>165</h>
+      <x>96</x>
+      <y>480</y>
+      <w>96</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>/Storable/
 --
@@ -135,32 +135,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1287</x>
-      <y>451</y>
-      <w>363</w>
-      <h>77</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>310.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1287</x>
-      <y>473</y>
-      <w>363</w>
-      <h>440</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>310.0;10.0;270.0;10.0;270.0;330.0;10.0;330.0;10.0;380.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1287</x>
-      <y>1243</y>
-      <w>33</w>
-      <h>99</h>
+      <x>798</x>
+      <y>690</y>
+      <w>18</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -168,10 +146,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1749</x>
-      <y>1210</y>
-      <w>429</w>
-      <h>176</h>
+      <x>1050</x>
+      <y>672</y>
+      <w>234</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>RecipeIngredient
 --
@@ -186,10 +164,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1551</x>
-      <y>1067</y>
-      <w>220</w>
-      <h>209</h>
+      <x>942</x>
+      <y>594</y>
+      <w>120</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>180.0;170.0;60.0;170.0;60.0;10.0;10.0;10.0</additional_attributes>
@@ -197,10 +175,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1551</x>
-      <y>1265</y>
-      <w>220</w>
-      <h>231</h>
+      <x>942</x>
+      <y>702</y>
+      <w>120</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;190.0;60.0;190.0;60.0;10.0;180.0;10.0</additional_attributes>
@@ -208,10 +186,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1551</x>
-      <y>1287</y>
-      <w>220</w>
-      <h>231</h>
+      <x>942</x>
+      <y>714</y>
+      <w>120</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>180.0;10.0;80.0;10.0;80.0;190.0;10.0;190.0</additional_attributes>
@@ -219,33 +197,22 @@
   <element>
     <id>Text</id>
     <coordinates>
-      <x>1650</x>
-      <y>1397</y>
-      <w>352</w>
-      <h>77</h>
+      <x>996</x>
+      <y>774</y>
+      <w>192</w>
+      <h>42</h>
     </coordinates>
     <panel_attributes>A Recipe can be used as an ingredient in RecipeIngredient
 style=wordwrap</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1419</x>
-      <y>253</y>
-      <w>264</w>
-      <h>220</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>220.0;180.0;220.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>539</x>
-      <y>1320</y>
-      <w>407</w>
-      <h>583</h>
+      <x>390</x>
+      <y>732</y>
+      <w>222</w>
+      <h>318</h>
     </coordinates>
     <panel_attributes>QtRecipeWrapper
 --</panel_attributes>
@@ -254,10 +221,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>539</x>
-      <y>891</y>
-      <w>407</w>
-      <h>363</h>
+      <x>390</x>
+      <y>498</y>
+      <w>222</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>QtIngredientWrapper
 --
@@ -267,10 +234,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1749</x>
-      <y>990</y>
-      <w>429</w>
-      <h>154</h>
+      <x>1050</x>
+      <y>552</y>
+      <w>234</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>QtRecipeIngredientWrapper
 --</panel_attributes>
@@ -279,10 +246,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>539</x>
-      <y>506</y>
-      <w>407</w>
-      <h>319</h>
+      <x>390</x>
+      <y>288</y>
+      <w>222</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>QtUserWrapper
 --</panel_attributes>
@@ -291,10 +258,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>935</x>
-      <y>660</y>
-      <w>121</w>
-      <h>33</h>
+      <x>606</x>
+      <y>372</y>
+      <w>66</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -302,10 +269,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>935</x>
-      <y>1056</y>
-      <w>121</w>
-      <h>33</h>
+      <x>606</x>
+      <y>588</y>
+      <w>66</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -313,10 +280,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>935</x>
-      <y>1573</y>
-      <w>121</w>
-      <h>33</h>
+      <x>606</x>
+      <y>870</y>
+      <w>66</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -324,12 +291,90 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1947</x>
-      <y>1133</y>
-      <w>33</w>
-      <h>99</h>
+      <x>1158</x>
+      <y>630</y>
+      <w>18</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>42</y>
+      <w>222</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>QtSharedrecipeWrapper
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>606</x>
+      <y>138</y>
+      <w>66</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>186</x>
+      <y>516</y>
+      <w>216</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>340.0;640.0;60.0;640.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>186</x>
+      <y>516</y>
+      <w>216</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>340.0;140.0;60.0;140.0;60.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>186</x>
+      <y>372</y>
+      <w>216</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>340.0;10.0;60.0;10.0;60.0;250.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>186</x>
+      <y>132</y>
+      <w>216</w>
+      <h>402</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>340.0;10.0;60.0;10.0;60.0;650.0;10.0;650.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>186</x>
+      <y>474</y>
+      <w>990</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>1630.0;130.0;1630.0;10.0;60.0;10.0;60.0;80.0;10.0;80.0</additional_attributes>
   </element>
 </diagram>
