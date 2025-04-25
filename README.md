@@ -6,4 +6,6 @@ A modern and lightweight FOSS application that lets you store and organize your 
 
 See [`/docs/REAMDE.md`](./docs/README.md) for more info.
 
+## Source Code
 
+See [`/recipe-book/README.md`](./recipe-book/README.md) for more info.
