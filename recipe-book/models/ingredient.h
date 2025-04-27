@@ -12,18 +12,13 @@ class Ingredient {
 
 public:
   Ingredient();
-  Ingredient(const std::string &name, const std::string &description,
-             bool is_recipe, const std::string &linked_recipe_id);
+  Ingredient(const std::string &name, const std::string &description);
 
   std::string getName() const;
   std::string getDescription() const;
-  bool getIsRecipe() const;
-  std::string getLinkedRecipeId() const;
 
   void setName(const std::string &name);
-  void setDescription(std::string &description);
-  void setIsRecipe(bool is_recipe);
-  void setLinkedRecipeId(const std::string &linked_recipe_id);
+  void setDescription(const std::string &description);
 };
 
 #endif

@@ -68,6 +68,7 @@ install_manifest.txt
 .idea/
 .vscode/
 *.code-workspace
+.cache/
 
 # macOS files
 .DS_Store
