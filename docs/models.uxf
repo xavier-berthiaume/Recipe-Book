@@ -1,40 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="15.1">
-  <zoom_level>6</zoom_level>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>42</y>
-      <w>216</w>
-      <h>204</h>
-    </coordinates>
-    <panel_attributes>SharedRecipe
---
--original_recipe_id: UUID
--author_id: UUID
--like_count: uint
--saved_count: uint
---
-+getOriginalRecipeId(): UUID
-+getAuthorId(): UUID
-+getLikeCount(): uint
-+getSavedCount(): uint
-
-+addLike(UUID user): void
-+removeLike(UUID user): void
-
-+addSaved(UUID user): void
-+removeSaved(UUID user): void</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>660</x>
-      <y>288</y>
-      <w>288</w>
-      <h>168</h>
+      <x>940</x>
+      <y>250</y>
+      <w>480</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -46,6 +19,7 @@
 +getSharedRecipes(): Recipe[]
 
 +setUsername(String): void
++setPassword(String): void
 +addSharedRecipe(Recipe): void
 +removeSharedRecipe(Recipe): void
 
@@ -55,10 +29,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>732</y>
-      <w>288</w>
-      <h>318</h>
+      <x>940</x>
+      <y>990</y>
+      <w>480</w>
+      <h>530</h>
     </coordinates>
     <panel_attributes>Recipe
 --
@@ -91,37 +65,31 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>660</x>
-      <y>498</y>
-      <w>288</w>
-      <h>198</h>
+      <x>940</x>
+      <y>600</y>
+      <w>480</w>
+      <h>330</h>
     </coordinates>
     <panel_attributes>Ingredient
 --
 -name: String
 -description: String
--is_recipe: boolean
--linked_recipe_id: UUID? #Only if is_recipe = true
 --
 +getName(): String
 +getDescription(): String
-+getIsRecipe(): boolean
-+getLinkedRecipeId(): UUID
 
 +setName(String): void
 +setDescription(String): void
-+setIsRecipe(boolean): void
-+setLinkedRecipeId(UUID): void
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>96</x>
-      <y>480</y>
-      <w>96</w>
-      <h>90</h>
+      <x>0</x>
+      <y>570</y>
+      <w>160</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>/Storable/
 --
@@ -129,16 +97,17 @@
 --
 +getId(): UUID
 +setId(): UUID
-</panel_attributes>
+
++store(): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>798</x>
-      <y>690</y>
-      <w>18</w>
-      <h>54</h>
+      <x>1170</x>
+      <y>920</y>
+      <w>30</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -146,10 +115,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
-      <y>672</y>
-      <w>234</w>
-      <h>96</h>
+      <x>1590</x>
+      <y>890</y>
+      <w>390</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>RecipeIngredient
 --
@@ -164,10 +133,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>942</x>
-      <y>594</y>
-      <w>120</w>
-      <h>114</h>
+      <x>1410</x>
+      <y>760</y>
+      <w>200</w>
+      <h>190</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>180.0;170.0;60.0;170.0;60.0;10.0;10.0;10.0</additional_attributes>
@@ -175,10 +144,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>942</x>
-      <y>702</y>
-      <w>120</w>
-      <h>126</h>
+      <x>1410</x>
+      <y>940</y>
+      <w>200</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;190.0;60.0;190.0;60.0;10.0;180.0;10.0</additional_attributes>
@@ -186,10 +155,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>942</x>
-      <y>714</y>
-      <w>120</w>
-      <h>126</h>
+      <x>1410</x>
+      <y>960</y>
+      <w>200</w>
+      <h>210</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>180.0;10.0;80.0;10.0;80.0;190.0;10.0;190.0</additional_attributes>
@@ -197,10 +166,10 @@
   <element>
     <id>Text</id>
     <coordinates>
-      <x>996</x>
-      <y>774</y>
-      <w>192</w>
-      <h>42</h>
+      <x>1500</x>
+      <y>1060</y>
+      <w>320</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>A Recipe can be used as an ingredient in RecipeIngredient
 style=wordwrap</panel_attributes>
@@ -209,10 +178,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
-      <y>732</y>
-      <w>222</w>
-      <h>318</h>
+      <x>490</x>
+      <y>990</y>
+      <w>370</w>
+      <h>530</h>
     </coordinates>
     <panel_attributes>QtRecipeWrapper
 --</panel_attributes>
@@ -221,35 +190,32 @@ style=wordwrap</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>390</x>
-      <y>498</y>
-      <w>222</w>
-      <h>198</h>
+      <x>490</x>
+      <y>600</y>
+      <w>370</w>
+      <h>330</h>
     </coordinates>
     <panel_attributes>QtIngredientWrapper
 --
-</panel_attributes>
+-is_recipe: boolean
+-linked_recipe_id: UUID? #Only if is_recipe = true
+--
+
++getIsRecipe(): boolean
++getLinkedRecipeId(): UUID
+
+
++setIsRecipe(boolean): void
++setLinkedRecipeId(UUID): void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1050</x>
-      <y>552</y>
-      <w>234</w>
-      <h>84</h>
-    </coordinates>
-    <panel_attributes>QtRecipeIngredientWrapper
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>390</x>
-      <y>288</y>
-      <w>222</w>
-      <h>174</h>
+      <x>490</x>
+      <y>250</y>
+      <w>370</w>
+      <h>290</h>
     </coordinates>
     <panel_attributes>QtUserWrapper
 --</panel_attributes>
@@ -258,10 +224,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>606</x>
-      <y>372</y>
-      <w>66</w>
-      <h>18</h>
+      <x>850</x>
+      <y>390</y>
+      <w>110</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -269,10 +235,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>606</x>
-      <y>588</y>
-      <w>66</w>
-      <h>18</h>
+      <x>850</x>
+      <y>750</y>
+      <w>110</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -280,10 +246,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>606</x>
-      <y>870</y>
-      <w>66</w>
-      <h>18</h>
+      <x>850</x>
+      <y>1220</y>
+      <w>110</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
@@ -291,44 +257,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1158</x>
+      <x>150</x>
       <y>630</y>
-      <w>18</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>390</x>
-      <y>42</y>
-      <w>222</w>
-      <h>210</h>
-    </coordinates>
-    <panel_attributes>QtSharedrecipeWrapper
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>606</x>
-      <y>138</y>
-      <w>66</w>
-      <h>18</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>186</x>
-      <y>516</y>
-      <w>216</w>
-      <h>396</h>
+      <w>360</w>
+      <h>660</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>340.0;640.0;60.0;640.0;60.0;10.0;10.0;10.0</additional_attributes>
@@ -336,10 +268,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>186</x>
-      <y>516</y>
-      <w>216</w>
-      <h>96</h>
+      <x>150</x>
+      <y>630</y>
+      <w>360</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>340.0;140.0;60.0;140.0;60.0;10.0;10.0;10.0</additional_attributes>
@@ -347,10 +279,10 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>186</x>
-      <y>372</y>
-      <w>216</w>
-      <h>162</h>
+      <x>150</x>
+      <y>390</y>
+      <w>360</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>340.0;10.0;60.0;10.0;60.0;250.0;10.0;250.0</additional_attributes>
@@ -358,23 +290,62 @@ style=wordwrap</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>186</x>
-      <y>132</y>
-      <w>216</w>
-      <h>402</h>
+      <x>150</x>
+      <y>100</y>
+      <w>360</w>
+      <h>560</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>340.0;10.0;60.0;10.0;60.0;650.0;10.0;650.0</additional_attributes>
+    <additional_attributes>340.0;10.0;60.0;10.0;60.0;540.0;10.0;540.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>186</x>
-      <y>474</y>
-      <w>990</w>
-      <h>90</h>
+      <x>150</x>
+      <y>560</y>
+      <w>1650</w>
+      <h>350</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>1630.0;130.0;1630.0;10.0;60.0;10.0;60.0;80.0;10.0;80.0</additional_attributes>
+    <additional_attributes>1630.0;330.0;1630.0;10.0;60.0;10.0;60.0;80.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>450</y>
+      <w>180</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Storable and all 
+child classes are 
+direct implementations 
+that use the 
+Qt framework.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>490</x>
+      <y>0</y>
+      <w>370</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>SharedRecipe
+--
+-original_recipe_id: UUID
+-author_id: UUID
+-like_count: uint
+--
++getOriginalRecipeId(): UUID
++getAuthorId(): UUID
++getLikeCount(): uint
+
++addLike(UUID user): void
++removeLike(UUID user): void
+</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
