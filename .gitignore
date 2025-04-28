@@ -21,6 +21,7 @@ build-*/
 # Qt Creator files
 CMakeLists.txt.user
 *.autosave
+compile_commands.json
 
 # Qt moc files
 moc_*.cpp
