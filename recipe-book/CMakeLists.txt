@@ -26,7 +26,7 @@ set(PROJECT_SOURCES
         main.cpp
         ${UI_SOURCES}
         ${MODELS_SOURCES}
-        ${TRANSLATION_SOURCES}
+        # ${TRANSLATION_SOURCES}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

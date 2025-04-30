@@ -77,6 +77,8 @@ void Recipe::setNote(const std::string &note) { notes = note; }
 
 void Recipe::toggleShared() { is_shared = !is_shared; }
 
+void Recipe::setIsShared(bool is_shared) { this->is_shared = is_shared; }
+
 void Recipe::setLikeCount(uint32_t like_count) {
   this->like_count = like_count;
 }

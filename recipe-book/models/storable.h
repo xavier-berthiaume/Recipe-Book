@@ -1,18 +1,25 @@
 #ifndef STORABLE_H
 #define STORABLE_H
 
+#include <QObject>
 #include <QUuid>
 
-class Storable {
+class Storable : public QObject {
+  Q_OBJECT
+  Q_PROPERTY(QUuid id READ getId WRITE setId NOTIFY idChanged)
 
-  QUuid id;
+protected:
+  QUuid m_id;
 
 public:
-  explicit Storable(QUuid id);
-  Storable();
+  explicit Storable(QObject *parent = nullptr);
+  explicit Storable(QUuid id, QObject *parent = nullptr);
 
   QUuid getId() const;
   void setId(QUuid id);
+
+signals:
+  void idChanged();
 };
 
 #endif

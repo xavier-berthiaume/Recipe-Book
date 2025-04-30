@@ -13,15 +13,15 @@ class User {
 
 public:
   const std::string &getUsername() const;
+  const std::string &getPasswordHash() const;
   const std::vector<Recipe> &getSharedRecipes() const;
 
   void setUsername(const std::string &username);
-  void setPassword(const std::string &plain_password);
+  void setPasswordHash(const std::string &password_hash);
   void addSharedRecipe(Recipe recipe);
   void removeSharedRecipe(Recipe recipe);
 
-  bool authenticate(const std::string &password) const;
+  bool authenticate(const std::string &password_hash) const;
 };
 
 #endif
-

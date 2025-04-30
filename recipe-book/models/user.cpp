@@ -4,6 +4,8 @@
 
 const std::string &User::getUsername() const { return username; }
 
+const std::string &User::getPasswordHash() const { return password_hash; }
+
 const std::vector<Recipe> &User::getSharedRecipes() const {
   return shared_recipes;
 }
@@ -12,9 +14,8 @@ void User::setUsername(const std::string &username) {
   this->username = username;
 }
 
-void User::setPassword(const std::string &plain_password) {
-  // Hash the password, then set it
-  this->password_hash = plain_password;
+void User::setPasswordHash(const std::string &password_hash) {
+  this->password_hash = password_hash;
 }
 
 void User::addSharedRecipe(Recipe recipe) {
@@ -29,6 +30,5 @@ void User::removeSharedRecipe(Recipe recipe) {
 }
 
 bool User::authenticate(const std::string &password) const {
-  // Hash the password then check it against the password_hash
   return password == password_hash;
 }

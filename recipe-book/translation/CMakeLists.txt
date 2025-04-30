@@ -1,5 +1,5 @@
 # Make this variable available to parent scope
-set(TRANSLATION_SOURCES recipe-book_fr_CA.ts PARENT_SCOPE)
+set(TRANSLATION_SOURCES ./recipe-book_fr_CA.ts PARENT_SCOPE)
 
 # Create translation targets
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

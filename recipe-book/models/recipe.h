@@ -38,6 +38,7 @@ public:
   void removeEquipment(int equipment);
   void setPrepTime(uint32_t prep_time);
   void setNote(const std::string &note);
+  void setIsShared(bool isShared);
   void toggleShared();
   void setLikeCount(uint32_t like_count);
 };

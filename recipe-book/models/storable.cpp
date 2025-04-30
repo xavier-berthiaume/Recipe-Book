@@ -1,9 +1,19 @@
 #include "storable.h"
+#include <quuid.h>
 
-Storable::Storable(QUuid id) : id(id) {}
+Storable::Storable(QUuid id, QObject *parent) : QObject(parent), m_id(id) {
+  if (m_id.isNull()) {
+    m_id = QUuid::createUuid();
+  }
+}
 
-Storable::Storable() {}
+Storable::Storable(QObject *parent)
+    : QObject(parent), m_id(QUuid::createUuid()) {}
 
-QUuid Storable::getId() const { return id; }
+QUuid Storable::getId() const { return m_id; }
 
-void Storable::setId(QUuid id) { this->id = id; }
+void Storable::setId(QUuid id) {
+  this->m_id = id;
+
+  emit idChanged();
+}
