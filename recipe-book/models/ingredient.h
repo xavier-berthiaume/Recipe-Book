@@ -7,8 +7,6 @@ class Ingredient {
 
   std::string name;
   std::string description;
-  bool is_recipe;
-  std::string linked_recipe_id;
 
 public:
   Ingredient();

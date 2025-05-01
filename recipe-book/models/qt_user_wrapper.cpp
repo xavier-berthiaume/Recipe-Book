@@ -1,4 +1,5 @@
 #include "qt_user_wrapper.h"
+#include "qt_recipe_wrapper.h"
 
 #include <QCryptographicHash>
 #include <QDebug>
@@ -8,20 +9,23 @@ QtUserWrapper::QtUserWrapper(QObject *parent) : Storable(parent) {}
 QtUserWrapper::QtUserWrapper(QUuid id, QObject *parent)
     : Storable(id, parent) {}
 
+QtUserWrapper::QtUserWrapper(const User &user, QObject *parent)
+    : Storable(QUuid::createUuid(), parent), m_user(user) {}
+
 QtUserWrapper::~QtUserWrapper() {
   // Cleanup if needed
 }
 
-QString QtUserWrapper::username() const {
+QString QtUserWrapper::getUsername() const {
   return QString::fromStdString(m_user.getUsername());
 }
 
-QString QtUserWrapper::passwordHash() const {
+QString QtUserWrapper::getPasswordHash() const {
   return QString::fromStdString(m_user.getPasswordHash());
 }
 
-QVariantList QtUserWrapper::sharedRecipes() const {
-  return m_sharedRecipesCache;
+QList<QtRecipeWrapper *> QtUserWrapper::getSharedRecipes() const {
+  return m_sharedRecipes;
 }
 
 void QtUserWrapper::setUsername(const QString &username) {
@@ -39,20 +43,18 @@ void QtUserWrapper::setPassword(const QString &plainPassword) {
   emit passwordHashChanged();
 }
 
-void QtUserWrapper::addSharedRecipe(const QVariant &recipe) {
-  // Assuming recipe can be converted to your Recipe type
-  // You'll need to implement this conversion
-  Recipe r = recipe.value<Recipe>();
+void QtUserWrapper::addSharedRecipe(const QtRecipeWrapper *recipe) {
+  Recipe r = recipe->getRecipe();
   m_user.addSharedRecipe(r);
-  updateSharedRecipesCache();
+  // updateSharedRecipesCache();
   emit sharedRecipesChanged();
 }
 
-void QtUserWrapper::removeSharedRecipe(const QVariant &recipe) {
+void QtUserWrapper::removeSharedRecipe(const QtRecipeWrapper *recipe) {
   // Assuming recipe can be converted to your Recipe type
-  Recipe r = recipe.value<Recipe>();
+  Recipe r = recipe->getRecipe();
   m_user.removeSharedRecipe(r);
-  updateSharedRecipesCache();
+  // updateSharedRecipesCache();
   emit sharedRecipesChanged();
 }
 
@@ -60,12 +62,6 @@ bool QtUserWrapper::authenticate(const QString &password) const {
   return m_user.authenticate(password.toStdString());
 }
 
-void QtUserWrapper::updateSharedRecipesCache() {
-  m_sharedRecipesCache.clear();
-  const auto &recipes = m_user.getSharedRecipes();
-  for (const auto &recipe : recipes) {
-    // Convert each Recipe to QVariant
-    // You'll need to implement this conversion
-    m_sharedRecipesCache.append(QVariant::fromValue(recipe));
-  }
+QtRecipeWrapper *QtUserWrapper::createWrapperForRecipe(const Recipe &recipe) {
+  return new QtRecipeWrapper(recipe, this);
 }

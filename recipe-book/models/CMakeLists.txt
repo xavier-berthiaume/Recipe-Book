@@ -7,6 +7,8 @@ set(MODELS_SOURCES
     models/recipe_ingredient.cpp
     models/shared_recipe.cpp
     models/qt_user_wrapper.cpp
+    models/qt_recipe_wrapper.cpp
+    models/qt_ingredient_wrapper.cpp
 )
 
 # Make sure to set headers too if they need moc processing
@@ -18,6 +20,8 @@ set(MODELS_HEADERS
     models/recipe_ingredient.h
     models/shared_recipe.h
     models/qt_user_wrapper.h
+    models/qt_recipe_wrapper.h
+    models/qt_ingredient_wrapper.h
 )
 
 # Make variables available to parent scope

@@ -25,9 +25,18 @@ class QtRecipeWrapper : public Storable {
   Q_PROPERTY(uint likeCount READ getLikeCount WRITE setLikeCount NOTIFY
                  likeCountChanged)
 
+  Recipe m_recipe; // The actual Recipe instance being wrapped
+  QStringList m_instructionsCache;
+  QStringList m_equipmentCache;
+
+  void updateCaches();
+
 public:
   explicit QtRecipeWrapper(QObject *parent = nullptr);
   explicit QtRecipeWrapper(QUuid id, QObject *parent = nullptr);
+  // In this case we're passing a raw recipe object that won't have a UUID yet,
+  // and isn't yet saved to the database.
+  explicit QtRecipeWrapper(const Recipe &recipe, QObject *parent = nullptr);
   ~QtRecipeWrapper();
 
   // Property accessors
@@ -39,6 +48,7 @@ public:
   uint getPrepTime() const;
   bool getIsShared() const;
   uint getLikeCount() const;
+  const Recipe &getRecipe() const;
 
   // Property setters
   void setName(const QString &name);
@@ -57,6 +67,8 @@ public:
   Q_INVOKABLE void removeEquipmentAt(int index);
   Q_INVOKABLE void toggleShared();
 
+  bool equals(const QtRecipeWrapper &other) const;
+
 signals:
   void nameChanged();
   void descriptionChanged();
@@ -66,13 +78,6 @@ signals:
   void prepTimeChanged();
   void isSharedChanged();
   void likeCountChanged();
-
-private:
-  Recipe m_recipe; // The actual Recipe instance being wrapped
-  QStringList m_instructionsCache;
-  QStringList m_equipmentCache;
-
-  void updateCaches();
 };
 
 #endif

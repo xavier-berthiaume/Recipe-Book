@@ -82,3 +82,15 @@ void Recipe::setIsShared(bool is_shared) { this->is_shared = is_shared; }
 void Recipe::setLikeCount(uint32_t like_count) {
   this->like_count = like_count;
 }
+
+bool Recipe::operator==(const Recipe &other) const {
+  return this->getName() == other.getName() &&
+         this->getDescription() == other.getDescription() &&
+         this->instructions == other.instructions &&
+         this->equipment == other.equipment && this->notes == other.notes &&
+         this->prep_time == other.prep_time &&
+         this->is_shared == other.is_shared &&
+         this->like_count == other.like_count;
+}
+
+bool Recipe::operator!=(const Recipe &other) const { return !(*this == other); }

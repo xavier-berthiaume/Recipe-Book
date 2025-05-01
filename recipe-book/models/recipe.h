@@ -41,6 +41,9 @@ public:
   void setIsShared(bool isShared);
   void toggleShared();
   void setLikeCount(uint32_t like_count);
+
+  bool operator==(const Recipe &other) const;
+  bool operator!=(const Recipe &other) const;
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "qt_recipe_wrapper.h"
 
 #include <QDebug>
+#include <qobject.h>
 
 QtRecipeWrapper::QtRecipeWrapper(QObject *parent) : Storable(parent) {
   updateCaches();
@@ -8,6 +9,11 @@ QtRecipeWrapper::QtRecipeWrapper(QObject *parent) : Storable(parent) {
 
 QtRecipeWrapper::QtRecipeWrapper(QUuid id, QObject *parent)
     : Storable(id, parent) {
+  updateCaches();
+}
+
+QtRecipeWrapper::QtRecipeWrapper(const Recipe &recipe, QObject *parent)
+    : Storable(QUuid::createUuid(), parent), m_recipe(recipe) {
   updateCaches();
 }
 
@@ -37,6 +43,8 @@ uint QtRecipeWrapper::getPrepTime() const { return m_recipe.getPrepTime(); }
 bool QtRecipeWrapper::getIsShared() const { return m_recipe.getIsShared(); }
 
 uint QtRecipeWrapper::getLikeCount() const { return m_recipe.getLikeCount(); }
+
+const Recipe &QtRecipeWrapper::getRecipe() const { return this->m_recipe; }
 
 // Property setters
 void QtRecipeWrapper::setName(const QString &name) {
@@ -141,4 +149,12 @@ void QtRecipeWrapper::updateCaches() {
   for (const auto &item : equipment) {
     m_equipmentCache.append(QString::fromStdString(item));
   }
+}
+
+bool QtRecipeWrapper::equals(const QtRecipeWrapper &other) const {
+  if (this->m_id == other.m_id) {
+    return true;
+  }
+
+  return false;
 }
