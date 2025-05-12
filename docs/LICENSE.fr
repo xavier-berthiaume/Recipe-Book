@@ -1,4 +1,4 @@
-Categora, un projet dédié à mieux s'organiser en ligne
+Recipe Book, un projet dédié à sauvgarder ses recettes 
 Copyright (C) 2025 Xavier Berthiaume
 
 Ce programme est un logiciel libre : vous pouvez le redistribuer et/ou le modifier

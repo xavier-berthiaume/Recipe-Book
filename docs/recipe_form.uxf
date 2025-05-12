@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>315</x>
+      <y>9</y>
+      <w>234</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>User wants to create a Recipe
+and selects 'create' button</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>36</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>612</x>
+      <y>0</y>
+      <w>261</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Series of ui boxes display a label + 
+relevant field capture widget</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>936</x>
+      <y>0</y>
+      <w>261</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Upon user confirmation, 
+confirm all fields
+and display a success 
+or failure dialog</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>864</x>
+      <y>36</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>261</x>
+      <y>126</y>
+      <w>837</w>
+      <h>1629</h>
+    </coordinates>
+    <panel_attributes>System
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>549</x>
+      <y>153</y>
+      <w>18</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>type=initial</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>477</x>
+      <y>216</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create button pressed
+style=autoresize
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>486</x>
+      <y>360</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms name
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>864</x>
+      <y>288</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Name FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>360</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>684</x>
+      <y>288</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>243</y>
+      <w>27</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>315</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>360</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>360</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>405</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>369</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>333</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>450</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>387</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>369</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>468</x>
+      <y>585</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms description
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>864</x>
+      <y>513</y>
+      <w>216</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Description FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>585</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>684</x>
+      <y>513</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>540</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>585</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>585</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>630</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>594</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>558</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>675</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>612</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>594</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>450</y>
+      <w>126</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;50.0;120.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>450</y>
+      <w>108</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>477</x>
+      <y>810</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms prep time
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>882</x>
+      <y>738</y>
+      <w>198</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>PrepTime FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>810</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>693</x>
+      <y>738</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>765</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>810</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>810</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>855</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>783</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>900</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>837</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>819</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>675</y>
+      <w>108</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>675</y>
+      <w>126</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;50.0;120.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>468</x>
+      <y>1035</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms instructions
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>882</x>
+      <y>963</y>
+      <w>198</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Instruction FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>1035</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>693</x>
+      <y>963</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>990</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>1035</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>1035</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>1080</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>1044</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>1008</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>1125</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>1062</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1044</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>900</y>
+      <w>126</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;50.0;120.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>900</y>
+      <w>108</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>819</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>468</x>
+      <y>1260</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms notes
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>873</x>
+      <y>1188</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Notes FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>1260</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>675</x>
+      <y>1188</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>1215</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>1260</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>1260</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>1305</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>1233</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>1350</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>1287</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1269</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1125</y>
+      <w>108</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>1125</y>
+      <w>126</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;50.0;120.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>450</x>
+      <y>1485</y>
+      <w>180</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>user confirms equipment
+style=autoresize
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>855</x>
+      <y>1413</y>
+      <w>216</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Equipment FieldEntryDataBox
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>747</x>
+      <y>1485</y>
+      <w>36</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>type=decision</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>675</x>
+      <y>1413</y>
+      <w>162</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create FieldEntry object
+bg=gray
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>1440</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>675</x>
+      <y>1485</y>
+      <w>81</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>783</x>
+      <y>1485</y>
+      <w>99</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>[input is not valid]
+style=autoresize
+fontsize=10</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>828</x>
+      <y>1530</y>
+      <w>90</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>display specific field error
+bg=red
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>1494</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>756</x>
+      <y>1458</y>
+      <w>216</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0;220.0;10.0;220.0;120.0;180.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSyncBarHorizontal</id>
+    <coordinates>
+      <x>639</x>
+      <y>1575</y>
+      <w>72</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lw=5
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>1350</y>
+      <w>126</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;50.0;120.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1350</y>
+      <w>108</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>100.0;70.0;100.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>1269</y>
+      <w>117</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;40.0;110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1494</y>
+      <w>90</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>1512</y>
+      <w>126</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;80.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>243</y>
+      <w>153</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>150.0;70.0;10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>549</x>
+      <y>162</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>621</x>
+      <y>1629</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>create Recipe object
+style=autoresize
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>792</x>
+      <y>1629</y>
+      <w>54</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Recipe
+bg=yellow
+style=autoresize</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1575</y>
+      <w>27</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>675</x>
+      <y>1728</y>
+      <w>18</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>type=final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>1656</y>
+      <w>27</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>279</x>
+      <y>216</y>
+      <w>171</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>cancel button pressed
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>153</y>
+      <w>207</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;210.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>243</y>
+      <w>333</w>
+      <h>1512</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>350.0;1660.0;10.0;1660.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

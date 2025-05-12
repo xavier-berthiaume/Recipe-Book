@@ -23,8 +23,137 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionRecipe"/>
+    <addaction name="actionIngredient"/>
+    <addaction name="actionCommunity_Hub"/>
+   </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionNavigation"/>
+    <addaction name="actionLicense"/>
+    <addaction name="separator"/>
+    <addaction name="actionContribute"/>
+    <addaction name="actionContact"/>
+   </widget>
+   <widget class="QMenu" name="menuAccount">
+    <property name="title">
+     <string>User</string>
+    </property>
+    <addaction name="actionChange_username"/>
+    <addaction name="actionChange_password"/>
+    <addaction name="separator"/>
+    <addaction name="actionLogout"/>
+    <addaction name="actionLogin"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreate_a_new_user"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuAccount"/>
+   <addaction name="menuView"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionNavigation">
+   <property name="text">
+    <string>Navigation</string>
+   </property>
+  </action>
+  <action name="actionRecipe">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Recipe</string>
+   </property>
+  </action>
+  <action name="actionIngredient">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Ingredient</string>
+   </property>
+  </action>
+  <action name="actionCommunity_Hub">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Community Hub</string>
+   </property>
+  </action>
+  <action name="actionLicense">
+   <property name="text">
+    <string>License</string>
+   </property>
+  </action>
+  <action name="actionContribute">
+   <property name="text">
+    <string>Contribute</string>
+   </property>
+  </action>
+  <action name="actionChange_username">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Change username</string>
+   </property>
+  </action>
+  <action name="actionChange_password">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Change password</string>
+   </property>
+  </action>
+  <action name="actionLogout">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+  <action name="actionContact">
+   <property name="text">
+    <string>Contact</string>
+   </property>
+  </action>
+  <action name="actionLogin">
+   <property name="text">
+    <string>Login</string>
+   </property>
+  </action>
+  <action name="actionCreate_a_new_user">
+   <property name="text">
+    <string>Create a new user</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

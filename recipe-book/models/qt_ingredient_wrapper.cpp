@@ -17,9 +17,7 @@ QtIngredientWrapper::QtIngredientWrapper(const Ingredient &ingredient,
                                          QObject *parent)
     : Storable(QUuid::createUuid(), parent), m_ingredient(ingredient) {}
 
-QtIngredientWrapper::~QtIngredientWrapper() {
-  // Cleanup if needed
-}
+QtIngredientWrapper::~QtIngredientWrapper() {}
 
 QString QtIngredientWrapper::getName() const {
   return QString::fromStdString(m_ingredient.getName());

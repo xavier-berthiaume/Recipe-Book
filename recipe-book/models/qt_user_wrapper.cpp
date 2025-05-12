@@ -12,9 +12,7 @@ QtUserWrapper::QtUserWrapper(QUuid id, QObject *parent)
 QtUserWrapper::QtUserWrapper(const User &user, QObject *parent)
     : Storable(QUuid::createUuid(), parent), m_user(user) {}
 
-QtUserWrapper::~QtUserWrapper() {
-  // Cleanup if needed
-}
+QtUserWrapper::~QtUserWrapper() {}
 
 QString QtUserWrapper::getUsername() const {
   return QString::fromStdString(m_user.getUsername());
@@ -51,7 +49,6 @@ void QtUserWrapper::addSharedRecipe(const QtRecipeWrapper *recipe) {
 }
 
 void QtUserWrapper::removeSharedRecipe(const QtRecipeWrapper *recipe) {
-  // Assuming recipe can be converted to your Recipe type
   Recipe r = recipe->getRecipe();
   m_user.removeSharedRecipe(r);
   // updateSharedRecipesCache();

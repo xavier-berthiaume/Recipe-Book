@@ -1,10 +1,12 @@
 # Gather all UI source files
 set(UI_SOURCES
     ui/mainwindow.cpp
+    ui/recipe_form.cpp
 )
 
 set(UI_HEADERS
     ui/mainwindow.h
+    ui/recipe_form.h
 )
 
 set(UI_FORMS

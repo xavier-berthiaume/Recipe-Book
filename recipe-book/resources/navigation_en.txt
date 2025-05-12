@@ -1,0 +1,7 @@
+To navigate through Recipe Book, the 'View' menu is used, located at the top of the application's window. By selecting a specific view, the application will display all the relevant information.
+
+The Ingredient view will display all the ingredients that your user profile has. There is a default list of ingredients that is also created when your account is created. A search bar on the main page allows you to quickly find whatever ingredient you're looking for. The create button lets you enter new ingredients to use in your recipes.
+
+The Recipe view will display all the recipes that your user profile has created, as well as all the shared recipes your profile has liked. A search bar on the main page allows you to quickly find your recipes by name.
+
+The Community Hub view allows you to see all the recipes shared by other users. They are free to browse and save; adding them to your own recipes for easier access. 
