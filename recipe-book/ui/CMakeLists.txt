@@ -6,6 +6,12 @@ set(UI_SOURCES
     ui/ingredient_display_box.cpp
     ui/recipe_display_box.cpp
     ui/recipe_form.cpp
+    ui/carousel_form.cpp
+    ui/ingredient_field.cpp
+    ui/recipe_carousel_form.cpp
+    ui/text_field.cpp
+    ui/textarea_field.cpp
+    ui/textlist_field.cpp
 )
 
 set(UI_HEADERS
@@ -15,6 +21,13 @@ set(UI_HEADERS
     ui/ingredient_display_box.h
     ui/recipe_display_box.h
     ui/recipe_form.h
+    ui/carousel_form.h
+    ui/form_field.h
+    ui/ingredient_field.h
+    ui/recipe_carousel_form.h
+    ui/text_field.h
+    ui/textarea_field.h
+    ui/textlist_field.h
 )
 
 set(UI_FORMS

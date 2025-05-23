@@ -14,7 +14,6 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
   Ui::MainWindow *ui;
-  QLabel *label;
 
   void setupMenu();
   void showInfoModal(const QString &title, const QString &message);

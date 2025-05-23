@@ -7,9 +7,19 @@ IngredientDisplayBox::IngredientDisplayBox(QWidget *parent)
   m_layout->addWidget(m_name_label);
   m_layout->addWidget(m_description_label);
 
+  // Initial style
+  setFixedSize(300, 150);
+
   // Configure labels
+  // I'm not sure satisfied with the elision for the description label. Will
+  // revisit.
   m_name_label->setStyleSheet("font-weight: bold; font-size: 14pt;");
+  m_name_label->setAlignment(Qt::AlignCenter);
+  m_description_label->setTextFormat(Qt::PlainText);
   m_description_label->setWordWrap(true);
+  m_description_label->setSizePolicy(QSizePolicy::Ignored,
+                                     QSizePolicy::Preferred);
+  m_description_label->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
   // Connect wrapper signals
   connect(this, &IngredientDisplayBox::wrapperChanged, [this]() {

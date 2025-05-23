@@ -86,5 +86,7 @@ in using anything more robust.
 
 # Files in Directory
 
-```Models.uxf``` A Umlet file to see the UML models for the project
+```models.uxf``` An Umlet file to see the UML models for the project
+```display_box.uxf``` An Umlet file to see the UML models for how display boxes, one of the core widgets of the application, are implemented
+```recipe_form.uxf``` A uml description of the process behind how a user is prompted to create a new recipe
 
