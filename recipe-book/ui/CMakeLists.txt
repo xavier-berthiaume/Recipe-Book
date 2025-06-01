@@ -7,6 +7,7 @@ set(UI_SOURCES
     ui/recipe_display_box.cpp
     ui/recipe_form.cpp
     ui/carousel_form.cpp
+    ui/form_field.cpp
     ui/ingredient_field.cpp
     ui/recipe_carousel_form.cpp
     ui/text_field.cpp

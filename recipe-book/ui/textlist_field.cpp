@@ -7,12 +7,12 @@
 
 TextListField::TextListField(const QString &field, const QString &label,
                              QWidget *parent)
-    : FormField(parent), m_field(field), m_lineEdit(new QLineEdit),
+    : FormField(label, parent), m_field(field), m_lineEdit(new QLineEdit),
       m_listDisplay(new QListWidget), m_addButton(new QPushButton),
       m_removeButton(new QPushButton) {
 
   QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->addWidget(new QLabel(label));
+  layout->addWidget(m_label);
   layout->addWidget(m_lineEdit);
   layout->addWidget(m_listDisplay);
 
@@ -27,6 +27,8 @@ TextListField::TextListField(const QString &field, const QString &label,
   layout->addWidget(buttonswidget);
 
   m_listDisplay->addItems(m_data);
+
+  styleWidget();
 
   connect(m_addButton, &QPushButton::clicked, [this]() {
     m_data.push_back(this->m_lineEdit->text());
@@ -59,7 +61,24 @@ TextListField::TextListField(const QString &field, const QString &label,
   m_allowedEmpty = allowedEmpty;
 }
 
-void TextListField::styleWidget() {}
+void TextListField::styleWidget() {
+  m_label->setObjectName("textListFieldLabel");
+
+  this->setStyleSheet(R"(
+    TextListField {
+      background: transparent;
+      padding: 8px 0;
+    }
+
+    QLabel#textListFieldLabel {
+      color: #424242;
+      font-size: 28px;
+      font-weight: 500;
+      padding-bottom: 6px;
+    }
+
+  )");
+}
 
 void TextListField::updateDisplay() {
   m_listDisplay->clear();

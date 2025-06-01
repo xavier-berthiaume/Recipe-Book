@@ -5,17 +5,16 @@
 
 TextField::TextField(const QString &field, const QString &label,
                      QWidget *parent)
-    : FormField(parent), m_field(field), m_label(new QLabel),
-      m_lineEdit(new QLineEdit) {
+    : FormField(label, parent), m_field(field), m_lineEdit(new QLineEdit) {
   QVBoxLayout *layout = new QVBoxLayout(this);
-  this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+  // this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
   m_label->setText(label);
-  m_label->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
-  m_label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+  // m_label->setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+  // m_label->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
-  layout->addWidget(m_label, 0, Qt::AlignHCenter | Qt::AlignBottom);
-  layout->addWidget(m_lineEdit);
+  layout->addWidget(m_label, 0, Qt::AlignHCenter);
+  layout->addWidget(m_lineEdit, 0, Qt::AlignTop);
 
   styleWidget();
 
@@ -27,6 +26,8 @@ void TextField::styleWidget() {
   // Set object names for more specific styling
   m_label->setObjectName("textFieldLabel");
   m_lineEdit->setObjectName("textFieldInput");
+
+  m_label->setWordWrap(true);
 
   // Main widget styling
   this->setStyleSheet(R"(

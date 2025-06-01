@@ -10,7 +10,6 @@ class TextField : public FormField {
   Q_OBJECT
 
   QString m_field;
-  QLabel *m_label;
   QLineEdit *m_lineEdit;
 
   void styleWidget() override;

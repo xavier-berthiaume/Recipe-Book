@@ -7,9 +7,10 @@
 CarouselForm::CarouselForm(QWidget *parent)
     : QWidget(parent), m_stack(new QStackedWidget(this)),
       m_prevBtn(new QPushButton("←", this)),
-      m_nextBtn(new QPushButton("→", this)) {
+      m_nextBtn(new QPushButton("→", this)),
+      m_cancelBtn(new QPushButton("Cancel", this)) {
   QHBoxLayout *mainLayout = new QHBoxLayout(this);
-  QVBoxLayout *contentLayout = new QVBoxLayout;
+  QVBoxLayout *contentLayout = new QVBoxLayout(this);
 
   // Setup navigation buttons
   setupNavigation();
@@ -21,8 +22,6 @@ CarouselForm::CarouselForm(QWidget *parent)
 
   contentLayout->addWidget(m_stack, 0, Qt::AlignHCenter | Qt::AlignVCenter);
   m_stack->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  setFixedSize(600, 400);
 }
 
 void CarouselForm::setupNavigation() {

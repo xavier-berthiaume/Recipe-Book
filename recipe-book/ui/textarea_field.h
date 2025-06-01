@@ -3,6 +3,7 @@
 
 #include "form_field.h"
 
+#include <QLabel>
 #include <QTextEdit>
 #include <QtTypes>
 

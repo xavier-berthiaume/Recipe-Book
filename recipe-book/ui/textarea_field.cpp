@@ -5,17 +5,38 @@
 
 TextAreaField::TextAreaField(const QString &field, const QString &label,
                              QWidget *parent)
-    : FormField(parent), m_field(field), m_textEdit(new QTextEdit) {
+    : FormField(label, parent), m_field(field), m_textEdit(new QTextEdit) {
 
   QVBoxLayout *layout = new QVBoxLayout(this);
-  layout->addWidget(new QLabel(label));
+  layout->addWidget(m_label);
   layout->addWidget(m_textEdit);
+
+  styleWidget();
 
   connect(m_textEdit, &QTextEdit::textChanged,
           [this]() { emit validChanged(validate()); });
 }
 
-void TextAreaField::styleWidget() {}
+void TextAreaField::styleWidget() {
+  // Set object names for more specific styling
+  m_label->setObjectName("textAreaFieldLabel");
+
+  // Main widget styling
+  this->setStyleSheet(R"(
+        TextAreaField {
+            background: transparent;
+            padding: 8px 0;
+        }
+
+        QLabel#textAreaFieldLabel {
+            color: #424242;
+            font-size: 28px;
+            font-weight: 500;
+            padding-bottom: 6px;
+        }
+
+    )");
+}
 
 bool TextAreaField::validate() {
   QString text = m_textEdit->toPlainText().trimmed();

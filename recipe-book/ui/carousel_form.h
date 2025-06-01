@@ -12,6 +12,7 @@ class CarouselForm : public QWidget {
   QStackedWidget *m_stack;
   QPushButton *m_prevBtn;
   QPushButton *m_nextBtn;
+  QPushButton *m_cancelBtn;
   QList<FormField *> m_steps;
   int m_currentIndex = 0;
 
