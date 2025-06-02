@@ -13,8 +13,10 @@ TextAreaField::TextAreaField(const QString &field, const QString &label,
 
   styleWidget();
 
-  connect(m_textEdit, &QTextEdit::textChanged,
-          [this]() { emit validChanged(validate()); });
+  connect(m_textEdit, &QTextEdit::textChanged, [this]() {
+    qDebug() << "Input has changed, valid status: " << validate();
+    emit validChanged(validate());
+  });
 }
 
 void TextAreaField::styleWidget() {

@@ -10,6 +10,7 @@ set(UI_SOURCES
     ui/form_field.cpp
     ui/ingredient_field.cpp
     ui/recipe_carousel_form.cpp
+    ui/ingredient_carousel_form.cpp
     ui/text_field.cpp
     ui/textarea_field.cpp
     ui/textlist_field.cpp
@@ -26,6 +27,7 @@ set(UI_HEADERS
     ui/form_field.h
     ui/ingredient_field.h
     ui/recipe_carousel_form.h
+    ui/ingredient_carousel_form.h
     ui/text_field.h
     ui/textarea_field.h
     ui/textlist_field.h

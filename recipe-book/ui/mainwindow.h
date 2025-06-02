@@ -4,6 +4,8 @@
 #include <QLabel>
 #include <QMainWindow>
 
+#include "../models/ingredient_factory.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -15,6 +17,10 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow *ui;
 
+  IngredientFactory *ingredientFactory;
+  QList<QtIngredientWrapper *> ingredientCache;
+
+  void setupFactories();
   void setupMenu();
   void showInfoModal(const QString &title, const QString &message);
 
