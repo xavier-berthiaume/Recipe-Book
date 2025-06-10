@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>480</x>
+      <y>20</y>
+      <w>880</w>
+      <h>960</h>
+    </coordinates>
+    <panel_attributes>Main Window (Stacked Widget)
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>50</y>
+      <w>820</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Profile View
+bg=blue
+layer=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>360</y>
+      <w>820</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Ingredient View
+bg=blue
+layer=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>550</x>
+      <y>210</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>display profiles
+[display no profiles message]
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>190</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>profile creation form
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>260</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>profile update form
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1060</x>
+      <y>220</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>profile deletion modal
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>220</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=3
+</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>230</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=3
+</panel_attributes>
+    <additional_attributes>50.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>200</y>
+      <w>70</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=3
+</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>140</y>
+      <w>500</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Stacked Widget
+bg=white
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>550</x>
+      <y>520</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>display ingredients
+[display no ingredients message]
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>450</y>
+      <w>500</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Stacked Widget
+bg=white
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>510</y>
+      <w>70</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>530</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>540</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>50.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>570</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>ingredient update form
+layer=4
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>500</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>ingredient creation form
+layer=4
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1060</x>
+      <y>530</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>ingredient deletion modal
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>670</y>
+      <w>820</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Recipe View
+bg=blue
+layer=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>550</x>
+      <y>830</y>
+      <w>220</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>display recipes
+[display no recipes message]
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>760</y>
+      <w>500</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Stacked Widget
+bg=white
+layer=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>820</y>
+      <w>70</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>840</y>
+      <w>320</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>300.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>850</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+layer=4
+</panel_attributes>
+    <additional_attributes>50.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>880</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>recipe update form
+layer=4
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>810</x>
+      <y>810</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>recipe creation form
+layer=4
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1060</x>
+      <y>840</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>recipe deletion modal
+layer=3
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
