@@ -29,6 +29,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         profilerootview.h profilerootview.cpp profilerootview.ui
         ingredientrootview.h ingredientrootview.cpp ingredientrootview.ui
         reciperootview.h reciperootview.cpp reciperootview.ui
+        profile.h profile.cpp
+        storable.h storable.cpp
+        qprofile.h qprofile.cpp
+        profilelistmodel.h profilelistmodel.cpp
+        profilefactory.h profilefactory.cpp
+        profilelistdelegate.h profilelistdelegate.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET recipe-book APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
