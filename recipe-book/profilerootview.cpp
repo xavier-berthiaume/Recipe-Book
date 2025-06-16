@@ -1,6 +1,5 @@
 #include "profilerootview.h"
 #include "ui_profilerootview.h"
-
 #include "profilelistdelegate.h"
 
 #include <QDialog>

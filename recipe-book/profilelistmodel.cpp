@@ -46,8 +46,10 @@ void ProfileListModel::addProfile(QProfile *profile) {
 
 void ProfileListModel::modifyProfile(int index, const QVariant &data, int role) {
 
-    QProfile *profile = m_profiles[index];
     QModelIndex indx = this->index(index);
+    if (!indx.isValid() || index >= m_profiles.size()) return;
+
+    QProfile *profile = m_profiles[index];
 
     switch (role) {
     case ProfileListModel::UsernameRole:
@@ -56,6 +58,7 @@ void ProfileListModel::modifyProfile(int index, const QVariant &data, int role) 
             emit dataChanged(indx, indx);
         }
         break;
+
     default:
         break;
     }
