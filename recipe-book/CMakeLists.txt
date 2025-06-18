@@ -35,6 +35,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         profilelistmodel.h profilelistmodel.cpp
         profilefactory.h profilefactory.cpp
         profilelistdelegate.h profilelistdelegate.cpp
+        ingredient.h ingredient.cpp
+        qingredient.h qingredient.cpp
+        ingredientlistmodel.h ingredientlistmodel.cpp
+        ingredientfactory.h ingredientfactory.cpp
+        ingredientlistdelegate.h ingredientlistdelegate.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET recipe-book APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

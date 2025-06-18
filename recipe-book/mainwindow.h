@@ -31,12 +31,20 @@ class MainWindow : public QMainWindow
     QPushButton *ingredientButton;
     QPushButton *recipeButton;
 
+    QProfile *m_currentProfile;
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
 private slots:
     void on_profileButton_pressed();
     void on_ingredientButton_pressed();
     void on_recipeButton_pressed();
+
+    void on_profileChanged(QProfile *profile);
+
+signals:
+    void profileChanged(QProfile *profile);
 };
 #endif // MAINWINDOW_H

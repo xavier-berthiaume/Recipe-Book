@@ -6,6 +6,7 @@
 
 class Storable : public QObject {
     Q_OBJECT
+
     Q_PROPERTY(QUuid id READ getId WRITE setId NOTIFY idChanged)
 
 protected:

@@ -1,15 +1,21 @@
-#include "profilelistdelegate.h"
-#include "profilelistmodel.h"
+#include "ingredientlistdelegate.h"
+#include "ingredientlistmodel.h"
 
 #include <QApplication>
 #include <QMouseEvent>
 
-ProfileListDelegate::ProfileListDelegate(QObject *parent) : QStyledItemDelegate(parent) {}
+IngredientListDelegate::IngredientListDelegate(QObject *parent)
+    : QStyledItemDelegate(parent)
+{}
 
-void ProfileListDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+void IngredientListDelegate::paint(QPainter *painter,
+                                   const QStyleOptionViewItem &option,
+                                   const QModelIndex &index) const {
     if (!index.isValid()) return;
 
-    QString username = index.data(ProfileListModel::UsernameRole).toString();
+    QString name = index.data(IngredientListModel::NameRole).toString();
+    QString description = index.data(IngredientListModel::DescriptionRole).toString();
+    QString author = QString("Created by: %1").arg(index.data(IngredientListModel::CreatorRole).value<QProfile *>()->getUsername());
 
     painter->save();
 
@@ -23,16 +29,34 @@ void ProfileListDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
                         option.palette.highlightedText().color() :
                         option.palette.text().color());
 
-    QRect usernameRect = option.rect.adjusted(5, 5, -100, 5);
+    QRect nameRect = option.rect.adjusted(5, 0, -100, 5);
+    QRect descriptionRect = option.rect.adjusted(200, 30, 300, 5);
+    QRect authorRect = option.rect.adjusted(200, 10, 300, 5);
     QFont font;
+
     font.setBold(true);
     font.setPointSize(20);
     font.setFamily("Arial");
 
     painter->setFont(font);
-    painter->drawText(usernameRect, username, Qt::AlignLeft | Qt::AlignVCenter);
+    painter->drawText(nameRect, name, Qt::AlignLeft | Qt::AlignVCenter);
 
     font.setBold(false);
+    font.setItalic(true);
+    font.setPointSize(11);
+
+    painter->setFont(font);
+    painter->drawText(descriptionRect, description, Qt::AlignLeft | Qt::AlignTop);
+
+    font.setBold(false);
+    font.setItalic(false);
+    font.setPointSize(11);
+
+    painter->setFont(font);
+    painter->drawText(authorRect, author, Qt::AlignLeft | Qt::AlignTop);
+
+    font.setBold(false);
+    font.setItalic(false);
     font.setPointSize(11);
     font.setFamily("Canterell");
 
@@ -49,45 +73,42 @@ void ProfileListDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
                              buttonWidth, buttonHeight);
         QRect deleteButtonRect(editButtonRect.left() - buttonWidth - buttonSpacing,
                                editButtonRect.top(), buttonWidth, buttonHeight);
-        QRect selectButtonRect(deleteButtonRect.left() - buttonWidth - buttonSpacing,
-                               editButtonRect.top(), buttonWidth, buttonHeight);
 
         // Save button positions for mouse events
         ButtonRects rects = ButtonRects();
         rects.deleteButton = deleteButtonRect;
         rects.editButton = editButtonRect;
-        rects.selectButton = selectButtonRect;
         m_buttonRects[index.row()] = rects;
 
         // Draw buttons
         drawButton(painter, editButtonRect, "Edit", option);
         drawButton(painter, deleteButtonRect, "Delete", option);
-        drawButton(painter, selectButtonRect, "Select", option);
     } else {
 
         m_buttonRects.remove(index.row());
     }
 
-
     painter->restore();
 }
 
-QSize ProfileListDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const {
+QSize IngredientListDelegate::sizeHint(const QStyleOptionViewItem &option,
+                                       const QModelIndex &index) const {
     Q_UNUSED(option)
     Q_UNUSED(index)
 
     return QSize(300, 60);
 }
 
-bool ProfileListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
-                                      const QStyleOptionViewItem &option,
-                                      const QModelIndex &index) {
+bool IngredientListDelegate::editorEvent(QEvent *event,
+                                         QAbstractItemModel *model,
+                                         const QStyleOptionViewItem &option,
+                                         const QModelIndex &index) {
     if (event->type() == QEvent::MouseMove) {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
         m_lastMousePos = mouseEvent->pos();
-        emit updateEditor(index); // Trigger repaint
+        emit updateEditor(index);
     } else if (event->type() == QEvent::MouseButtonPress) {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent*>(event);
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
 
         if (m_buttonRects.contains(index.row())) {
             ButtonRects rects = m_buttonRects[index.row()];
@@ -95,13 +116,8 @@ bool ProfileListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
             if (rects.editButton.contains(mouseEvent->pos())) {
                 emit editClicked(index);
                 return true;
-            }
-            else if (rects.deleteButton.contains(mouseEvent->pos())) {
+            } else if (rects.deleteButton.contains(mouseEvent->pos())) {
                 emit deleteClicked(index);
-                return true;
-            }
-            else if (rects.selectButton.contains(mouseEvent->pos())) {
-                emit selectClicked(index);
                 return true;
             }
         }
@@ -110,8 +126,8 @@ bool ProfileListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
     return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 
-void ProfileListDelegate::drawButton(QPainter *painter, const QRect &rect,
-                                     const QString &text, const QStyleOptionViewItem &option) const {
+void IngredientListDelegate::drawButton(QPainter *painter, const QRect &rect,
+                                        const QString &text, const QStyleOptionViewItem &option) const {
     QStyleOptionButton button;
     button.rect = rect;
     button.text = text;

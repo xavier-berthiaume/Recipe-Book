@@ -23,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
     m_centerStack->addWidget(m_recipePage);
 
     on_profileButton_pressed();
+
+    connect(m_profilePage, &ProfileRootView::selectedProfileChanged, this, &MainWindow::on_profileChanged);
+    connect(this, &MainWindow::profileChanged, m_ingredientPage, &IngredientRootView::on_profileChanged);
 }
 
 MainWindow::~MainWindow()
@@ -59,3 +62,9 @@ void MainWindow::on_recipeButton_pressed()
     ingredientButton->setEnabled(true);
 }
 
+void MainWindow::on_profileChanged(QProfile *profile)
+{
+    qDebug() << "Changing the currently selected profile to " << profile->getUsername();
+    m_currentProfile = profile;
+    emit (profileChanged(m_currentProfile));
+}

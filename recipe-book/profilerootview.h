@@ -33,6 +33,9 @@ private slots:
     void on_cancelButton_clicked();
     void on_nameLineEdit_textChanged(const QString &arg1);
     void on_confirmButton_clicked();
+
+signals:
+    void selectedProfileChanged(QProfile *profile);
 };
 
 #endif // PROFILEROOTVIEW_H

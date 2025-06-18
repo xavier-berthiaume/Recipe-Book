@@ -18,6 +18,12 @@ QVariant ProfileListModel::data(const QModelIndex &index, int role) const {
     case Roles::UsernameRole:
         return profile->getUsername();
 
+    case Roles::IdRole:
+        return profile->getId();
+
+    case Roles::ProfileRole:
+        return QVariant::fromValue<QProfile*>(profile);
+
     default:
         return QVariant();
     }
@@ -26,6 +32,8 @@ QVariant ProfileListModel::data(const QModelIndex &index, int role) const {
 QHash<int, QByteArray> ProfileListModel::roleNames() const {
     return {
         {Roles::UsernameRole, "Username"},
+        {Roles::IdRole, "ID"},
+        {Roles::ProfileRole, "Profile"}
     };
 }
 

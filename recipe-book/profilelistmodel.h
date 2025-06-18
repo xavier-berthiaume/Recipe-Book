@@ -13,7 +13,9 @@ class ProfileListModel : public QAbstractListModel
     QList<QProfile *> m_profiles;
 public:
     enum Roles {
-        UsernameRole = Qt::UserRole + 1
+        UsernameRole = Qt::UserRole + 1,
+        IdRole,
+        ProfileRole,
     };
 
     explicit ProfileListModel(QObject *parent = nullptr);

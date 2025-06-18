@@ -77,6 +77,37 @@ ProfileRootView::ProfileRootView(QWidget *parent)
         confirmationDialog->deleteLater();
     });
 
+    connect(delegate, &ProfileListDelegate::selectClicked, this, [this](const QModelIndex &index) {
+        QDialog *confirmationDialog = new QDialog(this);
+        confirmationDialog->setWindowTitle(tr("Confirm Deletion"));
+        confirmationDialog->setModal(true);
+
+        QVBoxLayout *layout = new QVBoxLayout(confirmationDialog);
+
+        QLabel *message = new QLabel(
+            tr("Are you sure you want to select profile '%1'?")
+                .arg(index.data(ProfileListModel::UsernameRole).toString()));
+        message->setWordWrap(true);
+        layout->addWidget(message);
+
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(
+            QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+            confirmationDialog);
+
+        QPushButton *confirmButton = buttonBox->button(QDialogButtonBox::Ok);
+        confirmButton->setText(tr("Switch Profile"));
+
+        layout->addWidget(buttonBox);
+        connect(buttonBox, &QDialogButtonBox::accepted, confirmationDialog, &QDialog::accept);
+        connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
+
+        if (confirmationDialog->exec() == QDialog::Accepted) {
+            emit selectedProfileChanged(index.data(ProfileListModel::ProfileRole).value<QProfile *>());
+        }
+
+        confirmationDialog->deleteLater();
+    });
+
     connect(m_factory, &ProfileFactory::profileCreated, m_model, &ProfileListModel::profileCreated);
 }
 
