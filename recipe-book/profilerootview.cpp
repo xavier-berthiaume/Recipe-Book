@@ -6,8 +6,9 @@
 #include <QDialogButtonBox>
 #include <QMessageBox>
 
-ProfileRootView::ProfileRootView(QWidget *parent)
+ProfileRootView::ProfileRootView(DataCache *cache, QWidget *parent)
     : QWidget(parent)
+    , m_cache(cache)
     , ui(new Ui::ProfileRootView)
     , m_model(new ProfileListModel(this))
     , m_factory(new ProfileFactory(this))
@@ -39,74 +40,9 @@ ProfileRootView::ProfileRootView(QWidget *parent)
         m_stackedWidget->setCurrentIndex(1);
     });
 
-    connect(delegate, &ProfileListDelegate::deleteClicked,
-            this, [this](const QModelIndex &index) {
-        QDialog *confirmationDialog = new QDialog(this);
-        confirmationDialog->setWindowTitle(tr("Confirm Deletion"));
-        confirmationDialog->setModal(true);
+    connect(delegate, &ProfileListDelegate::deleteClicked,this, &ProfileRootView::deleteProfile);
 
-        QVBoxLayout *layout = new QVBoxLayout(confirmationDialog);
-
-        QLabel *message = new QLabel(
-            tr("Are you sure you want to delete profile '%1'?")
-                .arg(index.data(ProfileListModel::UsernameRole).toString()));
-        message->setWordWrap(true);
-        layout->addWidget(message);
-
-        QDialogButtonBox *buttonBox = new QDialogButtonBox(
-            QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-            confirmationDialog);
-
-        QPushButton *deleteButton = buttonBox->button(QDialogButtonBox::Ok);
-        deleteButton->setText(tr("Delete"));
-        deleteButton->setStyleSheet("color: red; font-weight: bold;");
-
-        layout->addWidget(buttonBox);
-
-        connect(buttonBox, &QDialogButtonBox::accepted, confirmationDialog, &QDialog::accept);
-        connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
-
-        if (confirmationDialog->exec() == QDialog::Accepted) {
-            this->m_model->removeProfile(index.row());
-
-            QMessageBox::information(this,
-                                     tr("Profile Deleted"),
-                                     tr("The profile was successfully deleted."));
-        }
-
-        confirmationDialog->deleteLater();
-    });
-
-    connect(delegate, &ProfileListDelegate::selectClicked, this, [this](const QModelIndex &index) {
-        QDialog *confirmationDialog = new QDialog(this);
-        confirmationDialog->setWindowTitle(tr("Confirm Deletion"));
-        confirmationDialog->setModal(true);
-
-        QVBoxLayout *layout = new QVBoxLayout(confirmationDialog);
-
-        QLabel *message = new QLabel(
-            tr("Are you sure you want to select profile '%1'?")
-                .arg(index.data(ProfileListModel::UsernameRole).toString()));
-        message->setWordWrap(true);
-        layout->addWidget(message);
-
-        QDialogButtonBox *buttonBox = new QDialogButtonBox(
-            QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
-            confirmationDialog);
-
-        QPushButton *confirmButton = buttonBox->button(QDialogButtonBox::Ok);
-        confirmButton->setText(tr("Switch Profile"));
-
-        layout->addWidget(buttonBox);
-        connect(buttonBox, &QDialogButtonBox::accepted, confirmationDialog, &QDialog::accept);
-        connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
-
-        if (confirmationDialog->exec() == QDialog::Accepted) {
-            emit selectedProfileChanged(index.data(ProfileListModel::ProfileRole).value<QProfile *>());
-        }
-
-        confirmationDialog->deleteLater();
-    });
+    connect(delegate, &ProfileListDelegate::selectClicked, this, &ProfileRootView::selectProfile);
 
     connect(m_factory, &ProfileFactory::profileCreated, m_model, &ProfileListModel::profileCreated);
 }
@@ -163,3 +99,70 @@ void ProfileRootView::on_confirmButton_clicked()
     on_cancelButton_clicked();
 }
 
+void ProfileRootView::deleteProfile(const QModelIndex &index) {
+    QDialog *confirmationDialog = new QDialog(this);
+    confirmationDialog->setWindowTitle(tr("Confirm Deletion"));
+    confirmationDialog->setModal(true);
+
+    QVBoxLayout *layout = new QVBoxLayout(confirmationDialog);
+
+    QLabel *message = new QLabel(
+        tr("Are you sure you want to delete profile '%1'?")
+            .arg(index.data(ProfileListModel::UsernameRole).toString()));
+    message->setWordWrap(true);
+    layout->addWidget(message);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(
+        QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+        confirmationDialog);
+
+    QPushButton *deleteButton = buttonBox->button(QDialogButtonBox::Ok);
+    deleteButton->setText(tr("Delete"));
+    deleteButton->setStyleSheet("color: red; font-weight: bold;");
+
+    layout->addWidget(buttonBox);
+
+    connect(buttonBox, &QDialogButtonBox::accepted, confirmationDialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
+
+    if (confirmationDialog->exec() == QDialog::Accepted) {
+        this->m_model->removeProfile(index.row());
+
+        QMessageBox::information(this,
+                                 tr("Profile Deleted"),
+                                 tr("The profile was successfully deleted."));
+    }
+
+    confirmationDialog->deleteLater();
+}
+
+void ProfileRootView::selectProfile(const QModelIndex &index) {
+    QDialog *confirmationDialog = new QDialog(this);
+    confirmationDialog->setWindowTitle(tr("Confirm Deletion"));
+    confirmationDialog->setModal(true);
+
+    QVBoxLayout *layout = new QVBoxLayout(confirmationDialog);
+
+    QLabel *message = new QLabel(
+        tr("Are you sure you want to select profile '%1'?")
+            .arg(index.data(ProfileListModel::UsernameRole).toString()));
+    message->setWordWrap(true);
+    layout->addWidget(message);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(
+        QDialogButtonBox::Ok | QDialogButtonBox::Cancel,
+        confirmationDialog);
+
+    QPushButton *confirmButton = buttonBox->button(QDialogButtonBox::Ok);
+    confirmButton->setText(tr("Switch Profile"));
+
+    layout->addWidget(buttonBox);
+    connect(buttonBox, &QDialogButtonBox::accepted, confirmationDialog, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
+
+    if (confirmationDialog->exec() == QDialog::Accepted) {
+        emit selectedProfileChanged(index.data(ProfileListModel::ProfileRole).value<QProfile *>());
+    }
+
+    confirmationDialog->deleteLater();
+}

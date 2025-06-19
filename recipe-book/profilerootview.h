@@ -6,6 +6,7 @@
 
 #include "profilelistmodel.h"
 #include "profilefactory.h"
+#include "datacache.h"
 
 namespace Ui {
 class ProfileRootView;
@@ -17,6 +18,8 @@ class ProfileRootView : public QWidget
 
     Ui::ProfileRootView *ui;
 
+    DataCache *m_cache;
+
     QStackedWidget *m_stackedWidget;
     ProfileListModel *m_model;
     ProfileFactory *m_factory;
@@ -25,7 +28,7 @@ class ProfileRootView : public QWidget
     bool m_editMode = false;
 
 public:
-    explicit ProfileRootView(QWidget *parent = nullptr);
+    explicit ProfileRootView(DataCache *cache = nullptr, QWidget *parent = nullptr);
     ~ProfileRootView();
 
 private slots:
@@ -33,6 +36,9 @@ private slots:
     void on_cancelButton_clicked();
     void on_nameLineEdit_textChanged(const QString &arg1);
     void on_confirmButton_clicked();
+
+    void deleteProfile(const QModelIndex &index);
+    void selectProfile(const QModelIndex &index);
 
 signals:
     void selectedProfileChanged(QProfile *profile);
