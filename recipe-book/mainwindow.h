@@ -8,6 +8,7 @@
 #include "profilerootview.h"
 #include "ingredientrootview.h"
 #include "reciperootview.h"
+#include "datacache.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,11 +32,15 @@ class MainWindow : public QMainWindow
     QPushButton *ingredientButton;
     QPushButton *recipeButton;
 
+    DataCache *m_cache;
+
     QProfile *m_currentProfile;
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(DataCache *cache, QWidget *parent = nullptr);
     ~MainWindow();
+
+    DataCache* cache() const { return m_cache; }
 
 private slots:
     void on_profileButton_pressed();

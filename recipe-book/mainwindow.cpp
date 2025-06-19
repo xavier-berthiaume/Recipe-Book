@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(DataCache *cache, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_cache(cache)
 {
     ui->setupUi(this);
 
@@ -31,6 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+DataCache *MainWindow::cache() const {
+    return m_cache;
 }
 
 void MainWindow::on_profileButton_pressed()

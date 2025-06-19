@@ -4,6 +4,8 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include "datacache.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -17,7 +19,10 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    MainWindow w;
+
+    DataCache cache;
+
+    MainWindow w(&cache);
     w.show();
     return a.exec();
 }
