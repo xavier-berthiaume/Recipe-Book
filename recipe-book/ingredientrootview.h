@@ -6,6 +6,7 @@
 
 #include "ingredientlistmodel.h"
 #include "ingredientfactory.h"
+#include "datacache.h"
 
 namespace Ui {
 class IngredientRootView;
@@ -26,7 +27,7 @@ class IngredientRootView : public QWidget
     bool m_editMode = false;
 
 public:
-    explicit IngredientRootView(QWidget *parent = nullptr);
+    explicit IngredientRootView(DataCache *cache, QWidget *parent = nullptr);
     ~IngredientRootView();
 
 private slots:

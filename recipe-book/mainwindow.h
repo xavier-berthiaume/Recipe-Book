@@ -34,22 +34,15 @@ class MainWindow : public QMainWindow
 
     DataCache *m_cache;
 
-    QProfile *m_currentProfile;
-
 public:
     MainWindow(DataCache *cache, QWidget *parent = nullptr);
     ~MainWindow();
 
-    DataCache* cache() const { return m_cache; }
+    DataCache* cache() const;
 
 private slots:
     void on_profileButton_pressed();
     void on_ingredientButton_pressed();
     void on_recipeButton_pressed();
-
-    void on_profileChanged(QProfile *profile);
-
-signals:
-    void profileChanged(QProfile *profile);
 };
 #endif // MAINWINDOW_H

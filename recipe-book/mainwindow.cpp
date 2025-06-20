@@ -14,7 +14,7 @@ MainWindow::MainWindow(DataCache *cache, QWidget *parent)
 
     m_centerStack = findChild<QStackedWidget *>("stackedWidget");
 
-    m_profilePage = new ProfileRootView(m_centerStack);
+    m_profilePage = new ProfileRootView(m_cache, m_centerStack);
     m_centerStack->addWidget(m_profilePage);
 
     m_ingredientPage = new IngredientRootView(m_centerStack);
@@ -24,9 +24,6 @@ MainWindow::MainWindow(DataCache *cache, QWidget *parent)
     m_centerStack->addWidget(m_recipePage);
 
     on_profileButton_pressed();
-
-    connect(m_profilePage, &ProfileRootView::selectedProfileChanged, this, &MainWindow::on_profileChanged);
-    connect(this, &MainWindow::profileChanged, m_ingredientPage, &IngredientRootView::on_profileChanged);
 }
 
 MainWindow::~MainWindow()
@@ -65,11 +62,4 @@ void MainWindow::on_recipeButton_pressed()
 
     profileButton->setEnabled(true);
     ingredientButton->setEnabled(true);
-}
-
-void MainWindow::on_profileChanged(QProfile *profile)
-{
-    qDebug() << "Changing the currently selected profile to " << profile->getUsername();
-    m_currentProfile = profile;
-    emit (profileChanged(m_currentProfile));
 }

@@ -44,7 +44,7 @@ ProfileRootView::ProfileRootView(DataCache *cache, QWidget *parent)
 
     connect(delegate, &ProfileListDelegate::selectClicked, this, &ProfileRootView::selectProfile);
 
-    connect(m_factory, &ProfileFactory::profileCreated, m_model, &ProfileListModel::profileCreated);
+    connect(m_factory, &ProfileFactory::profileCreated, this, &ProfileRootView::profileCreated);
 }
 
 ProfileRootView::~ProfileRootView()
@@ -126,7 +126,9 @@ void ProfileRootView::deleteProfile(const QModelIndex &index) {
     connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
 
     if (confirmationDialog->exec() == QDialog::Accepted) {
-        this->m_model->removeProfile(index.row());
+        // Order is important here
+        m_cache->removeProfileFromCache(index.data(ProfileListModel::ProfileRole).value<QProfile *>());
+        m_model->removeProfile(index.row());
 
         QMessageBox::information(this,
                                  tr("Profile Deleted"),
@@ -161,8 +163,17 @@ void ProfileRootView::selectProfile(const QModelIndex &index) {
     connect(buttonBox, &QDialogButtonBox::rejected, confirmationDialog, &QDialog::reject);
 
     if (confirmationDialog->exec() == QDialog::Accepted) {
-        emit selectedProfileChanged(index.data(ProfileListModel::ProfileRole).value<QProfile *>());
+        QProfile *selectedProfile = index.data(ProfileListModel::ProfileRole).value<QProfile *>();
+        emit selectedProfileChanged(selectedProfile);
+        m_cache->setSelectedProfile(selectedProfile);
     }
 
     confirmationDialog->deleteLater();
+}
+
+void ProfileRootView::profileCreated(QProfile *newProfile) {
+    newProfile->setParent(m_cache); // Set the cache as parent since it has a broader scope
+
+    m_model->addProfile(newProfile);
+    m_cache->addProfileToCache(newProfile);
 }

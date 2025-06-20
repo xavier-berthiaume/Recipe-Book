@@ -40,6 +40,8 @@ private slots:
     void deleteProfile(const QModelIndex &index);
     void selectProfile(const QModelIndex &index);
 
+    void profileCreated(QProfile *profile); // Set the cache as the parent to the QProfile object
+
 signals:
     void selectedProfileChanged(QProfile *profile);
 };
