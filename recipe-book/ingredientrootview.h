@@ -18,16 +18,17 @@ class IngredientRootView : public QWidget
 
     Ui::IngredientRootView *ui;
 
+    DataCache *m_cache;
+
     QStackedWidget *m_stackedWidget;
     IngredientListModel *m_model;
     IngredientFactory *m_factory;
 
-    QProfile *m_currentUser;
     QModelIndex m_editIngredient = QModelIndex();
     bool m_editMode = false;
 
 public:
-    explicit IngredientRootView(DataCache *cache, QWidget *parent = nullptr);
+    explicit IngredientRootView(DataCache *cache = nullptr, QWidget *parent = nullptr);
     ~IngredientRootView();
 
 private slots:
@@ -40,8 +41,7 @@ private slots:
     void editButtonClicked(const QModelIndex &index);
     void deleteButtonClicked(const QModelIndex &index);
 
-public slots:
-    void on_profileChanged(QProfile *profile);
+    void ingredientCreated(QIngredient *newIngredient);
 };
 
 #endif // INGREDIENTROOTVIEW_H

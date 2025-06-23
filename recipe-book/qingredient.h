@@ -16,6 +16,8 @@ class QIngredient : public Storable
     Q_PROPERTY(QProfile *m_creator READ getCreator WRITE setCreator NOTIFY creatorChanged)
 
     Ingredient m_ingredient;
+
+protected:
     QProfile *m_creator;
 
 public:

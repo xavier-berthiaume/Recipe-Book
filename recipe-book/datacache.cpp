@@ -74,19 +74,23 @@ void DataCache::addIngredientToCache(QIngredient *ingredient) {
     }
 
     m_ingredientsCache.append(ingredient);
+    qDebug() << "Added ingredient to cache: " << ingredient->getName();
     emit ingredientAdded(ingredient);
     emit ingredientCacheChanged();
 }
 
 void DataCache::removeIngredientFromCache(QIngredient *ingredient) {
     if (!ingredient || !m_ingredientsCache.contains(ingredient)) {
+        qDebug() << "No ingredient or ingredient isn't in cache";
         return;
     }
 
     m_ingredientsCache.removeOne(ingredient);
+    qDebug() << "Removed ingredient from cache: " << ingredient->getName();
 
     if (!m_ingredientsToRemove.contains(ingredient)) {
         m_ingredientsToRemove.append(ingredient);
+        qDebug() << "Marking ingredient for deletion: " << ingredient->getName();
     }
 
     emit ingredientRemoved(ingredient);

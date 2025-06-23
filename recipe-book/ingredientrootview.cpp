@@ -6,12 +6,12 @@
 #include <QMessageBox>
 #include <QDialogButtonBox>
 
-IngredientRootView::IngredientRootView(QWidget *parent)
+IngredientRootView::IngredientRootView(DataCache *cache, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::IngredientRootView)
+    , m_cache(cache)
     , m_model(new IngredientListModel(this))
     , m_factory(new IngredientFactory(this))
-    , m_currentUser(nullptr)
 {
     ui->setupUi(this);
     m_stackedWidget = findChild<QStackedWidget *>("stackedWidget");
@@ -29,7 +29,7 @@ IngredientRootView::IngredientRootView(QWidget *parent)
     connect(delegate, &IngredientListDelegate::deleteClicked, this, &IngredientRootView::deleteButtonClicked);
 
     // Connect factory creation function
-    connect(m_factory, &IngredientFactory::ingredientCreated, m_model, &IngredientListModel::ingredientCreated);
+    connect(m_factory, &IngredientFactory::ingredientCreated, this, &IngredientRootView::ingredientCreated);
 }
 
 IngredientRootView::~IngredientRootView()
@@ -39,6 +39,9 @@ IngredientRootView::~IngredientRootView()
 
 void IngredientRootView::on_createButton_clicked()
 {
+    m_editIngredient = QModelIndex();
+    m_editMode = false;
+
     QLabel *titleLabel = this->findChild<QLabel *>("formTitleLabel");
     QPushButton *confirmButton = this->findChild<QPushButton *>("confirmButton");
     QLineEdit *nameEdit = this->findChild<QLineEdit *>("nameLineEdit");
@@ -96,7 +99,7 @@ void IngredientRootView::on_confirmButton_clicked()
         m_model->modifyIngredient(m_editIngredient.row(), QVariant(name), IngredientListModel::NameRole);
         m_model->modifyIngredient(m_editIngredient.row(), QVariant(description), IngredientListModel::DescriptionRole);
     } else {
-        m_factory->createIngredient(m_currentUser, name, description);
+        m_factory->createIngredient(m_cache->getSelectedProfile(), name, description);
     }
 
     on_cancelButton_clicked();
@@ -158,7 +161,7 @@ void IngredientRootView::deleteButtonClicked(const QModelIndex &index) {
         confirmationDialog->deleteLater();
 }
 
-void IngredientRootView::on_profileChanged(QProfile *profile) {
-    m_currentUser = profile;
+void IngredientRootView::ingredientCreated(QIngredient *newIngredient) {
+    m_cache->addIngredientToCache(newIngredient);
+    m_model->addIngredient(newIngredient);
 }
-
