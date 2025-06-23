@@ -54,6 +54,7 @@ public:
     void toggleIsRecipe();
 
     static QString unitToString(Units unit);
+    static QMap<QString, Units> unitOptions();
 
 signals:
     void ingredientChanged();

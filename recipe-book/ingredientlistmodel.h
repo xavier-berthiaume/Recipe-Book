@@ -27,6 +27,8 @@ public:
 
     QHash<int, QByteArray> roleNames() const override;
 
+    void populate(const QList<QIngredient *> &ingredients);
+
     void addIngredient(QIngredient *ingredient);
 
     void modifyIngredient(int index, const QVariant &data, int role = Qt::DisplayRole);

@@ -20,7 +20,7 @@ MainWindow::MainWindow(DataCache *cache, QWidget *parent)
     m_ingredientPage = new IngredientRootView(m_cache, m_centerStack);
     m_centerStack->addWidget(m_ingredientPage);
 
-    m_recipePage = new RecipeRootView(m_centerStack);
+    m_recipePage = new RecipeRootView(m_cache, m_centerStack);
     m_centerStack->addWidget(m_recipePage);
 
     on_profileButton_pressed();

@@ -1,5 +1,7 @@
 #include "qrecipeingredient.h"
 
+#include <QMap>
+
 QRecipeIngredient::QRecipeIngredient(QIngredient *ingredient,
                                        const QString &quantity,
                                        Units unit, QObject *parent)
@@ -83,4 +85,21 @@ QString QRecipeIngredient::unitToString(Units unit) {
     case Teaspoons: return "tsp";
     default: return "g";
     }
+}
+
+QMap<QString, QRecipeIngredient::Units> QRecipeIngredient::unitOptions() {
+
+    return {
+        {unitToString(Kilograms), Kilograms},
+        {unitToString(Grams), Grams},
+        {unitToString(Milligrams), Milligrams},
+        {unitToString(Liters), Liters},
+        {unitToString(Centiliters), Centiliters},
+        {unitToString(Milliliters), Milliliters},
+        {unitToString(Gallons), Gallons},
+        {unitToString(Pints), Pints},
+        {unitToString(Cups), Cups},
+        {unitToString(Tablespoons), Tablespoons},
+        {unitToString(Teaspoons), Teaspoons},
+    };
 }

@@ -41,6 +41,41 @@ QHash<int, QByteArray> IngredientListModel::roleNames() const {
     };
 }
 
+void IngredientListModel::populate(const QList<QIngredient *> &list) {
+
+    if (list.isEmpty()) return;
+
+    if (!m_ingredients.isEmpty()) {
+        beginResetModel();
+        qDeleteAll(m_ingredients);
+        m_ingredients.clear();
+        endResetModel();
+    }
+
+    beginInsertRows(QModelIndex(), rowCount(), rowCount() + list.size() - 1);
+    for (QIngredient *ingredient : list) {
+        m_ingredients.append(ingredient);
+
+        connect(ingredient, &QIngredient::nameChanged, this, [this, ingredient]() {
+            int row = m_ingredients.indexOf(ingredient);
+            if (row >= 0) {
+                QModelIndex index = this->index(row);
+                emit dataChanged(index, index, {Roles::NameRole});
+            }
+        });
+
+        connect(ingredient, &QIngredient::descriptionChanged, this, [this, ingredient]() {
+            int row = m_ingredients.indexOf(ingredient);
+            if (row >= 0) {
+                QModelIndex index = this->index(row);
+                emit dataChanged(index, index, {Roles::DescriptionRole});
+            }
+        });
+    }
+
+    endInsertRows();
+}
+
 void IngredientListModel::addIngredient(QIngredient *ingredient) {
 
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
