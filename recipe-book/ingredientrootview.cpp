@@ -89,6 +89,21 @@ void IngredientRootView::on_descriptionEdit_textChanged()
 
 void IngredientRootView::on_confirmButton_clicked()
 {
+    if (m_cache->getSelectedProfile() == nullptr) {
+        QMessageBox::warning(
+            this,
+            tr("Profile Required"),
+            tr("<html><div style='line-height:1.5;'>"
+               "<b>No profile selected</b><br>"
+               "Please select a profile from the Profiles page before "
+               "creating ingredients or recipes."
+               "<br></div></html>"),
+            QMessageBox::Ok,
+            QMessageBox::Ok
+            );
+        return;
+    }
+
     QLineEdit *nameField = findChild<QLineEdit *>("nameLineEdit");
     QPlainTextEdit *descriptionField = findChild<QPlainTextEdit *>("descriptionEdit");
 

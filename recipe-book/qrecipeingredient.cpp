@@ -5,7 +5,7 @@
 QRecipeIngredient::QRecipeIngredient(QIngredient *ingredient,
                                        const QString &quantity,
                                        Units unit, QObject *parent)
-    : QObject(parent)
+    : Storable(parent)
     , m_ingredient(ingredient)
     , m_quantity(quantity)
 {

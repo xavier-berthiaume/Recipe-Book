@@ -7,6 +7,7 @@
 #include <QComboBox>
 
 #include "datacache.h"
+#include "qrecipeingredient.h"
 #include "ingredientlistmodel.h"
 #include "ingredientselectiondelegate.h"
 
@@ -44,6 +45,13 @@ private slots:
     void on_quantitySpinbox_valueChanged(double arg1);
     void on_unitCombobox_currentIndexChanged(int index);
     void on_listView_indexesMoved(const QModelIndexList &indexes);
+    void on_buttonBox_accepted();
+
+signals:
+    void formSubmitted(QIngredient *ingredient,
+                       const QString &quantity,
+                       QRecipeIngredient::Units unit,
+                       bool isRecipe);
 };
 
 #endif // INGREDIENTSELECTORDIALOG_H

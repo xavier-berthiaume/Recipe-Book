@@ -35,6 +35,9 @@ public:
 
     void removeIngredient(int index);
 
+    QIngredient *getIngredient(const QModelIndex &index);
+    QIngredient *getIngredient(int index);
+
 public slots:
     void ingredientCreated(QIngredient *ingredient);
 };

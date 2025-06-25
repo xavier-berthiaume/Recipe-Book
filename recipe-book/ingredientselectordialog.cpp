@@ -1,8 +1,6 @@
 #include "ingredientselectordialog.h"
 #include "ui_ingredientselectordialog.h"
 
-#include "qrecipeingredient.h"
-
 IngredientSelectorDialog::IngredientSelectorDialog(DataCache *cache, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::IngredientSelectorDialog)
@@ -65,7 +63,6 @@ void IngredientSelectorDialog::on_ingredientButton_pressed()
     m_recipeButton->setDisabled(false);
     // Change the model that's represented in the listview
     m_listView->setModel(ingredientModel);
-
 }
 
 
@@ -104,6 +101,29 @@ void IngredientSelectorDialog::on_listView_indexesMoved(const QModelIndexList &i
     } else {
         m_okButton->setEnabled(false);
     }
+}
 
+
+void IngredientSelectorDialog::on_buttonBox_accepted()
+{
+    if (!validateFields()) return;
+
+    QIngredient *ingredient;
+    if (m_ingredientButton->isEnabled()) { // It's a recipe
+    } else { // It's an ingredient
+        ingredient = ingredientModel->getIngredient(m_listView->currentIndex());
+    }
+
+    QString quantity = m_quantitySpinbox->text();
+    QRecipeIngredient::Units unit = m_unitCombobox->currentData().value<QRecipeIngredient::Units>();
+
+    // If the ingredient button is enabled to be pressed, that means
+    // the recipe button is pressed down, so the selected item is a recipe
+    // The correct way to do this is to check if you can cast the ingredient
+    // variable to a QRecipe object
+    bool isRecipe = m_ingredientButton->isEnabled();
+
+    qDebug() << "Submitted form for recipe ingredient " << ingredient->getName();
+    emit formSubmitted(ingredient, quantity, unit, isRecipe);
 }
 

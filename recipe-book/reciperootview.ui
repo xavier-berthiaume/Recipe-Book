@@ -17,14 +17,14 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="recipeDisplayPage">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="topMargin">
-          <number>15</number>
+          <number>0</number>
          </property>
          <item>
           <spacer name="horizontalSpacer">
@@ -78,7 +78,7 @@
         <number>15</number>
        </property>
        <item>
-        <widget class="QLabel" name="createLabel">
+        <widget class="QLabel" name="formTitleLabel">
          <property name="font">
           <font>
            <pointsize>19</pointsize>
@@ -95,6 +95,12 @@
        </item>
        <item>
         <layout class="QFormLayout" name="formLayout">
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
          <item row="0" column="0">
           <widget class="QLabel" name="nameLabel">
            <property name="text">
@@ -128,17 +134,80 @@
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="ingredientSelectionWidget" native="true">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>200</height>
-          </size>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <property name="topMargin">
+          <number>5</number>
          </property>
-        </widget>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="recipeIngredientLabel">
+             <property name="text">
+              <string>Recipe Ingredients</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QListView" name="listView_4"/>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="deleteRecipeIngredientButton">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Delete Recipe Ingredient</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="addRecipeIngredientButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>Add Recipe Ingredient</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
@@ -187,6 +256,12 @@
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
@@ -243,7 +318,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="createButton_2">
+          <widget class="QPushButton" name="confirmButton">
            <property name="enabled">
             <bool>false</bool>
            </property>
@@ -255,21 +330,6 @@
         </layout>
        </item>
       </layout>
-     </widget>
-     <widget class="QWidget" name="page_2">
-      <widget class="QPushButton" name="pushButton">
-       <property name="geometry">
-        <rect>
-         <x>390</x>
-         <y>350</y>
-         <width>87</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
      </widget>
     </widget>
    </item>

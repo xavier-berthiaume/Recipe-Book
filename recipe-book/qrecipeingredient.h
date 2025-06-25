@@ -3,9 +3,10 @@
 
 #include <QObject>
 
+#include "storable.h"
 #include "qingredient.h"
 
-class QRecipeIngredient : public QObject
+class QRecipeIngredient : public Storable
 {
     Q_OBJECT
 
