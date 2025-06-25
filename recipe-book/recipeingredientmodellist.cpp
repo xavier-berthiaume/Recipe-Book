@@ -141,3 +141,42 @@ void RecipeIngredientModelList::addRecipeIngredient(
           });
   endInsertRows();
 }
+
+void RecipeIngredientModelList::modifyRecipeIngredient(int index,
+                                                       const QVariant &data,
+                                                       int role) {
+  QModelIndex indx = this->index(index);
+  if (!indx.isValid() || index >= m_recipeIngredients.size())
+    return;
+
+  QRecipeIngredient *recipeIngredient = m_recipeIngredients[index];
+
+  switch (role) {
+  case RecipeIngredientModelList::NameRole:
+    break;
+
+  case RecipeIngredientModelList::DescriptionRole:
+    break;
+
+  case RecipeIngredientModelList::QuantityRole:
+    break;
+
+  case RecipeIngredientModelList::UnitRole:
+    break;
+
+  case RecipeIngredientModelList::IsRecipeRole:
+    break;
+
+  default:
+    break;
+  }
+}
+
+void RecipeIngredientModelList::removeRecipeIngredient(int index) {
+  if (index < 0 || index >= m_recipeIngredients.size())
+    return;
+
+  beginRemoveRows(QModelIndex(), index, index);
+  m_recipeIngredients.removeAt(index);
+  endRemoveRows();
+}
