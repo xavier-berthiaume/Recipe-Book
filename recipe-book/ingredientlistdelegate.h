@@ -14,7 +14,9 @@ class IngredientListDelegate : public QStyledItemDelegate
     };
 
     void drawButton(QPainter *painter,
-                    const QRect &rect, const QString &text, const QStyleOptionViewItem &option) const;
+                    const QRect &rect,
+                    const QString &text,
+                    const QStyleOptionViewItem &option) const;
     mutable QMap<int, ButtonRects> m_buttonRects;
     QPoint m_lastMousePos;
     int m_hoveredRow;

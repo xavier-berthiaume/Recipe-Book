@@ -1,12 +1,12 @@
-#ifndef RECIPEINGREDIENTMODELLIST_H
-#define RECIPEINGREDIENTMODELLIST_H
+#ifndef RECIPEINGREDIENTLISTMODEL_H
+#define RECIPEINGREDIENTLISTMODEL_H
 
 #include <QAbstractListModel>
 #include <QObject>
 
 #include "qrecipeingredient.h"
 
-class RecipeIngredientModelList : public QAbstractListModel {
+class RecipeIngredientListModel : public QAbstractListModel {
   Q_OBJECT
 
   QList<QRecipeIngredient *> m_recipeIngredients;
@@ -21,7 +21,7 @@ public:
     IsRecipeRole
   };
 
-  explicit RecipeIngredientModelList(QObject *parent = nullptr);
+  explicit RecipeIngredientListModel(QObject *parent = nullptr);
 
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -43,4 +43,4 @@ public slots:
   void recipeIngredientCreated(QRecipeIngredient *recipeIngredient);
 };
 
-#endif // RECIPEINGREDIENTMODELLIST_H
+#endif // RECIPEINGREDIENTLISTMODEL_H

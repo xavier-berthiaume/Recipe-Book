@@ -6,9 +6,11 @@
 #include <QModelIndex>
 #include <QPushButton>
 #include <QLabel>
+#include <QListView>
 
 #include "datacache.h"
 #include "recipeingredientfactory.h"
+#include "recipeingredientlistmodel.h"
 
 namespace Ui {
 class RecipeRootView;
@@ -26,6 +28,8 @@ class RecipeRootView : public QWidget
     QLabel *m_formTitleLabel;
     QPushButton *m_confirmButton;
 
+    RecipeIngredientListModel *m_recipeIngredientModel;
+
     QModelIndex m_editRecipe = QModelIndex();
     bool m_editMode = false;
 
@@ -40,6 +44,8 @@ private slots:
     void on_createButton_clicked();
 
     void on_cancelButton_clicked();
+
+    void recipeIngredientCreated(QRecipeIngredient *newRecipeIngredient);
 
 private:
     Ui::RecipeRootView *ui;

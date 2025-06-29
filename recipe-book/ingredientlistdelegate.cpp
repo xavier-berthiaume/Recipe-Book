@@ -84,7 +84,6 @@ void IngredientListDelegate::paint(QPainter *painter,
         drawButton(painter, editButtonRect, "Edit", option);
         drawButton(painter, deleteButtonRect, "Delete", option);
     } else {
-
         m_buttonRects.remove(index.row());
     }
 

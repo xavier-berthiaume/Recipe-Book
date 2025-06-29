@@ -47,7 +47,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ingredientselectordialog.h ingredientselectordialog.cpp ingredientselectordialog.ui
         ingredientselectiondelegate.h ingredientselectiondelegate.cpp
         recipeingredientfactory.h recipeingredientfactory.cpp
-        recipeingredientmodellist.h recipeingredientmodellist.cpp
+        recipeingredientlistmodel.h recipeingredientlistmodel.cpp
+        recipeingredientdelegate.h recipeingredientdelegate.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET recipe-book APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

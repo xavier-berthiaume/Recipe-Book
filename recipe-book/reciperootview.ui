@@ -169,7 +169,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QListView" name="listView_4"/>
+          <widget class="QListView" name="recipeIngredientListView"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_7">
