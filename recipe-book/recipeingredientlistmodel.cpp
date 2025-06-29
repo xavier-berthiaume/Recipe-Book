@@ -145,58 +145,63 @@ void RecipeIngredientListModel::addRecipeIngredient(
 void RecipeIngredientListModel::modifyRecipeIngredient(int index,
                                                        const QVariant &data,
                                                        int role) {
-    QModelIndex indx = this->index(index);
-    if (!indx.isValid() || index >= m_recipeIngredients.size())
-        return;
+  QModelIndex indx = this->index(index);
+  if (!indx.isValid() || index >= m_recipeIngredients.size())
+    return;
 
-    QRecipeIngredient *recipeIngredient = m_recipeIngredients[index];
+  QRecipeIngredient *recipeIngredient = m_recipeIngredients[index];
 
-    switch(role) {
-    case Roles::NameRole:
-        break;
+  switch (role) {
+  case Roles::NameRole:
+    break;
 
-    case Roles::DescriptionRole:
-        break;
+  case Roles::DescriptionRole:
+    break;
 
-    case Roles::QuantityRole:
-        if (recipeIngredient->getQuantity() != data.toString()) {
-            recipeIngredient->setQuantity(data.toString());
-            emit dataChanged(indx, indx);
-        }
-        break;
-
-    case Roles::UnitRole:
-        if (recipeIngredient->getUnit() !=
-            QRecipeIngredient::unitToString(data.value<QRecipeIngredient::Units>())) {
-            recipeIngredient->setUnit(data.value<QRecipeIngredient::Units>());
-            emit dataChanged(indx, indx);
-        }
-        break;
-
-    case Roles::IsRecipeRole:
-        if (recipeIngredient->getIsRecipe() != data.toBool()) {
-            recipeIngredient->toggleIsRecipe();
-            emit dataChanged(indx, indx);
-        }
-        break;
-
-    default:
-        break;
+  case Roles::QuantityRole:
+    if (recipeIngredient->getQuantity() != data.toString()) {
+      recipeIngredient->setQuantity(data.toString());
+      emit dataChanged(indx, indx);
     }
+    break;
+
+  case Roles::UnitRole:
+    if (recipeIngredient->getUnit() !=
+        QRecipeIngredient::unitToString(
+            data.value<QRecipeIngredient::Units>())) {
+      recipeIngredient->setUnit(data.value<QRecipeIngredient::Units>());
+      emit dataChanged(indx, indx);
+    }
+    break;
+
+  case Roles::IsRecipeRole:
+    if (recipeIngredient->getIsRecipe() != data.toBool()) {
+      recipeIngredient->toggleIsRecipe();
+      emit dataChanged(indx, indx);
+    }
+    break;
+
+  default:
+    break;
+  }
 }
 
 void RecipeIngredientListModel::removeRecipeIngredient(int index) {
-    if (index < 0 || index >= m_recipeIngredients.size()) return;
+  if (index < 0 || index >= m_recipeIngredients.size())
+    return;
 
-    m_recipeIngredients.removeAt(index);
+  beginRemoveRows(QModelIndex(), index, index);
+  m_recipeIngredients.removeAt(index);
+  endRemoveRows();
 }
 
-void RecipeIngredientListModel::recipeIngredientCreated(QRecipeIngredient *recipeIngredient) {
-    recipeIngredient->setParent(this);
-    addRecipeIngredient(recipeIngredient);
-    qDebug() << "Added recipe ingredient to RecipeIngredientModel with name "
-             << QString("%1, %2%3").arg(
-                    recipeIngredient->getIngredient()->getName(),
-                    recipeIngredient->getQuantity(),
-                    recipeIngredient->getUnit());
+void RecipeIngredientListModel::recipeIngredientCreated(
+    QRecipeIngredient *recipeIngredient) {
+  recipeIngredient->setParent(this);
+  addRecipeIngredient(recipeIngredient);
+  qDebug() << "Added recipe ingredient to RecipeIngredientModel with name "
+           << QString("%1, %2%3")
+                  .arg(recipeIngredient->getIngredient()->getName(),
+                       recipeIngredient->getQuantity(),
+                       recipeIngredient->getUnit());
 }
