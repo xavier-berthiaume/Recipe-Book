@@ -3,6 +3,7 @@
 
 #include <QLabel>
 #include <QListView>
+#include <QListWidget>
 #include <QModelIndex>
 #include <QPlainTextEdit>
 #include <QPushButton>
@@ -33,9 +34,11 @@ class RecipeRootView : public QWidget {
   QPlainTextEdit *descriptionEdit;
   QTimeEdit *prepTimeEdit;
   QPushButton *m_recipeIngredientDeleteButton;
+  QListWidget *m_instructionList;
   QLineEdit *m_instructionEdit;
   QPushButton *m_addInstructionButton;
   QPushButton *m_deleteInstructionButton;
+  QListWidget *m_equipmentList;
   QLineEdit *m_equipmentEdit;
   QPushButton *m_addEquipmentButton;
   QPushButton *m_deleteEquipmentButton;
@@ -45,7 +48,11 @@ class RecipeRootView : public QWidget {
 
   QModelIndex m_editRecipe = QModelIndex();
   QModelIndex m_selectedRecipeIngredient = QModelIndex();
+  QModelIndex m_selectedInstruction = QModelIndex();
+  QModelIndex m_selectedEquipment = QModelIndex();
   bool m_editMode = false;
+
+  bool validateFields();
 
 public:
   explicit RecipeRootView(DataCache *cache = nullptr,
@@ -53,26 +60,25 @@ public:
   ~RecipeRootView();
 
 private slots:
-
   void on_addRecipeIngredientButton_clicked();
-
   void on_createButton_clicked();
-
   void on_cancelButton_clicked();
-
   void recipeIngredientCreated(QRecipeIngredient *newRecipeIngredient);
-
   void on_confirmButton_clicked();
-
   void on_recipeIngredientListView_activated(const QModelIndex &index);
-
   void on_recipeIngredientListView_clicked(const QModelIndex &index);
-
   void on_deleteRecipeIngredientButton_clicked();
-
   void on_instructionLineEdit_textChanged(const QString &arg1);
+  void on_equipmentLineEdit_textChanged(const QString &arg1);
+  void on_addInstructionButton_clicked();
+  void on_addEquipmentButton_clicked();
+  void on_instructionsList_clicked(const QModelIndex &index);
+  void on_equipmentList_clicked(const QModelIndex &index);
+  void on_deleteInstructionButton_clicked();
+  void on_deleteEquipmentButton_clicked();
+  void on_formInfoChanged();
 
-  signals:
+signals:
   void formSubmitted();
 };
 

@@ -223,7 +223,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QListView" name="listView_2"/>
+          <widget class="QListWidget" name="instructionsList"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -277,7 +277,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QListView" name="listView_3"/>
+          <widget class="QListWidget" name="equipmentList"/>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
@@ -310,6 +310,9 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>20</number>
+         </property>
          <item>
           <widget class="QPushButton" name="cancelButton">
            <property name="text">
@@ -321,6 +324,9 @@
           <widget class="QPushButton" name="confirmButton">
            <property name="enabled">
             <bool>false</bool>
+           </property>
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Required fields:&lt;/p&gt;&lt;p&gt;- Name&lt;/p&gt;&lt;p&gt;- Description&lt;/p&gt;&lt;p&gt;- Cooking Time&lt;/p&gt;&lt;p&gt;- Recipe Ingredients&lt;/p&gt;&lt;p&gt;- Instructions&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
            <property name="text">
             <string>Create Recipe</string>
