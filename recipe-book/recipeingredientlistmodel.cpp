@@ -108,8 +108,7 @@ void RecipeIngredientListModel::addRecipeIngredient(
             int row = m_recipeIngredients.indexOf(recipeIngredient);
             if (row >= 0) {
               QModelIndex index = this->index(row);
-              emit dataChanged(index, index, {Roles::NameRole});
-              emit dataChanged(index, index, {Roles::DescriptionRole});
+              emit dataChanged(index, index, {Roles::NameRole, Roles::DescriptionRole});
             }
           });
 
@@ -153,9 +152,17 @@ void RecipeIngredientListModel::modifyRecipeIngredient(int index,
 
   switch (role) {
   case Roles::NameRole:
+      if (recipeIngredient->getIngredient()->getName() != data.toString()) {
+          recipeIngredient->getIngredient()->setName(data.toString());
+          emit dataChanged(indx, indx);
+      }
     break;
 
   case Roles::DescriptionRole:
+      if (recipeIngredient->getIngredient()->getDescription() != data.toString()) {
+          recipeIngredient->getIngredient()->setDescription(data.toString());
+          emit dataChanged(indx, indx);
+      }
     break;
 
   case Roles::QuantityRole:
@@ -204,4 +211,15 @@ void RecipeIngredientListModel::recipeIngredientCreated(
                   .arg(recipeIngredient->getIngredient()->getName(),
                        recipeIngredient->getQuantity(),
                        recipeIngredient->getUnit());
+}
+
+QList<QRecipeIngredient *> RecipeIngredientListModel::getList() const {
+    return m_recipeIngredients;
+}
+
+void RecipeIngredientListModel::clear() {
+    beginResetModel();
+    qDeleteAll(m_recipeIngredients);
+    m_recipeIngredients.clear();
+    endResetModel();
 }

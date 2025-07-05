@@ -10,6 +10,7 @@ QRecipe::QRecipe(QUuid id, QObject *parent)
 
 QRecipe::QRecipe(const QString &name,
                  const QString &description,
+                 const QList<QRecipeIngredient *> &ingredients,
                  const QStringList &instructions,
                  const QStringList &equipment,
                  const QString &notes,
@@ -34,6 +35,8 @@ QRecipe::QRecipe(const QString &name,
                       stdEquipment,
                       notes.toStdString(),
                       prepTime);
+
+    m_ingredients = ingredients;
 }
 
 QRecipe::QRecipe(const Recipe &recipe,
@@ -44,7 +47,7 @@ QRecipe::QRecipe(const Recipe &recipe,
 
 QRecipe::~QRecipe() {}
 
-QList<QIngredient *> QRecipe::getIngredients() const {
+QList<QRecipeIngredient *> QRecipe::getIngredients() const {
     return m_ingredients;
 }
 
@@ -76,7 +79,7 @@ quint32 QRecipe::getPrepTime() const {
     return m_recipe.getPrepTime();
 }
 
-void QRecipe::setIngredients(const QList<QIngredient *> &ingredients) {
+void QRecipe::setIngredients(const QList<QRecipeIngredient *> &ingredients) {
     m_ingredients = ingredients;
     emit ingredientsChanged();
 }
@@ -91,6 +94,23 @@ void QRecipe::setInstructions(const QStringList &instructions) {
     m_recipe.setInstructions(stdInstructions);
 
     emit instructionsChanged();
+}
+
+void QRecipe::addIngredient(QRecipeIngredient *ingredient) {
+    if (ingredient == nullptr) return;
+
+    m_ingredients.push_back(ingredient);
+    emit ingredientsChanged();
+}
+
+void QRecipe::removeIngredient(QRecipeIngredient *ingredient) {
+    if (ingredient == nullptr) return;
+
+    for (int i = 0; i < m_ingredients.size(); i++) {
+        if (m_ingredients[i] == ingredient)
+            m_ingredients.removeAt(i);
+    }
+    emit ingredientsChanged();
 }
 
 void QRecipe::addInstruction(const QString &instruction) {

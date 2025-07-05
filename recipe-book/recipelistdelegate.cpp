@@ -1,19 +1,34 @@
-#include "profilelistdelegate.h"
-#include "profilelistmodel.h"
+#include "recipelistdelegate.h"
+#include "recipelistmodel.h"
 
 #include <QApplication>
 #include <QMouseEvent>
 
-ProfileListDelegate::ProfileListDelegate(QObject *parent)
-    : QStyledItemDelegate(parent) {}
+RecipeListDelegate::RecipeListDelegate(QObject *parent)
+    : QStyledItemDelegate{parent} {}
 
-void ProfileListDelegate::paint(QPainter *painter,
-                                const QStyleOptionViewItem &option,
-                                const QModelIndex &index) const {
+void RecipeListDelegate::drawButton(QPainter *painter, const QRect &rect,
+                                    const QString &text,
+                                    const QStyleOptionViewItem &option) const {
+  QStyleOptionButton button;
+  button.rect = rect;
+  button.text = text;
+  button.state = QStyle::State_Enabled;
+
+  if (rect.contains(m_lastMousePos)) {
+    button.state |= QStyle::State_MouseOver;
+  }
+
+  QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+}
+
+void RecipeListDelegate::paint(QPainter *painter,
+                               const QStyleOptionViewItem &option,
+                               const QModelIndex &index) const {
   if (!index.isValid())
     return;
 
-  QString username = index.data(ProfileListModel::UsernameRole).toString();
+  QString username = index.data(RecipeListModel::NameRole).toString();
 
   painter->save();
 
@@ -77,17 +92,17 @@ void ProfileListDelegate::paint(QPainter *painter,
   painter->restore();
 }
 
-QSize ProfileListDelegate::sizeHint(const QStyleOptionViewItem &option,
-                                    const QModelIndex &index) const {
+QSize RecipeListDelegate::sizeHint(const QStyleOptionViewItem &option,
+                                   const QModelIndex &index) const {
   Q_UNUSED(option)
   Q_UNUSED(index)
 
   return QSize(300, 60);
 }
 
-bool ProfileListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
-                                      const QStyleOptionViewItem &option,
-                                      const QModelIndex &index) {
+bool RecipeListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
+                                     const QStyleOptionViewItem &option,
+                                     const QModelIndex &index) {
   if (event->type() == QEvent::MouseMove) {
     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
     m_lastMousePos = mouseEvent->pos();
@@ -112,19 +127,4 @@ bool ProfileListDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
   }
 
   return QStyledItemDelegate::editorEvent(event, model, option, index);
-}
-
-void ProfileListDelegate::drawButton(QPainter *painter, const QRect &rect,
-                                     const QString &text,
-                                     const QStyleOptionViewItem &option) const {
-  QStyleOptionButton button;
-  button.rect = rect;
-  button.text = text;
-  button.state = QStyle::State_Enabled;
-
-  if (rect.contains(m_lastMousePos)) {
-    button.state |= QStyle::State_MouseOver;
-  }
-
-  QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
 }

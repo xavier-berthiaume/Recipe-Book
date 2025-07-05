@@ -39,6 +39,10 @@ public:
 
   void removeRecipeIngredient(int index);
 
+  QList<QRecipeIngredient *> getList() const;
+
+  void clear();
+
 public slots:
   void recipeIngredientCreated(QRecipeIngredient *recipeIngredient);
 };

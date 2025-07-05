@@ -2,6 +2,7 @@
 #define QRECIPE_H
 
 #include "qingredient.h"
+#include "qrecipeingredient.h"
 #include "recipe.h"
 
 class QRecipe : public QIngredient
@@ -12,16 +13,17 @@ class QRecipe : public QIngredient
     Q_PROPERTY(QStringList equipment READ getEquipment WRITE setEquipment NOTIFY equipmentChanged)
     Q_PROPERTY(QString notes READ getNotes WRITE setNotes NOTIFY notesChanged)
     Q_PROPERTY(quint32 prepTime READ getPrepTime WRITE setPrepTime NOTIFY prepTimeChanged)
-    // Q_PROPERTY(QList<QIngredient *> m_ingredients READ getIngredients WRITE setIngredients NOTIFY ingredientsChanged)
+    Q_PROPERTY(QList<QRecipeIngredient *> m_ingredients READ getIngredients WRITE setIngredients NOTIFY ingredientsChanged)
 
     Recipe m_recipe;
-    QList<QIngredient *> m_ingredients;
+    QList<QRecipeIngredient *> m_ingredients;
 
 public:
     explicit QRecipe(QObject *parent = nullptr);
     explicit QRecipe(QUuid id, QObject *parent = nullptr);
     explicit QRecipe(const QString &name,
                      const QString &description,
+                     const QList<QRecipeIngredient *> &ingredients,
                      const QStringList &instructions,
                      const QStringList &equipment,
                      const QString &notes,
@@ -31,20 +33,20 @@ public:
 
     ~QRecipe();
 
-    QList<QIngredient *> getIngredients() const;
+    QList<QRecipeIngredient *> getIngredients() const;
     QStringList getInstructions() const;
     QStringList getEquipment() const;
     QString getNotes() const;
     quint32 getPrepTime() const;
 
-    void setIngredients(const QList<QIngredient *> &ingredients);
+    void setIngredients(const QList<QRecipeIngredient *> &ingredients);
     void setInstructions(const QStringList &instructions);
     void setEquipment(const QStringList &equipment);
     void setNotes(const QString &notes);
     void setPrepTime(quint32 prepTime);
 
-    // Q_INVOKABLE void addIngredient(QIngredient *ingredient);
-    // Q_INVOKABLE void removeIngredient(QIngredient *ingredient);
+    Q_INVOKABLE void addIngredient(QRecipeIngredient *ingredient);
+    Q_INVOKABLE void removeIngredient(QRecipeIngredient *ingredient);
     Q_INVOKABLE void addInstruction(const QString &instruction);
     Q_INVOKABLE void removeInstruction(const QString &instruction);
     Q_INVOKABLE void removeInstructionAt(int index);

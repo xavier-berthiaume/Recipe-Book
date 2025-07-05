@@ -14,6 +14,8 @@
 #include "datacache.h"
 #include "recipeingredientfactory.h"
 #include "recipeingredientlistmodel.h"
+#include "recipefactory.h"
+#include "recipelistmodel.h"
 
 namespace Ui {
 class RecipeRootView;
@@ -26,13 +28,12 @@ class RecipeRootView : public QWidget {
 
   DataCache *m_cache;
 
-  RecipeIngredientFactory *m_recipeIngredientFactory;
-
   QStackedWidget *m_stackedWidget;
+  QListView *m_recipeList;
   QLabel *m_formTitleLabel;
-  QLineEdit *nameEdit;
-  QPlainTextEdit *descriptionEdit;
-  QTimeEdit *prepTimeEdit;
+  QLineEdit *m_nameEdit;
+  QPlainTextEdit *m_descriptionEdit;
+  QTimeEdit *m_prepTimeEdit;
   QPushButton *m_recipeIngredientDeleteButton;
   QListWidget *m_instructionList;
   QLineEdit *m_instructionEdit;
@@ -44,7 +45,11 @@ class RecipeRootView : public QWidget {
   QPushButton *m_deleteEquipmentButton;
   QPushButton *m_confirmButton;
 
+  RecipeIngredientFactory *m_recipeIngredientFactory;
   RecipeIngredientListModel *m_recipeIngredientModel;
+
+  RecipeFactory *m_recipeFactory;
+  RecipeListModel *m_recipeModel;
 
   QModelIndex m_editRecipe = QModelIndex();
   QModelIndex m_selectedRecipeIngredient = QModelIndex();
@@ -53,6 +58,7 @@ class RecipeRootView : public QWidget {
   bool m_editMode = false;
 
   bool validateFields();
+  void clearFields();
 
 public:
   explicit RecipeRootView(DataCache *cache = nullptr,
@@ -77,9 +83,21 @@ private slots:
   void on_deleteInstructionButton_clicked();
   void on_deleteEquipmentButton_clicked();
   void on_formInfoChanged();
+  void on_nameEdit_textChanged(const QString &arg1);
+  void on_descriptionEdit_textChanged();
+  void on_prepTimeEdit_timeChanged(const QTime &time);
+  void recipeCreated(QRecipe *newRecipe);
 
 signals:
-  void formSubmitted();
+  void formSubmitted(
+        const QString &name,
+        const QString &description,
+        quint32 prepTimeMinutes,
+        const QList<QRecipeIngredient *> &recipeIngredients,
+        const QStringList &instructions,
+        const QStringList &equipment
+    );
+  void formInfoChanged();
 };
 
 #endif // RECIPEROOTVIEW_H

@@ -8,11 +8,13 @@ IngredientSelectorDialog::IngredientSelectorDialog(DataCache *cache, QWidget *pa
 {
     ui->setupUi(this);
 
-    ingredientModel = new IngredientListModel(this);
+    m_recipeModel = new RecipeListModel(this);
+    m_ingredientModel = new IngredientListModel(this);
     delegate = new IngredientSelectionDelegate(this);
 
     if (m_cache) {
-        ingredientModel->populate(m_cache->getIngredientCache());
+        m_ingredientModel->populate(m_cache->getIngredientCache());
+        m_recipeModel->populate(m_cache->getRecipeCache());
     }
 
     m_ingredientButton = findChild<QPushButton *>("ingredientButton");
@@ -62,7 +64,7 @@ void IngredientSelectorDialog::on_ingredientButton_pressed()
     m_ingredientButton->setDisabled(true);
     m_recipeButton->setDisabled(false);
     // Change the model that's represented in the listview
-    m_listView->setModel(ingredientModel);
+    m_listView->setModel(m_ingredientModel);
 }
 
 
@@ -71,6 +73,7 @@ void IngredientSelectorDialog::on_recipeButton_pressed()
     m_ingredientButton->setDisabled(false);
     m_recipeButton->setDisabled(true);
     // Change the model that's represented in the listview
+    m_listView->setModel(m_recipeModel);
 
 }
 
@@ -110,8 +113,9 @@ void IngredientSelectorDialog::on_buttonBox_accepted()
 
     QIngredient *ingredient;
     if (m_ingredientButton->isEnabled()) { // It's a recipe
+        ingredient = m_recipeModel->getRecipe(m_listView->currentIndex());
     } else { // It's an ingredient
-        ingredient = ingredientModel->getIngredient(m_listView->currentIndex());
+        ingredient = m_ingredientModel->getIngredient(m_listView->currentIndex());
     }
 
     QString quantity = m_quantitySpinbox->text();
@@ -126,4 +130,5 @@ void IngredientSelectorDialog::on_buttonBox_accepted()
     qDebug() << "Submitted form for recipe ingredient " << ingredient->getName();
     emit formSubmitted(ingredient, quantity, unit, isRecipe);
 }
+
 

@@ -9,6 +9,7 @@
 #include "datacache.h"
 #include "qrecipeingredient.h"
 #include "ingredientlistmodel.h"
+#include "recipelistmodel.h"
 #include "ingredientselectiondelegate.h"
 
 namespace Ui {
@@ -22,7 +23,8 @@ class IngredientSelectorDialog : public QDialog
     Ui::IngredientSelectorDialog *ui;
 
     DataCache *m_cache;
-    IngredientListModel *ingredientModel;
+    IngredientListModel *m_ingredientModel;
+    RecipeListModel *m_recipeModel;
     IngredientSelectionDelegate *delegate;
 
     QPushButton *m_ingredientButton;
@@ -39,9 +41,7 @@ public:
 
 private slots:
     void on_ingredientButton_pressed();
-
     void on_recipeButton_pressed();
-
     void on_quantitySpinbox_valueChanged(double arg1);
     void on_unitCombobox_currentIndexChanged(int index);
     void on_listView_indexesMoved(const QModelIndexList &indexes);

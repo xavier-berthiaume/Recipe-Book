@@ -96,3 +96,36 @@ void DataCache::removeIngredientFromCache(QIngredient *ingredient) {
     emit ingredientRemoved(ingredient);
     emit ingredientCacheChanged();
 }
+
+QList<QRecipe *> DataCache::getRecipeCache() const {
+    return m_recipesCache;
+}
+
+void DataCache::addRecipeToCache(QRecipe *recipe) {
+    if (!recipe || m_recipesCache.contains(recipe)) {
+        return;
+    }
+
+    m_recipesCache.append(recipe);
+    qDebug() << "Added recipe to cache" << recipe->getName();
+    emit recipeAdded(recipe);
+    emit recipeCacheChanged();
+}
+
+void DataCache::removeRecipeFromCache(QRecipe *recipe) {
+    if (!recipe || !m_recipesCache.contains(recipe)) {
+        qDebug() << "No recipe or recipe isn't in cache";
+        return;
+    }
+
+    m_recipesCache.removeOne(recipe);
+    qDebug() << "Removed recipe from cache: " << recipe->getName();
+
+    if (!m_recipesToRemove.contains(recipe)) {
+        m_recipesToRemove.append(recipe);
+        qDebug() << "Marking recipe for deletion:" << recipe->getName();
+    }
+
+    emit recipeRemoved(recipe);
+    emit recipeCacheChanged();
+}
