@@ -5,17 +5,17 @@
 
 #include "qprofile.h"
 
-class ProfileFactory : public QObject
-{
-    Q_OBJECT
+class ProfileFactory : public QObject {
+  Q_OBJECT
 
 public:
-    ProfileFactory(QObject *parent = nullptr);
+  ProfileFactory(QObject *parent = nullptr);
 
-    void createProfile(const QString &username);
+  void createProfile(const QString &username);
+  QProfile *loadProfile(const QUuid &id, const QString &username);
 
 signals:
-    void profileCreated(QProfile *newProfile);
+  void profileCreated(QProfile *newProfile);
 };
 
 #endif // PROFILEFACTORY_H

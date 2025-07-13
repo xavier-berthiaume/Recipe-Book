@@ -16,6 +16,11 @@ public:
                     const QList<QRecipeIngredient *> &ingredients,
                     const QStringList &instructions,
                     const QStringList &equipment);
+  QRecipe *loadRecipe(const QUuid &id, QProfile *creator, const QString &name,
+                      const QString &description, quint32 prepTime,
+                      const QList<QRecipeIngredient *> &ingredients,
+                      const QStringList &instructions,
+                      const QStringList &equipment, const QString &notes);
 
 signals:
   void recipeCreated(QRecipe *newRecipe);

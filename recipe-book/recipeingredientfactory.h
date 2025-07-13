@@ -5,19 +5,21 @@
 
 #include "qrecipeingredient.h"
 
-class RecipeIngredientFactory : public QObject
-{
-    Q_OBJECT
+class RecipeIngredientFactory : public QObject {
+  Q_OBJECT
 public:
-    explicit RecipeIngredientFactory(QObject *parent = nullptr);
+  explicit RecipeIngredientFactory(QObject *parent = nullptr);
 
-    void createRecipeIngredient(QIngredient *ingredient,
-                                const QString &quantity,
-                                QRecipeIngredient::Units unit,
-                                bool isRecipe);
+  void createRecipeIngredient(QIngredient *ingredient, const QString &quantity,
+                              QRecipeIngredient::Units unit, bool isRecipe);
+  QRecipeIngredient *loadRecipeIngredient(const QUuid &id,
+                                          QIngredient *ingredient,
+                                          const QString &quantity,
+                                          QRecipeIngredient::Units unit,
+                                          bool isRecipe);
 
 signals:
-    void recipeIngredientCreated(QRecipeIngredient *newRecipeIngredient);
+  void recipeIngredientCreated(QRecipeIngredient *newRecipeIngredient);
 };
 
 #endif // RECIPEINGREDIENTFACTORY_H

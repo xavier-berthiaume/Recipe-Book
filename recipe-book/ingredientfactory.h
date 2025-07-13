@@ -14,6 +14,8 @@ public:
 
   void createIngredient(QProfile *currentUser, const QString &name,
                         const QString &description);
+  QIngredient *loadIngredient(const QUuid &id, QProfile *creator,
+                              const QString &name, const QString &description);
 
 signals:
   void ingredientCreated(QIngredient *newIngredient);

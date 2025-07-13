@@ -7,39 +7,41 @@
 #include "qprofile.h"
 #include "storable.h"
 
-class QIngredient : public Storable
-{
-    Q_OBJECT
+class QIngredient : public Storable {
+  Q_OBJECT
 
-    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(QString description READ getDescription WRITE setDescription NOTIFY descriptionChanged)
-    Q_PROPERTY(QProfile *m_creator READ getCreator WRITE setCreator NOTIFY creatorChanged)
+  Q_PROPERTY(QString name READ getName WRITE setName NOTIFY nameChanged)
+  Q_PROPERTY(QString description READ getDescription WRITE setDescription NOTIFY
+                 descriptionChanged)
+  Q_PROPERTY(QProfile *m_creator READ getCreator WRITE setCreator NOTIFY
+                 creatorChanged)
 
-    Ingredient m_ingredient;
+  Ingredient m_ingredient;
 
 protected:
-    QProfile *m_creator;
+  QProfile *m_creator;
 
 public:
-    explicit QIngredient(QObject *parent = nullptr);
-    explicit QIngredient(QUuid id, QObject *parent = nullptr);
-    explicit QIngredient(const QString &name, const QString &description, QObject *parent = nullptr);
-    explicit QIngredient(const Ingredient &ingredient, QObject *parent = nullptr);
+  explicit QIngredient(QObject *parent = nullptr);
+  explicit QIngredient(const QUuid &id, QObject *parent = nullptr);
+  explicit QIngredient(const QString &name, const QString &description,
+                       QObject *parent = nullptr);
+  explicit QIngredient(const Ingredient &ingredient, QObject *parent = nullptr);
 
-    ~QIngredient();
+  ~QIngredient();
 
-    QString getName() const;
-    QString getDescription() const;
-    QProfile *getCreator() const;
+  QString getName() const;
+  QString getDescription() const;
+  QProfile *getCreator() const;
 
-    void setName(const QString &name);
-    void setDescription(const QString &decsription);
-    void setCreator(QProfile *creator);
+  void setName(const QString &name);
+  void setDescription(const QString &decsription);
+  void setCreator(QProfile *creator);
 
 signals:
-    void nameChanged();
-    void descriptionChanged();
-    void creatorChanged();
+  void nameChanged();
+  void descriptionChanged();
+  void creatorChanged();
 };
 
 #endif // QINGREDIENT_H

@@ -6,34 +6,38 @@
 
 #include "qprofile.h"
 
-class ProfileListModel : public QAbstractListModel
-{
-    Q_OBJECT
+class ProfileListModel : public QAbstractListModel {
+  Q_OBJECT
 
-    QList<QProfile *> m_profiles;
+  QList<QProfile *> m_profiles;
+
 public:
-    enum Roles {
-        UsernameRole = Qt::UserRole + 1,
-        IdRole,
-        ProfileRole,
-    };
+  enum Roles {
+    UsernameRole = Qt::UserRole + 1,
+    IdRole,
+    ProfileRole,
+  };
 
-    explicit ProfileListModel(QObject *parent = nullptr);
+  explicit ProfileListModel(QObject *parent = nullptr);
 
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+  int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+  QVariant data(const QModelIndex &index,
+                int role = Qt::DisplayRole) const override;
 
-    QHash<int, QByteArray> roleNames() const override;
+  QHash<int, QByteArray> roleNames() const override;
 
-    void addProfile(QProfile *profile);
+  void populate(const QList<QProfile *> &profiles);
 
-    void modifyProfile(int index, const QVariant &data, int role = Qt::DisplayRole);
+  void addProfile(QProfile *profile);
 
-    void removeProfile(int index);
+  void modifyProfile(int index, const QVariant &data,
+                     int role = Qt::DisplayRole);
+
+  void removeProfile(int index);
 
 public slots:
-    void profileCreated(QProfile *profile);
+  void profileCreated(QProfile *profile);
 };
 
 #endif // PROFILELISTMODEL_H

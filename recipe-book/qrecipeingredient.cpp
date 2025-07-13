@@ -4,6 +4,9 @@
 
 QRecipeIngredient::QRecipeIngredient(QObject *parent) : Storable(parent) {}
 
+QRecipeIngredient::QRecipeIngredient(const QUuid &id, QObject *parent)
+    : Storable(id, parent) {}
+
 QRecipeIngredient::QRecipeIngredient(QIngredient *ingredient,
                                      const QString &quantity, Units unit,
                                      QObject *parent)

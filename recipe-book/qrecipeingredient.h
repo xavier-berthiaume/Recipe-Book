@@ -40,6 +40,7 @@ public:
   };
 
   explicit QRecipeIngredient(QObject *parent = nullptr);
+  explicit QRecipeIngredient(const QUuid &id, QObject *parent = nullptr);
   explicit QRecipeIngredient(QIngredient *ingredient, const QString &quantity,
                              Units unit, QObject *parent = nullptr);
 
