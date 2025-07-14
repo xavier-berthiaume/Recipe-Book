@@ -1,4 +1,4 @@
-# Post moretem on this phase of the project
+# Post mortem on this phase of the project
 
 Recipe Book is supposed to be an application centered around the creation, maintenance and safekeeping of recipes. This phase of the project has been successful at letting users create recipes, ingreients, and user profiles. Where the project has only been partially successful is in the maintenance and safeguard of this data. Currently, only profiles and ingredients are saved correctly to the database, editing changes aren't reflected yet in the database, and it isn't yet possible to delete entries, although these features are close to being fully inplemented. In truth the project will likely stay in this state due to a multitude of factors, and instead this README will serve as a post mortem analysis of what went right, what went wrong, and what I can do better when I re-create this exact application using the lessons learned.
 
