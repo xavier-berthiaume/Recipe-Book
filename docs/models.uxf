@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>119</x>
+      <y>294</y>
+      <w>217</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>/Storable/
+--
+# id : QUuid
+--
++ getId() : QUuid
++ accept(DatabaseVisitor *) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>462</x>
+      <y>476</y>
+      <w>182</w>
+      <h>119</h>
+    </coordinates>
+    <panel_attributes>QIngredient
+--
+- m_ingredient : Ingredient
+--
++ getName() : QString
++ setName(QString) : void
+
++ getDescription() : QString
++ setDescription(QString) : void
+
++ getCreatorId() : QUuid</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>392</x>
+      <y>273</y>
+      <w>322</w>
+      <h>161</h>
+    </coordinates>
+    <panel_attributes>QRecipe
+--
+- m_recipe : Recipe
+--
++ getRecipeIngredientIds() : QList&lt;QUuid&gt;
++ setRecipeIngredientIds(QList&lt;QUuid&gt;) : void
+
++ addIngredientId(QUuid) : void
++ removeIngredientId(QUuid) : void
+
+&lt;&lt;mutators for the other fields, use Qt datatypes&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>441</x>
+      <y>616</y>
+      <w>231</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>QProfile
+--
+- m_profile : Profile
+
+--
++ getUsername() : QString
++ setUsername(QString) : void
+
++ getOwnedIngredientIds() : QList&lt;QUuid&gt;
++ getOwnedRecipeIds() : QList&lt;QUuid&gt;
+
++ addOwnedIngredientId(QUuid) : void
++ removeOwnedIngredientId(QUuid) : void
+
++addOwnedRecipeId(QUuid) : void
++removeOwnedRecipeId(QUuid) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>7</x>
+      <y>308</y>
+      <w>70</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>QObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>763</x>
+      <y>0</y>
+      <w>210</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>RecipeIngredient
+--
+# m_ingredientID : std::string
+# m_quantity : double
+# m_unit : std::string
+--
+&lt;&lt;normal mutators&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>476</y>
+      <w>196</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Ingredient
+--
+# m_name : std::string
+# m_description : std::string
+# m_createdById : const std::string
+--
+&lt;&lt;normal mutators&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>763</x>
+      <y>630</y>
+      <w>224</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>Profile
+--
+# m_username : std::string
+# m_ingredientIds : std::list&lt;std::string&gt;
+# m_recipeIds : std::list&lt;std::string&gt;
+--
+&lt;&lt;normal mutators&gt;&gt;
+
++ addIngredientId(std::string) : void
++ removeIngredientId(std::string) : void
+
++ addRecipeId(std::string) : void
++ removeRecipeId(std::string) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>763</x>
+      <y>301</y>
+      <w>210</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Recipe
+--
+# m_recipeIngredientIds : std::list&lt;std::string&gt;
+# m_instructions : std::list&lt;std::string&gt;
+# m_equipment : std::list&lt;std::string&gt;
+# m_notes : std::string
+# m_prepTime : uint32_t
+--
+&lt;&lt;normal mutators&gt;&gt;
+
++ addIngredientId(std::string) : void
++ removeIngredientId(std::string) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>70</x>
+      <y>315</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>329</x>
+      <y>315</y>
+      <w>126</w>
+      <h>406</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;560.0;160.0;560.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>665</x>
+      <y>700</y>
+      <w>112</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>637</x>
+      <y>525</y>
+      <w>147</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>190.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>329</x>
+      <y>315</y>
+      <w>147</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0;70.0;320.0;190.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>861</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>546</x>
+      <y>427</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>707</x>
+      <y>357</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>861</x>
+      <y>70</y>
+      <w>21</w>
+      <h>245</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>658</x>
+      <y>0</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>329</x>
+      <y>0</y>
+      <w>133</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;460.0;70.0;460.0;70.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>966</x>
+      <y>0</y>
+      <w>70</w>
+      <h>378</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;520.0;80.0;520.0;80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>959</x>
+      <y>0</y>
+      <w>77</w>
+      <h>546</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;760.0;90.0;760.0;90.0;10.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>0</y>
+      <w>217</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>QRecipeIngredient
+--
+- m_recipeIngredient : RecipeIngredient
+--
+&lt;&lt;normal mutators&gt;&gt;
+--
+&lt;&lt;enumeration&gt;&gt;
+Units
+--
++ KILOGRAMS
++ GRAMS
++ MILLIGRAMS
++ LITERS
++ CENTILITERS
++ MILLILITERS
++ GALLONS
++ PINTS
++ CUPS
++ TABLESPOONS
++ TEASPOONS</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>889</y>
+      <w>182</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>GenericFactorySS
+--
+&lt;&lt;signals&gt;&gt;
++ objectCreated(QObject *) : void
++ objectLoaded(QObject *) : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>294</x>
+      <y>889</y>
+      <w>196</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>/GenericFactory&lt;T&gt;/
+--
+/+ createObject(QVariantMap) : T */
+/+ loadObject(QVariantMap) : T */</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>175</x>
+      <y>917</y>
+      <w>133</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>56</x>
+      <y>770</y>
+      <w>70</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>QObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>84</x>
+      <y>791</y>
+      <w>21</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1029</x>
+      <y>1001</y>
+      <w>252</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>ProfileFactory&lt;QProfile&gt;
+--
+- createProfile(QUuid, QString) : QProfile *
+- createProfile(QString) : QProfile *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>518</x>
+      <y>819</y>
+      <w>252</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>IngredientFactory&lt;QIngredient&gt;
+--
+- createIngredient(QUuid, QString, QString) 
+  : QIngredient *
+- createIngredient(QString, QString) 
+  : QIngredient *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>819</x>
+      <y>819</y>
+      <w>329</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>RecipeIngredientFactory&lt;QRecipeIngredient&gt;
+--
+- createRecipeIngredient(QUuid, QUuid, qdouble, QString) 
+  : QRecipeIngredient *
+- createRecipeIngredient(QUuid, qdouble, QString) 
+  : QRecipeIngredient *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>518</x>
+      <y>1001</y>
+      <w>469</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>RecipeFactory&lt;QRecipe&gt;
+--
+- createRecipe(QUuid, QList&lt;QUuid&gt;, QList&lt;QString&gt;, QList&lt;QString&gt;, QString, quint32) 
+  : QRecipe *
+- createRecipe(QList&lt;QUuid&gt;, QList&lt;QString&gt;, QList&lt;QString&gt;, QString, quint32) 
+  : QRecipe *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>889</y>
+      <w>175</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;230.0;60.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>889</y>
+      <w>511</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;710.0;60.0;710.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>924</y>
+      <w>686</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;960.0;10.0;960.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>924</y>
+      <w>287</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;390.0;10.0;390.0;110.0</additional_attributes>
+  </element>
+</diagram>

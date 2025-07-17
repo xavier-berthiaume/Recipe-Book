@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>56</x>
+      <y>238</y>
+      <w>287</w>
+      <h>287</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/AbstractDbHandler/
+--
+/~AbstractDbHandler()/
+
+/+ saveObject(QObject *) : bool/
+/+ updateObject(QObject *) : bool/
+/+ readObject(ObjectType, QUuid) : QObject */
+/+ readAllObjects(ObjectType) : QList&lt;QObject *&gt;/
+/+ removeObject(QObject *) : bool/
+
+/+ beginTransaction() : void/
+/+ rollbackTransaction() : void/
+/+ commitTransaction() : void/
+
+/+ saver() : DatabaseVisitor */
+/+ updater() : DatabaseVisitor */
+/+ reader() : DatabaseVisitor */
+/+ deleter() : DatabaseVisitor */
+--
+&lt;&lt;enum&gt;&gt;
+ObjectType
++ Profile
++ Ingredient
++ RecipeIngredient
++ Recipe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>441</x>
+      <y>238</y>
+      <w>259</w>
+      <h>287</h>
+    </coordinates>
+    <panel_attributes>SqliteDbHandler
+--
+- m_db : QSqlDatabase
+--
+- initializeDatabase() : void
+--
+&lt;&lt;inner classes inherit AbstractSqliteVisitor&gt;&gt;
+{innerclass
+SqliteSaver
+innerclass}
+{innerclass
+SqliteUpdater
+innerclass}
+{innerclass
+SqliteReader
+innerclass}
+{innerclass
+SqliteDeleter
+innerclass}</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1141</x>
+      <y>245</y>
+      <w>266</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>DataCache
+--
+# m_profiles : ProfileCache
+# m_ingredients : IngredientCache
+# m_recipeIngredients : RecipeIngredientCache
+# m_recipes : RecipeCache
+--
+&lt;&lt;normal mutators&gt;&gt;
+
++ getProfile(QUuid) : QProfile *
++ getIngredient(QUuid) : QIngredient *
++ getRecipeIngredient(QUuid) : QRecipeIngredient *
++ getRecipe(QUuid) : QRecipe *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>588</x>
+      <y>609</y>
+      <w>322</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>/GenericObjectCache&lt;T&gt;/
+--
+# m_objectList : QList&lt;T *&gt;
+# m_toSave : QList&lt;T *&gt;
+# m_toUpdate : QList&lt;T *&gt;
+# m_toDelete : QList&lt;T *&gt;
+--
+&lt;&lt;normal mutators to add/remove/get&gt;&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>357</x>
+      <y>609</y>
+      <w>196</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>/GenericObjectCacheSS/
+--
+&lt;&lt;signals&gt;&gt;
++ cacheChanged() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>987</x>
+      <y>609</y>
+      <w>238</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>ProfileCache&lt;QProfile&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>987</x>
+      <y>665</y>
+      <w>238</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>IngredientCache&lt;QIngredient&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>987</x>
+      <y>721</y>
+      <w>238</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>RecipeIngredientCache&lt;QRecipeIngredient&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>987</x>
+      <y>777</y>
+      <w>238</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>RecipeCache&lt;QRecipe&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>546</x>
+      <y>616</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>609</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>QObject
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>616</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>616</y>
+      <w>98</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>616</y>
+      <w>98</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;90.0;120.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>616</y>
+      <w>98</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;170.0;120.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>903</x>
+      <y>616</y>
+      <w>98</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;250.0;120.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1225</x>
+      <y>182</y>
+      <w>98</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>QObject
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1267</x>
+      <y>203</y>
+      <w>21</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>385</y>
+      <w>70</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;340.0;80.0;340.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>385</y>
+      <w>70</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;420.0;80.0;420.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>385</y>
+      <w>70</w>
+      <h>364</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;500.0;80.0;500.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1218</x>
+      <y>385</y>
+      <w>70</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;580.0;80.0;580.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>959</x>
+      <y>154</y>
+      <w>196</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>ApplicationCleanup
+--
+# m_cache : DataCache
+# m_database : AbstractDbHander
+--
+&lt;&lt;slots&gt;&gt;
++ handleShutdown() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1148</x>
+      <y>189</y>
+      <w>91</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>217</y>
+      <w>105</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>189</x>
+      <y>189</y>
+      <w>784</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0;1100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>413</y>
+      <w>203</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/DatabaseVisitor/
+--
+/+ ~DatabaseVisitor()/
+
+/+ visit(QProfile *) : void/
+/+ visit(QIngredient *) : void/
+/+ visit(QRecipeIngredient *) : void/
+/+ visit(QRecipe *) : void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>189</x>
+      <y>518</y>
+      <w>98</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>120.0;130.0;120.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>266</x>
+      <y>518</y>
+      <w>588</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;50.0;820.0;50.0;820.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>742</x>
+      <y>336</y>
+      <w>203</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>/AbstractSqliteVisitor/
+--
+# m_manager : SqliteDbHandler *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>833</x>
+      <y>364</y>
+      <w>21</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>294</y>
+      <w>119</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>693</x>
+      <y>294</y>
+      <w>161</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;210.0;10.0;210.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>952</x>
+      <y>826</y>
+      <w>315</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+Eventually it might be a good idea to cook up some way of organizing the caches to make it faster to look up data and know if something is missing based on some criteria. Binary tree maybe?</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
