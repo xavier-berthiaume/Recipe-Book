@@ -21,11 +21,11 @@ public:
   explicit QIngredient(const QUuid &id, const QString &name,
                        const QString &description, QObject *parent = nullptr);
 
-  QString getName() const;
-  QString getDescription() const;
+  virtual QString getName() const;
+  virtual QString getDescription() const;
 
-  void setName(const QString &name);
-  void setDescription(const QString &description);
+  virtual void setName(const QString &name);
+  virtual void setDescription(const QString &description);
 
 signals:
   void nameChanged();

@@ -19,6 +19,17 @@ set(PROJECT_SOURCES
         ui/mainwindow.cpp
         ui/mainwindow.h
         ui/mainwindow.ui
+
+        models/ingredient.h models/ingredient.cpp
+        models/profile.h models/profile.cpp
+        models/recipe.h models/recipe.cpp
+        models/recipeingredient.h models/recipeingredient.cpp
+
+        models/storable.h models/storable.cpp
+        models/qingredient.h models/qingredient.cpp
+        models/qprofile.h models/qprofile.cpp
+        models/qrecipe.h models/qrecipe.cpp
+        models/qrecipeingredient.h models/qrecipeingredient.cpp
         ${TS_FILES}
 )
 

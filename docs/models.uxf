@@ -516,4 +516,16 @@ Units
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;390.0;10.0;390.0;110.0</additional_attributes>
   </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1050</x>
+      <y>350</y>
+      <w>161</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+I'm not implementing this inheritance pattern correctly. If I create a QRecipe object, it will contain both an Ingredient object and a Recipe object (that inherits from its own Ingredient object). This means that I'm duplicating Ingredient objects. My temporary solution is to mark the QIngredient mutators as virtual and overriding them in the QRecipe class.</panel_attributes>
+    <additional_attributes/>
+  </element>
 </diagram>

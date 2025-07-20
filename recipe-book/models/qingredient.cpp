@@ -21,7 +21,7 @@ QString QIngredient::getDescription() const {
 }
 
 void QIngredient::setName(const QString &name) {
-  if (name == m_ingredient.getName())
+  if (name == QString::fromStdString(m_ingredient.getName()))
     return;
 
   m_ingredient.setName(name.toStdString());
@@ -29,7 +29,7 @@ void QIngredient::setName(const QString &name) {
 }
 
 void QIngredient::setDescription(const QString &description) {
-  if (description == m_ingredient.getDescription())
+  if (description == QString::fromStdString(m_ingredient.getDescription()))
     return;
 
   m_ingredient.setDescription(description.toStdString());
