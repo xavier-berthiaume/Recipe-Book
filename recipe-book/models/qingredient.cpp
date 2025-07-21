@@ -1,16 +1,21 @@
 #include "qingredient.h"
 
-QIngredient::QIngredient(const QString &name, const QString &description,
-                         QObject *parent)
-    : Storable(parent),
-      m_ingredient(QUuid::createUuid().toString().toStdString(),
-                   name.toStdString(), description.toStdString()) {}
-
-QIngredient::QIngredient(const QUuid &id, const QString &name,
+QIngredient::QIngredient(const QUuid &creatorId, const QString &name,
                          const QString &description, QObject *parent)
     : Storable(parent),
-      m_ingredient(id.toString().toStdString(), name.toStdString(),
+      m_ingredient(creatorId.toString().toStdString(), name.toStdString(),
                    description.toStdString()) {}
+
+QIngredient::QIngredient(const QUuid &id, const QUuid &creatorId,
+                         const QString &name, const QString &description,
+                         QObject *parent)
+    : Storable(id, parent),
+      m_ingredient(creatorId.toString().toStdString(), name.toStdString(),
+                   description.toStdString()) {}
+
+QUuid QIngredient::getCreatorId() const {
+  return QUuid::fromString(QString::fromStdString(m_ingredient.getCreatorId()));
+}
 
 QString QIngredient::getName() const {
   return QString::fromStdString(m_ingredient.getName());

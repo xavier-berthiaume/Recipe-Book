@@ -15,12 +15,14 @@ class QIngredient : public Storable {
 
 public:
   // In this case we're using the factory to create a QIngredient with form data
-  explicit QIngredient(const QString &name, const QString &description,
-                       QObject *parent = nullptr);
-  // In this case we're loading a QIngredient from the database
-  explicit QIngredient(const QUuid &id, const QString &name,
+  explicit QIngredient(const QUuid &creatorId, const QString &name,
                        const QString &description, QObject *parent = nullptr);
+  // In this case we're loading a QIngredient from the database
+  explicit QIngredient(const QUuid &id, const QUuid &creatorId,
+                       const QString &name, const QString &description,
+                       QObject *parent = nullptr);
 
+  virtual QUuid getCreatorId() const;
   virtual QString getName() const;
   virtual QString getDescription() const;
 

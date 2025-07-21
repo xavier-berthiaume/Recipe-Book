@@ -1,6 +1,7 @@
 #include "qprofile.h"
 
-QProfile::QProfile(QObject *parent) : Storable(parent), m_profile("") {}
+QProfile::QProfile(const QUuid &id, const QString &username, QObject *parent)
+    : Storable(id, parent), m_profile(username.toStdString()) {}
 
 QProfile::QProfile(const QString &username, QObject *parent)
     : Storable(parent), m_profile(username.toStdString()) {}

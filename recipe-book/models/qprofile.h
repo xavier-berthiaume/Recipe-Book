@@ -13,8 +13,9 @@ class QProfile : public Storable {
   Profile m_profile;
 
 public:
-  explicit QProfile(QObject *parent = nullptr);
   explicit QProfile(const QString &username, QObject *parent = nullptr);
+  explicit QProfile(const QUuid &id, const QString &username,
+                    QObject *parent = nullptr);
 
   QString getUsername() const;
 

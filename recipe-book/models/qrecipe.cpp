@@ -56,14 +56,18 @@ bool QRecipe::compareListsWithoutDuplicates(const std::list<T> &list1,
   return true;
 }
 
-QRecipe::QRecipe(const QString &name, const QString &description,
-                 const QString &notes, const QList<QUuid> &ingredientIds,
+QRecipe::QRecipe(const QUuid &creatorId, const QString &name,
+                 const QString &description, const QString &notes,
+                 const QList<QUuid> &ingredientIds,
                  const QStringList &instructions, const QStringList &equipment,
                  quint32 prepTime, QObject *parent)
-    : QRecipe(QUuid::createUuid(), name, description, notes, ingredientIds,
-              instructions, equipment, prepTime, parent) {}
+    : QIngredient(creatorId, name, description, parent),
+      m_recipe(creatorId.toString().toStdString(), name.toStdString(),
+               description.toStdString(), notes.toStdString(),
+               toStdList(ingredientIds), toStdList(instructions),
+               toStdList(equipment), prepTime) {}
 
-QRecipe::QRecipe(const QUuid &creatorId, const QString &name,
+QRecipe::QRecipe(const QUuid &id, const QUuid &creatorId, const QString &name,
                  const QString &description, const QString &notes,
                  const QList<QUuid> &ingredientIds,
                  const QStringList &instructions, const QStringList &equipment,
@@ -73,6 +77,10 @@ QRecipe::QRecipe(const QUuid &creatorId, const QString &name,
                description.toStdString(), notes.toStdString(),
                toStdList(ingredientIds), toStdList(instructions),
                toStdList(equipment), prepTime) {}
+
+QUuid QRecipe::getCreatorId() const {
+  return QUuid::fromString(QString::fromStdString(m_recipe.getCreatorId()));
+}
 
 QString QRecipe::getName() const {
   return QString::fromStdString(m_recipe.getName());

@@ -32,13 +32,6 @@ class QRecipe : public QIngredient {
 
 public:
   // For creating objects
-  explicit QRecipe(const QString &name, const QString &description,
-                   const QString &notes, const QList<QUuid> &ingredientIds,
-                   const QStringList &instructions,
-                   const QStringList &equipment, quint32 prepTime,
-                   QObject *parent = nullptr);
-
-  // For loading objects
   explicit QRecipe(const QUuid &creatorId, const QString &name,
                    const QString &description, const QString &notes,
                    const QList<QUuid> &ingredientIds,
@@ -46,6 +39,15 @@ public:
                    const QStringList &equipment, quint32 prepTime,
                    QObject *parent = nullptr);
 
+  // For loading objects
+  explicit QRecipe(const QUuid &id, const QUuid &creatorId, const QString &name,
+                   const QString &description, const QString &notes,
+                   const QList<QUuid> &ingredientIds,
+                   const QStringList &instructions,
+                   const QStringList &equipment, quint32 prepTime,
+                   QObject *parent = nullptr);
+
+  QUuid getCreatorId() const override;
   QString getName() const override;
   QString getDescription() const override;
   QString getNotes() const;

@@ -414,7 +414,7 @@ Units
     <id>UMLClass</id>
     <coordinates>
       <x>1029</x>
-      <y>1001</y>
+      <y>966</y>
       <w>252</w>
       <h>56</h>
     </coordinates>
@@ -460,7 +460,7 @@ Units
     <id>UMLClass</id>
     <coordinates>
       <x>518</x>
-      <y>1001</y>
+      <y>966</y>
       <w>469</w>
       <h>70</h>
     </coordinates>
@@ -500,10 +500,10 @@ Units
       <x>483</x>
       <y>924</y>
       <w>686</w>
-      <h>91</h>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;960.0;10.0;960.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;960.0;10.0;960.0;60.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -511,10 +511,10 @@ Units
       <x>483</x>
       <y>924</y>
       <w>287</w>
-      <h>91</h>
+      <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;390.0;10.0;390.0;110.0</additional_attributes>
+    <additional_attributes>10.0;10.0;390.0;10.0;390.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
@@ -526,6 +526,18 @@ Units
     </coordinates>
     <panel_attributes>style=wordwrap
 I'm not implementing this inheritance pattern correctly. If I create a QRecipe object, it will contain both an Ingredient object and a Recipe object (that inherits from its own Ingredient object). This means that I'm duplicating Ingredient objects. My temporary solution is to mark the QIngredient mutators as virtual and overriding them in the QRecipe class.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>518</x>
+      <y>1064</y>
+      <w>462</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+These factory classes will be the parent objects to all their respective model objects. This will make memory management much simpler than trying to clean up random pointers that could be sent to any other data structure.</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

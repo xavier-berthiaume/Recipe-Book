@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class GenericFactorySS : QObject {
+class GenericFactorySS : public QObject {
   Q_OBJECT
 
 public:
