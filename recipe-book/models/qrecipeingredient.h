@@ -4,33 +4,34 @@
 #include "recipeingredient.h"
 #include "storable.h"
 
+enum Units {
+  INVALID = -1,
+  UNITLESS,
+  KILOGRAMS,
+  GRAMS,
+  MILLIGRAMS,
+  LITERS,
+  CENTILITERS,
+  MILLILITERS,
+  GALLONS,
+  PINTS,
+  CUPS,
+  TEASPOONS,
+  TABLESPOONS
+};
+
 class QRecipeIngredient : public Storable {
   Q_OBJECT
 
+  Q_ENUM(Units)
   Q_PROPERTY(QUuid ingredientId READ getIngredientId)
-  Q_PROPERTY(QString unit READ getUnit WRITE setUnit NOTIFY unitChanged)
+  Q_PROPERTY(QUnit unit READ getUnit WRITE setUnit NOTIFY unitChanged)
   Q_PROPERTY(
       double quantity READ getQuantity WRITE setQuantity NOTIFY quantityChanged)
 
   RecipeIngredient m_ingredient;
 
 public:
-  enum Units {
-    INVALID = -1,
-    UNITLESS,
-    KILOGRAMS,
-    GRAMS,
-    MILLIGRAMS,
-    LITERS,
-    CENTILITERS,
-    MILLILITERS,
-    GALLONS,
-    PINTS,
-    CUPS,
-    TEASPOONS,
-    TABLESPOONS
-  };
-
   static QString unitToString(Units unit);
   static Units stringToUnits(const QString &unit);
 
@@ -42,11 +43,10 @@ public:
                              QObject *parent = nullptr);
 
   QUuid getIngredientId() const;
-  QString getUnit() const;
+  Units getUnit() const;
   double getQuantity() const;
 
   void setIngredientId(const QString &ingredientId);
-  void setUnit(const QString &unit);
   void setUnit(Units unit);
   void setQuantity(double quantity);
 

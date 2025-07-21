@@ -34,7 +34,7 @@ QString QRecipeIngredient::unitToString(Units unit) {
   }
 }
 
-QRecipeIngredient::Units QRecipeIngredient::stringToUnits(const QString &unit) {
+Units QRecipeIngredient::stringToUnits(const QString &unit) {
   static const QHash<QString, Units> unitMap = {
       {"", UNITLESS},      {"kg", KILOGRAMS},  {"g", GRAMS},
       {"mg", MILLIGRAMS},  {"L", LITERS},      {"cL", CENTILITERS},
@@ -67,8 +67,8 @@ QUuid QRecipeIngredient::getIngredientId() const {
   return QUuid::fromString(m_ingredient.getIngredientId());
 }
 
-QString QRecipeIngredient::getUnit() const {
-  return QString::fromStdString(m_ingredient.getUnit());
+Units QRecipeIngredient::getUnit() const {
+  return stringToUnits(QString::fromStdString(m_ingredient.getUnit()));
 }
 
 double QRecipeIngredient::getQuantity() const {
@@ -83,15 +83,7 @@ void QRecipeIngredient::setIngredientId(const QString &ingredientId) {
   emit ingredientIdChanged();
 }
 
-void QRecipeIngredient::setUnit(const QString &unit) {
-  if (unit == QString::fromStdString(m_ingredient.getUnit()))
-    return;
-
-  m_ingredient.setUnit(unit.toStdString());
-  emit unitChanged();
-}
-
-void QRecipeIngredient::setUnit(QRecipeIngredient::Units unit) {
+void QRecipeIngredient::setUnit(Units unit) {
   QString unitString = unitToString(unit);
 
   if (unitString == QString::fromStdString(m_ingredient.getUnit()))
