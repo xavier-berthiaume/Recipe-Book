@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-
-#include "ingredient_carousel_form.h"
+#include "ingredient_root_view.h"
 
 #include <QMessageBox>
 #include <QVBoxLayout>
@@ -17,12 +16,12 @@ MainWindow::MainWindow(QWidget *parent)
   // from the database
   // initializeCaches();
 
-  // Add to layout
-  IngredientCarouselForm *form = new IngredientCarouselForm(this);
-  connect(form, &CarouselForm::formCompleted, ingredientFactory,
-          &IngredientFactory::ingredientFormSubmitted);
-
-  setCentralWidget(form);
+  IngredientRootView *ingredient_view =
+      new IngredientRootView(ingredientCache, this);
+  ingredient_view->setFactory(ingredientFactory);
+  connect(this, &MainWindow::newIngredient, ingredient_view,
+          &IngredientRootView::newIngredient);
+  setCentralWidget(ingredient_view);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -37,6 +36,7 @@ void MainWindow::setupFactories() {
             this->ingredientCache.append(newIngredient);
             qDebug() << "The current ingredient cache is "
                      << this->ingredientCache;
+            emit this->newIngredient(newIngredient);
           });
 }
 

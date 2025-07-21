@@ -23,9 +23,9 @@ class RecipeDisplayBox : public GenericObjectDisplayBox<QtRecipeWrapper> {
 
 protected:
   void updateDisplay() override;
+
   void enterEvent(QEnterEvent *event) override;
   void leaveEvent(QEvent *event) override;
-
   void mousePressEvent(QMouseEvent *event) override;
   void mouseReleaseEvent(QMouseEvent *event) override;
 
@@ -38,7 +38,7 @@ public:
   void setWrapper(QtRecipeWrapper *wrapper) override;
 
 signals:
-  void clicked();
+  void clicked(QtRecipeWrapper *recipe);
   void wrapperChanged();
 };
 

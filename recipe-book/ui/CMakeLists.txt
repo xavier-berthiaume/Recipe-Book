@@ -1,6 +1,7 @@
 # Gather all UI source files
 set(UI_SOURCES
     ui/mainwindow.cpp
+    ui/ingredient_root_view.cpp
     ui/display_box.cpp
     ui/generic_object_display_box.cpp
     ui/ingredient_display_box.cpp
@@ -18,6 +19,8 @@ set(UI_SOURCES
 
 set(UI_HEADERS
     ui/mainwindow.h
+    ui/generic_root_view.h
+    ui/ingredient_root_view.h
     ui/display_box.h
     ui/generic_object_display_box.h
     ui/ingredient_display_box.h

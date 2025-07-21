@@ -27,5 +27,8 @@ class MainWindow : public QMainWindow {
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+
+signals:
+  void newIngredient(QtIngredientWrapper *ingredient);
 };
 #endif // MAINWINDOW_H

@@ -124,7 +124,7 @@ void RecipeDisplayBox::mouseReleaseEvent(QMouseEvent *event) {
 
     if (rect().contains(event->pos())) {
       qDebug() << "Recipe " << m_wrapper->getId().toString() << " clicked";
-      emit clicked(); // Only emit if released inside box
+      emit clicked(m_wrapper); // Only emit if released inside box
     }
   }
   QWidget::mouseReleaseEvent(event);

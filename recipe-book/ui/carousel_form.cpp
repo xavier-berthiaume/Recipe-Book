@@ -55,6 +55,9 @@ void CarouselForm::setupNavigation() {
 
   connect(m_prevBtn, &QPushButton::pressed, this, &CarouselForm::showPrevious);
   connect(m_nextBtn, &QPushButton::pressed, this, &CarouselForm::showNext);
+
+  connect(m_cancelBtn, &QPushButton::pressed, this,
+          &CarouselForm::formCancelled);
 }
 
 void CarouselForm::animateTransition(int newIndex) {

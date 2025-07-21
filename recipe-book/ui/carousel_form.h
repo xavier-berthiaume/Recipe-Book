@@ -32,6 +32,7 @@ public slots:
 
 signals:
   void formCompleted(const QVariantMap &data);
+  void formCancelled();
 };
 
 #endif

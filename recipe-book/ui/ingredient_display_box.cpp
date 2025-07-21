@@ -7,7 +7,6 @@ IngredientDisplayBox::IngredientDisplayBox(QWidget *parent)
   m_layout->addWidget(m_name_label);
   m_layout->addWidget(m_description_label);
 
-  // Initial style
   setFixedSize(300, 150);
 
   // Configure labels
@@ -32,6 +31,12 @@ IngredientDisplayBox::IngredientDisplayBox(QWidget *parent)
   });
 }
 
+IngredientDisplayBox::IngredientDisplayBox(QtIngredientWrapper *wrapper,
+                                           QWidget *parent)
+    : IngredientDisplayBox(parent) {
+  setWrapper(wrapper);
+}
+
 void IngredientDisplayBox::updateDisplay() {
   if (!m_wrapper)
     return;
@@ -39,12 +44,35 @@ void IngredientDisplayBox::updateDisplay() {
   m_name_label->setText(m_wrapper->getName());
   m_description_label->setText(m_wrapper->getDescription());
 
-  // Update visual style based on properties
   if (m_wrapper->getIsRecipe()) {
     setStyleSheet("background: #e8f5e9; border: 2px solid #81c784;");
   } else {
     setStyleSheet("background: #fff3e0; border: 2px solid #ffb74d;");
   }
+
+  emit updatedDisplay();
+}
+
+void IngredientDisplayBox::mousePressEvent(QMouseEvent *event) {
+  if (event->button() == Qt::LeftButton) {
+    m_pressed = true;
+    // Visual feedback for press
+    setBackgroundColor(backgroundColor().darker(110));
+  }
+  QWidget::mousePressEvent(event);
+}
+
+void IngredientDisplayBox::mouseReleaseEvent(QMouseEvent *event) {
+  if (m_pressed && event->button() == Qt::LeftButton) {
+    m_pressed = false;
+    setBackgroundColor(backgroundColor());
+
+    if (rect().contains(event->pos())) {
+      qDebug() << "Recipe " << m_wrapper->getId().toString() << " clicked";
+      emit clicked(m_wrapper); // Only emit if released inside box
+    }
+  }
+  QWidget::mouseReleaseEvent(event);
 }
 
 void IngredientDisplayBox::setWrapper(QtIngredientWrapper *wrapper) {
