@@ -86,7 +86,9 @@ in using anything more robust.
 
 # Files in Directory
 
-```models.uxf``` UML of the core data structures used in the project. Shows the 'raw' C++ implementations as well as the Qt based wrapper classes. 
-```ui.uxf``` UML of the different support classes used by Qt's MVC framework. Contains the different child classes for the QAbstractListModel and QStyledItemDelegate classes. 
+```models.uxf``` UML of the core data structures used in the project. Shows the 'raw' C++ implementations as well as the Qt based wrapper classes.
+
+```ui.uxf``` UML of the different support classes used by Qt's MVC framework. Contains the different child classes for the QAbstractListModel and QStyledItemDelegate classes.
+
 ```data.uxf``` UML of the data layer of the application. Contains information about the software's cache, as well as the database layer and the visitor class that streamlines saving different object types.
 
