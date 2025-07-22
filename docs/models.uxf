@@ -9,7 +9,7 @@
       <w>217</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>/Storable/
+    <panel_attributes>Storable
 --
 # id : QUuid
 --
@@ -371,7 +371,8 @@ Units
       <w>196</w>
       <h>77</h>
     </coordinates>
-    <panel_attributes>/GenericFactory&lt;T&gt;/
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/GenericFactory&lt;T&gt;/
 --
 /+ createObject(QVariantMap) : T */
 /+ loadObject(QVariantMap) : T */</panel_attributes>

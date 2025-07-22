@@ -16,6 +16,8 @@ set(TS_FILES translations/recipe-book_fr_CA.ts)
 
 set(PROJECT_SOURCES
         main.cpp
+        models.h
+
         ui/mainwindow.cpp
         ui/mainwindow.h
         ui/mainwindow.ui
@@ -30,6 +32,13 @@ set(PROJECT_SOURCES
         models/qprofile.h models/qprofile.cpp
         models/qrecipe.h models/qrecipe.cpp
         models/qrecipeingredient.h models/qrecipeingredient.cpp
+
+        models/genericfactoryss.h
+        models/genericfactory.h
+        models/profilefactory.h models/profilefactory.cpp
+        models/ingredientfactory.h models/ingredientfactory.cpp
+        models/recipefactory.h models/recipefactory.cpp
+        models/recipeingredientfactory.h models/recipeingredientfactory.cpp
         ${TS_FILES}
 )
 

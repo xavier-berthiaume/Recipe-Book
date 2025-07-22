@@ -4,7 +4,6 @@
 #include "genericfactoryss.h"
 
 template <typename T> class GenericFactory : public GenericFactorySS {
-  Q_OBJECT
 
 public:
   explicit GenericFactory<T>(QObject *parent = nullptr)
