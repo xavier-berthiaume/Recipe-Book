@@ -1,11 +1,18 @@
 #include "ui/mainwindow.h"
 
+#include "models.h"
+
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
+
+  ProfileFactory profileFactory;
+  IngredientFactory ingredientFactory;
+  RecipeIngredientFactory recipeIngredientFactory;
+  RecipeFactory recipeFactory;
 
   QTranslator translator;
   const QStringList uiLanguages = QLocale::system().uiLanguages();

@@ -40,7 +40,7 @@ ObjectType
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>406</x>
+      <x>378</x>
       <y>252</y>
       <w>259</w>
       <h>287</h>
@@ -72,7 +72,7 @@ innerclass}</panel_attributes>
       <x>1106</x>
       <y>259</y>
       <w>266</w>
-      <h>147</h>
+      <h>315</h>
     </coordinates>
     <panel_attributes>DataCache
 --
@@ -84,9 +84,12 @@ innerclass}</panel_attributes>
 &lt;&lt;normal mutators&gt;&gt;
 
 + getProfile(QUuid) : QProfile *
++ getProfile(QString) : QProfile *
 + getIngredient(QUuid) : QIngredient *
++ getIngredient(QString) : QIngredient *
 + getRecipeIngredient(QUuid) : QRecipeIngredient *
-+ getRecipe(QUuid) : QRecipe *</panel_attributes>
++ getRecipe(QUuid) : QRecipe *
++ getRecipe (QString) : QRecipe *</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -105,7 +108,7 @@ innerclass}</panel_attributes>
 # m_toDelete : QList&lt;T *&gt;
 --
 &lt;&lt;normal mutators to add/remove/get&gt;&gt;
-
+&lt;&lt;specialize the add/remove mutators to the Storable type&gt;&gt;
 + toSaveSize() : int
 + toUpdateSize() : int
 + toDeleteSize() : int</panel_attributes>
@@ -131,9 +134,11 @@ innerclass}</panel_attributes>
       <x>952</x>
       <y>623</y>
       <w>238</w>
-      <h>28</h>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>ProfileCache&lt;QProfile&gt;</panel_attributes>
+    <panel_attributes>ProfileCache&lt;QProfile&gt;
+--
++ getProfileByName(QString) : QProfile *</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -142,9 +147,12 @@ innerclass}</panel_attributes>
       <x>952</x>
       <y>679</y>
       <w>238</w>
-      <h>28</h>
+      <h>42</h>
     </coordinates>
-    <panel_attributes>IngredientCache&lt;QIngredient&gt;</panel_attributes>
+    <panel_attributes>style=wordwrap
+IngredientCache&lt;QIngredient&gt;
+--
++ getIngredientByName(QString) : QIngredient *</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -153,20 +161,25 @@ innerclass}</panel_attributes>
       <x>952</x>
       <y>735</y>
       <w>238</w>
-      <h>28</h>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>RecipeIngredientCache&lt;QRecipeIngredient&gt;</panel_attributes>
+    <panel_attributes>style=wordwrap
+RecipeIngredientCache&lt;QRecipeIngredient&gt;
+--</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>952</x>
-      <y>791</y>
+      <y>798</y>
       <w>238</w>
-      <h>28</h>
+      <h>49</h>
     </coordinates>
-    <panel_attributes>RecipeCache&lt;QRecipe&gt;</panel_attributes>
+    <panel_attributes>style=wordwrap
+RecipeCache&lt;QRecipe&gt;
+--
++ getRecipeByName(QString) : QRecipe *</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -209,43 +222,43 @@ innerclass}</panel_attributes>
       <x>868</x>
       <y>630</y>
       <w>98</w>
-      <h>21</h>
+      <h>238</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+    <additional_attributes>10.0;320.0;60.0;320.0;60.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>868</x>
-      <y>630</y>
+      <y>686</y>
       <w>98</w>
-      <h>77</h>
+      <h>182</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0;60.0;90.0;120.0;90.0</additional_attributes>
+    <additional_attributes>10.0;240.0;60.0;240.0;60.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>868</x>
-      <y>630</y>
+      <y>742</y>
       <w>98</w>
-      <h>133</h>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0;60.0;170.0;120.0;170.0</additional_attributes>
+    <additional_attributes>10.0;160.0;60.0;160.0;60.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>868</x>
-      <y>630</y>
+      <y>805</y>
       <w>98</w>
-      <h>189</h>
+      <h>63</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0;60.0;250.0;120.0;250.0</additional_attributes>
+    <additional_attributes>10.0;70.0;60.0;70.0;60.0;10.0;120.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -274,45 +287,45 @@ innerclass}</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1183</x>
-      <y>399</y>
+      <y>567</y>
       <w>70</w>
-      <h>252</h>
+      <h>84</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;340.0;80.0;340.0;80.0;10.0</additional_attributes>
+    <additional_attributes>10.0;100.0;80.0;100.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1183</x>
-      <y>399</y>
+      <y>567</y>
       <w>70</w>
-      <h>308</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;420.0;80.0;420.0;80.0;10.0</additional_attributes>
+    <additional_attributes>10.0;180.0;80.0;180.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1183</x>
-      <y>399</y>
+      <y>567</y>
       <w>70</w>
-      <h>364</h>
+      <h>196</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;500.0;80.0;500.0;80.0;10.0</additional_attributes>
+    <additional_attributes>10.0;260.0;80.0;260.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1183</x>
-      <y>399</y>
+      <y>567</y>
       <w>70</w>
-      <h>420</h>
+      <h>259</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;580.0;80.0;580.0;80.0;10.0</additional_attributes>
+    <additional_attributes>10.0;350.0;80.0;350.0;80.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -434,33 +447,70 @@ innerclass}</panel_attributes>
     <coordinates>
       <x>301</x>
       <y>308</y>
-      <w>119</w>
+      <w>91</w>
       <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;150.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>658</x>
+      <x>630</x>
       <y>308</y>
-      <w>161</w>
+      <w>189</w>
       <h>56</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;210.0;10.0;210.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0;250.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>917</x>
-      <y>840</y>
+      <x>938</x>
+      <y>875</y>
       <w>315</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>style=wordwrap
 Eventually it might be a good idea to cook up some way of organizing the caches to make it faster to look up data and know if something is missing based on some criteria. Binary tree maybe?</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>553</x>
+      <y>826</y>
+      <w>322</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>StorableObjectCache&lt;U&gt;
+--
++ getObjectInCache(QUuid) : U *</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>707</x>
+      <y>749</y>
+      <w>21</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>70</x>
+      <y>749</y>
+      <w>427</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>After spending some time thinking about it, it's complete overkill to build some sort of cache for software of this magnitude. Even if a user has thousands of recipes, these data structures are so simple and can be retrieved in so few operations that it's a little ridiculous to implement some hardcore super-templated and specialized solution. I'm leaving everything I've made so far in the project; but not implementing further.
+style=wordwrap
+fontsize=20</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
