@@ -1,0 +1,4 @@
+#ifndef DATABASEVISITOR_H
+#define DATABASEVISITOR_H
+
+#endif
