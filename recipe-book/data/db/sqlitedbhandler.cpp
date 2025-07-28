@@ -2,6 +2,7 @@
 
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
+#include <stdexcept>
 
 SqliteDbHandler::SqliteDbHandler(const QString &path, QObject *parent)
     : AbstractDbHandler(parent),
@@ -363,13 +364,157 @@ SqliteDbHandler::SqliteUpdater::SqliteUpdater(SqliteDbHandler *handler,
 
 SqliteDbHandler::SqliteUpdater::~SqliteUpdater() {}
 
-void SqliteDbHandler::SqliteUpdater::visit(QProfile *object) {}
+void SqliteDbHandler::SqliteUpdater::visit(QProfile *object) {
+  QSqlQuery query;
 
-void SqliteDbHandler::SqliteUpdater::visit(QIngredient *object) {}
+  query.prepare(
+      "UPDATE profiles SET username = :username, updated_at = CURRENT_TIMESTAMP"
+      "WHERE id=:id");
+  query.bindValue(":username", object->getUsername());
+  query.bindValue(":id", object->getId().toString());
 
-void SqliteDbHandler::SqliteUpdater::visit(QRecipeIngredient *object) {}
+  if (!query.exec()) {
+    qWarning() << "Failed to update profile";
+    throw std::runtime_error(QString("Failed to update profile: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  } else {
+    qDebug() << "Successfully updated profile in database";
+  }
 
-void SqliteDbHandler::SqliteUpdater::visit(QRecipe *object) {}
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No profile found to update with ID:"
+               << object->getId().toString();
+  }
+}
+
+void SqliteDbHandler::SqliteUpdater::visit(QIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare("UPDATE ingredients SET name = :name, description = "
+                ":description, creator_id = :creator_id, updated_at = "
+                "CURRENT_TIMESTAMP WHERE id = :id");
+  query.bindValue(":name", object->getName());
+  query.bindValue(":description", object->getDescription());
+  query.bindValue(":creator_id", object->getCreatorId().toString());
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to update ingredient";
+    throw std::runtime_error(QString("Failed to update ingredient: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  } else {
+    qDebug() << "Successfully updated ingredient in database";
+  }
+
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No object->found to update with ID:"
+               << object->getId().toString();
+  }
+}
+
+void SqliteDbHandler::SqliteUpdater::visit(QRecipeIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare(
+      "UPDATE recipe_ingredients SET ingredient_id = :ingredient_id, quantity "
+      "= :quantity, unit = :unit, is_recipe = :is_recipe WHERE id = :id");
+  query.bindValue(":ingredient_id", object->getIngredientId().toString());
+  query.bindValue(":quantity", object->getQuantity());
+  query.bindValue(":unit", object->getUnit());
+  query.bindValue(":is_recipe", object->getIsRecipe());
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to update recipe ingredient";
+    throw std::runtime_error(QString("Failed to update recipe ingredient: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No recipe ingredient found to update with ID:"
+               << object->getId().toString();
+  } else {
+    qDebug() << "Successfully updated recipe ingredient in database";
+  }
+}
+
+void SqliteDbHandler::SqliteUpdater::visit(QRecipe *object) {
+  visit(static_cast<QIngredient *>(object));
+
+  QSqlQuery query;
+
+  query.prepare("UPDATE recipes SET prep_time = :prep_time, notes = :notes "
+                "WHERE id = :id");
+  query.bindValue(":prep_time", object->getPrepTime());
+  query.bindValue(":notes", object->getNotes());
+  query.bindValue(":id", object->getId());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to update recipe";
+    throw std::runtime_error(QString("Failed to update recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  query.prepare(
+      "DELETE * FROM recipe_instructions WHERE recipe_id = :recipe_id");
+  query.bindValue(":recipe_id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to delete old instructions"
+               << query.lastError().text();
+    throw std::runtime_error(QString("Failed to update recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  QStringList instructions = object->getInstructions();
+  for (int i = 0; i < instructions.size(); ++i) {
+    query.prepare("INSERT INTO recipe_instructions "
+                  "(recipe_id, instruction, step_order) "
+                  "VALUES (:recipe_id, :instruction, :step_order)");
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":instruction", instructions[i]);
+    query.bindValue(":step_order", i);
+
+    if (!query.exec()) {
+      qWarning() << "Failed to insert instruction:" << query.lastError().text();
+      throw std::runtime_error(QString("Failed to update recipe: %1")
+                                   .arg(query.lastError().text())
+                                   .toStdString());
+    }
+  }
+
+  query.prepare("DELETE * FROM recipe_equipment WHERE recipe_id = :recipe_id");
+  query.bindValue(":recipe_id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to delete old equipment" << query.lastError().text();
+    throw std::runtime_error(QString("Failed to update recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  QStringList equipment = object->getEquipment();
+  for (int i = 0; i < equipment.size(); i++) {
+    query.prepare("INSERT INTO recipe_equipment (recipe_id, equipment) VALUES "
+                  "(:recipe_id, :equipment)");
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":equipment", equipment[i]);
+
+    if (!query.exec()) {
+      qWarning() << "Failed to insert equipment:" << query.lastError().text();
+      throw std::runtime_error(QString("Failed to update recipe: %1")
+                                   .arg(query.lastError().text())
+                                   .toStdString());
+    }
+  }
+
+  // TODO: Update recipe ingredients associated to the recipe
+}
 
 SqliteDbHandler::SqliteReader::SqliteReader(SqliteDbHandler *handler,
                                             QObject *parent)
@@ -391,10 +536,77 @@ SqliteDbHandler::SqliteDeleter::SqliteDeleter(SqliteDbHandler *handler,
 
 SqliteDbHandler::SqliteDeleter::~SqliteDeleter() {}
 
-void SqliteDbHandler::SqliteDeleter::visit(QProfile *object) {}
+void SqliteDbHandler::SqliteDeleter::visit(QProfile *object) {
+  QSqlQuery query;
 
-void SqliteDbHandler::SqliteDeleter::visit(QIngredient *object) {}
+  query.prepare("DELETE FROM profiles WHERE id = :id");
+  query.bindValue(":id", object->getId().toString());
 
-void SqliteDbHandler::SqliteDeleter::visit(QRecipeIngredient *object) {}
+  if (!query.exec()) {
+    qWarning() << "Failed to delete profile:" << query.lastError().text();
+    throw std::runtime_error(QString("Failed to delete profile: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
 
-void SqliteDbHandler::SqliteDeleter::visit(QRecipe *object) {}
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No profile found to delete with ID:"
+               << object->getId().toString();
+  }
+}
+
+void SqliteDbHandler::SqliteDeleter::visit(QIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare("DELETE FROM ingredients WHERE id = :id");
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to delete ingredient:" << query.lastError().text();
+    throw std::runtime_error(QString("Failed to delete ingredient: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No ingredient found to delete with ID:" << object->getId();
+  }
+}
+
+void SqliteDbHandler::SqliteDeleter::visit(QRecipeIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare("DELETE FROM recipe_ingredients WHERE id = :id");
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to delete recipe ingredient:"
+               << query.lastError().text();
+    throw std::runtime_error(QString("Failed to delete recipe ingredient: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No recipe ingredient found to delete with ID:"
+               << object->getId();
+  }
+}
+
+void SqliteDbHandler::SqliteDeleter::visit(QRecipe *object) {
+  QSqlQuery query;
+
+  query.prepare("DELETE FROM recipes WHERE id = :id");
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to delete recipe:" << query.lastError().text();
+    throw std::runtime_error(QString("Failed to delete recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  if (query.numRowsAffected() == 0) {
+    qWarning() << "No recipe found to delete with ID:" << object->getId();
+  }
+}
