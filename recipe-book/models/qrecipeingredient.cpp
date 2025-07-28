@@ -1,4 +1,5 @@
 #include "qrecipeingredient.h"
+#include "../database.h"
 
 #include <QDebug>
 
@@ -99,4 +100,8 @@ void QRecipeIngredient::setQuantity(double quantity) {
 
   m_ingredient.setQuantity(quantity);
   emit quantityChanged();
+}
+
+void QRecipeIngredient::accept(DatabaseVisitor *visitor) {
+  visitor->visit(this);
 }

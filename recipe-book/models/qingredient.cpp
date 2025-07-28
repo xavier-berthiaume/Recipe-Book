@@ -1,4 +1,5 @@
 #include "qingredient.h"
+#include "../database.h"
 
 QIngredient::QIngredient(const QUuid &creatorId, const QString &name,
                          const QString &description, QObject *parent)
@@ -40,3 +41,5 @@ void QIngredient::setDescription(const QString &description) {
   m_ingredient.setDescription(description.toStdString());
   emit descriptionChanged();
 }
+
+void QIngredient::accept(DatabaseVisitor *visitor) { visitor->visit(this); }

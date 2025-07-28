@@ -1,0 +1,42 @@
+#ifndef ABSTRACTDBHANDLER_H
+#define ABSTRACTDBHANDLER_H
+
+#include "../../models.h"
+#include "databasevisitor.h"
+
+#include <QObject>
+
+enum ObjectTypes {
+  PROFILEOBJECT,
+  INGREDIENTOBJECT,
+  RECIPEINGREDIENTOBJECT,
+  RECIPEOBJECT
+};
+
+class AbstractDbHandler : public QObject {
+  Q_OBJECT
+
+protected:
+  virtual bool beginTransaction() = 0;
+  virtual bool rollbackTransaction() = 0;
+  virtual bool commitTransaction() = 0;
+
+public:
+  explicit AbstractDbHandler(QObject *parent = nullptr) : QObject(parent) {}
+
+  virtual void saveObject(Storable *toSave) = 0;
+  virtual void updateObject(Storable *toUpdate) = 0;
+  virtual Storable *readObject(ObjectTypes type, const QUuid &id) = 0;
+  virtual QList<Storable *> readObjectRange(ObjectTypes type, int offset,
+                                            int count) = 0;
+  virtual QList<Storable *> readAllObjects(ObjectTypes type) = 0;
+  virtual bool removeObject(Storable *object) = 0;
+
+  // Getters for the different database visitor objects
+  virtual DatabaseVisitor *getSaver() = 0;
+  virtual DatabaseVisitor *getUpdater() = 0;
+  virtual DatabaseVisitor *getReader() = 0;
+  virtual DatabaseVisitor *getDeleter() = 0;
+};
+
+#endif

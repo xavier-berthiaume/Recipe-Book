@@ -1,4 +1,5 @@
 #include "qprofile.h"
+#include "../database.h"
 
 QProfile::QProfile(const QUuid &id, const QString &username, QObject *parent)
     : Storable(id, parent), m_profile(username.toStdString()) {}
@@ -18,3 +19,5 @@ void QProfile::setUsername(const QString &username) {
 
   emit usernameChanged();
 }
+
+void QProfile::accept(DatabaseVisitor *visitor) { visitor->visit(this); }

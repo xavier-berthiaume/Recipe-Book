@@ -25,7 +25,7 @@ class QRecipeIngredient : public Storable {
 
   Q_ENUM(Units)
   Q_PROPERTY(QUuid ingredientId READ getIngredientId)
-  Q_PROPERTY(QUnit unit READ getUnit WRITE setUnit NOTIFY unitChanged)
+  Q_PROPERTY(Units unit READ getUnit WRITE setUnit NOTIFY unitChanged)
   Q_PROPERTY(
       double quantity READ getQuantity WRITE setQuantity NOTIFY quantityChanged)
 
@@ -49,6 +49,8 @@ public:
   void setIngredientId(const QString &ingredientId);
   void setUnit(Units unit);
   void setQuantity(double quantity);
+
+  void accept(DatabaseVisitor *visitor) override;
 
 signals:
   void ingredientIdChanged();

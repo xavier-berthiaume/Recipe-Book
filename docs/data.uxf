@@ -5,9 +5,9 @@
     <id>UMLClass</id>
     <coordinates>
       <x>21</x>
-      <y>252</y>
+      <y>238</y>
       <w>287</w>
-      <h>287</h>
+      <h>308</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
 /AbstractDbHandler/
@@ -17,6 +17,7 @@
 /+ saveObject(QObject *) : bool/
 /+ updateObject(QObject *) : bool/
 /+ readObject(ObjectType, QUuid) : QObject */
+/+ readObjectRange(ObjectType, int, int) : QList&lt;QObject *&gt;/
 /+ readAllObjects(ObjectType) : QList&lt;QObject *&gt;/
 /+ removeObject(QObject *) : bool/
 
@@ -361,10 +362,10 @@ RecipeCache&lt;QRecipe&gt;
       <x>1015</x>
       <y>231</y>
       <w>105</w>
-      <h>56</h>
+      <h>203</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>130.0;60.0;10.0;60.0;10.0;10.0</additional_attributes>
+    <additional_attributes>130.0;270.0;10.0;270.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -372,10 +373,10 @@ RecipeCache&lt;QRecipe&gt;
       <x>154</x>
       <y>203</y>
       <w>784</w>
-      <h>63</h>
+      <h>49</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0;1100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0;1100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -400,12 +401,12 @@ RecipeCache&lt;QRecipe&gt;
     <id>Relation</id>
     <coordinates>
       <x>154</x>
-      <y>532</y>
+      <y>539</y>
       <w>98</w>
-      <h>105</h>
+      <h>98</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>120.0;130.0;120.0;50.0;10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;120.0;120.0;40.0;10.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -417,30 +418,6 @@ RecipeCache&lt;QRecipe&gt;
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;130.0;10.0;50.0;820.0;50.0;820.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>707</x>
-      <y>350</y>
-      <w>203</w>
-      <h>35</h>
-    </coordinates>
-    <panel_attributes>/AbstractSqliteVisitor/
---
-# m_manager : SqliteDbHandler *</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>798</x>
-      <y>378</y>
-      <w>21</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -459,10 +436,10 @@ RecipeCache&lt;QRecipe&gt;
       <x>630</x>
       <y>308</y>
       <w>189</w>
-      <h>56</h>
+      <h>133</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;250.0;10.0;250.0;60.0</additional_attributes>
+    <additional_attributes>10.0;10.0;250.0;10.0;250.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>

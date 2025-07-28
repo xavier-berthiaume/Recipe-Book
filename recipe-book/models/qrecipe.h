@@ -73,6 +73,8 @@ public:
   void addEquipment(const QString &equipment);
   void removeEquipment(const QString &equipment);
 
+  void accept(DatabaseVisitor *visit) override;
+
 signals:
   void notesChanged();
   void ingredientIdsChanged();

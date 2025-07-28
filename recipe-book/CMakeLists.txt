@@ -9,8 +9,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools Sql)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Sql)
 
 set(TS_FILES translations/recipe-book_fr_CA.ts)
 
@@ -39,6 +39,10 @@ set(PROJECT_SOURCES
         models/ingredientfactory.h models/ingredientfactory.cpp
         models/recipefactory.h models/recipefactory.cpp
         models/recipeingredientfactory.h models/recipeingredientfactory.cpp
+
+        data/db/abstractdbhandler.h
+        data/db/databasevisitor.h
+        data/db/sqlitedbhandler.h data/db/sqlitedbhandler.cpp
         ${TS_FILES}
 )
 
@@ -69,7 +73,7 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(recipe-book PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(recipe-book PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt${QT_VERSION_MAJOR}::Sql)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

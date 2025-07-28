@@ -21,6 +21,8 @@ public:
 
   void setUsername(const QString &username);
 
+  void accept(DatabaseVisitor *visitor) override;
+
 signals:
   void usernameChanged();
 };

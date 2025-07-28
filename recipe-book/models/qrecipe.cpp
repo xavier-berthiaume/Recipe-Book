@@ -1,4 +1,5 @@
 #include "qrecipe.h"
+#include "../database.h"
 #include "qingredient.h"
 
 #include <QSet>
@@ -215,3 +216,5 @@ void QRecipe::removeEquipment(const QString &equipment) {
   m_recipe.removeEquipment(equipment.toStdString());
   emit equipmentChanged();
 }
+
+void QRecipe::accept(DatabaseVisitor *visitor) { visitor->visit(this); }

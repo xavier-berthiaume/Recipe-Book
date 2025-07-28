@@ -29,6 +29,8 @@ public:
   virtual void setName(const QString &name);
   virtual void setDescription(const QString &description);
 
+  virtual void accept(DatabaseVisitor *) override;
+
 signals:
   void nameChanged();
   void descriptionChanged();

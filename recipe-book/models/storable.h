@@ -1,6 +1,8 @@
 #ifndef STORABLE_H
 #define STORABLE_H
 
+#include "../database_visitor_fwd.h"
+
 #include <QObject>
 #include <QUuid>
 
@@ -19,7 +21,7 @@ public:
 
   QUuid getId() const;
 
-  // void accept(DatabaseVisitor *) const;
+  virtual void accept(DatabaseVisitor *) = 0;
 };
 
 #endif
