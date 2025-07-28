@@ -28,6 +28,8 @@ class QRecipeIngredient : public Storable {
   Q_PROPERTY(Units unit READ getUnit WRITE setUnit NOTIFY unitChanged)
   Q_PROPERTY(
       double quantity READ getQuantity WRITE setQuantity NOTIFY quantityChanged)
+  Q_PROPERTY(
+      bool isRecipe READ getIsRecipe WRITE setIsRecipe NOTIFY isRecipeChanged)
 
   RecipeIngredient m_ingredient;
 
@@ -36,19 +38,22 @@ public:
   static Units stringToUnits(const QString &unit);
 
   explicit QRecipeIngredient(const QUuid &ingredientId, Units unit,
-                             double quantity, QObject *parent = nullptr);
+                             double quantity, bool isRecipe,
+                             QObject *parent = nullptr);
 
   explicit QRecipeIngredient(const QUuid &id, const QUuid &ingredientId,
-                             Units unit, double quantity,
+                             Units unit, double quantity, bool isRecipe,
                              QObject *parent = nullptr);
 
   QUuid getIngredientId() const;
   Units getUnit() const;
   double getQuantity() const;
+  bool getIsRecipe() const;
 
   void setIngredientId(const QString &ingredientId);
   void setUnit(Units unit);
   void setQuantity(double quantity);
+  void setIsRecipe(bool isRecipe);
 
   void accept(DatabaseVisitor *visitor) override;
 
@@ -56,6 +61,7 @@ signals:
   void ingredientIdChanged();
   void unitChanged();
   void quantityChanged();
+  void isRecipeChanged();
 };
 
 #endif

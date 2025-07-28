@@ -81,7 +81,7 @@ protected:
   bool commitTransaction() override;
 
 public:
-  explicit SqliteDbHandler(const QString &path, QObject *parent);
+  explicit SqliteDbHandler(const QString &path, QObject *parent = nullptr);
   ~SqliteDbHandler();
 
   void saveObject(Storable *toSave) override;

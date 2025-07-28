@@ -52,17 +52,18 @@ Units QRecipeIngredient::stringToUnits(const QString &unit) {
 }
 
 QRecipeIngredient::QRecipeIngredient(const QUuid &ingredientId, Units unit,
-                                     double quantity, QObject *parent)
+                                     double quantity, bool isRecipe,
+                                     QObject *parent)
     : Storable(parent),
       m_ingredient(ingredientId.toString().toStdString(),
-                   unitToString(unit).toStdString(), quantity) {}
+                   unitToString(unit).toStdString(), quantity, isRecipe) {}
 
 QRecipeIngredient::QRecipeIngredient(const QUuid &id, const QUuid &ingredientId,
-                                     Units unit, double quantity,
+                                     Units unit, double quantity, bool isRecipe,
                                      QObject *parent)
     : Storable(id, parent),
       m_ingredient(ingredientId.toString().toStdString(),
-                   unitToString(unit).toStdString(), quantity) {}
+                   unitToString(unit).toStdString(), quantity, isRecipe) {}
 
 QUuid QRecipeIngredient::getIngredientId() const {
   return QUuid::fromString(m_ingredient.getIngredientId());
@@ -74,6 +75,10 @@ Units QRecipeIngredient::getUnit() const {
 
 double QRecipeIngredient::getQuantity() const {
   return m_ingredient.getQuantity();
+}
+
+bool QRecipeIngredient::getIsRecipe() const {
+  return m_ingredient.getIsRecipe();
 }
 
 void QRecipeIngredient::setIngredientId(const QString &ingredientId) {
@@ -100,6 +105,14 @@ void QRecipeIngredient::setQuantity(double quantity) {
 
   m_ingredient.setQuantity(quantity);
   emit quantityChanged();
+}
+
+void QRecipeIngredient::setIsRecipe(bool isRecipe) {
+  if (isRecipe == m_ingredient.getIsRecipe())
+    return;
+
+  m_ingredient.setIsRecipe(isRecipe);
+  emit isRecipeChanged();
 }
 
 void QRecipeIngredient::accept(DatabaseVisitor *visitor) {

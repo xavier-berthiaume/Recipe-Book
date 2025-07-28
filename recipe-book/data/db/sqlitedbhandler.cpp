@@ -179,7 +179,7 @@ void SqliteDbHandler::saveObject(Storable *object) {
   } catch (const std::exception &e) {
     rollbackTransaction();
     qWarning() << "Save failed:" << e.what();
-    throw;
+    return;
   }
 }
 
@@ -200,7 +200,7 @@ void SqliteDbHandler::updateObject(Storable *object) {
   } catch (const std::exception &e) {
     rollbackTransaction();
     qWarning() << "Update failed:" << e.what();
-    throw;
+    return;
   }
 }
 
@@ -233,13 +233,129 @@ SqliteDbHandler::SqliteSaver::SqliteSaver(SqliteDbHandler *handler,
 
 SqliteDbHandler::SqliteSaver::~SqliteSaver() {}
 
-void SqliteDbHandler::SqliteSaver::visit(QProfile *object) {}
+void SqliteDbHandler::SqliteSaver::visit(QProfile *object) {
+  QSqlQuery query;
 
-void SqliteDbHandler::SqliteSaver::visit(QIngredient *object) {}
+  query.prepare("INSERT INTO profiles (id, username) VALUES (:id, :username)");
+  query.bindValue(":id", object->getId().toString());
+  query.bindValue(":username", object->getUsername());
 
-void SqliteDbHandler::SqliteSaver::visit(QRecipeIngredient *object) {}
+  if (!query.exec()) {
+    qWarning() << "Failed to save profile:" << query.lastError().text();
+  } else {
+    qDebug() << "Successfully saved profile to database";
+  }
+}
 
-void SqliteDbHandler::SqliteSaver::visit(QRecipe *object) {}
+void SqliteDbHandler::SqliteSaver::visit(QIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare(
+      "INSERT INTO ingredients (id, name, description, creator_id) VALUES ("
+      ":id, :name, :description, :creator_id)");
+  query.bindValue(":id", object->getId().toString());
+  query.bindValue(":name", object->getName());
+  query.bindValue(":description", object->getDescription());
+  query.bindValue(":creator_id", object->getCreatorId().toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to save ingredient" << query.lastError().text();
+  } else {
+    qDebug() << "Successfully saved ingredient to database";
+  }
+}
+
+void SqliteDbHandler::SqliteSaver::visit(QRecipeIngredient *object) {
+  QSqlQuery query;
+
+  query.prepare(
+      "INSERT INTO recipe_ingredients (id, ingredient_id, quantity, unit, "
+      "is_recipe) VALUES (:id, :ingredient_id, :quantity, :unit, :is_recipe)");
+  query.bindValue(":id", object->getId().toString());
+  query.bindValue(":ingredient_id", object->getIngredientId().toString());
+  query.bindValue(":quantity", object->getQuantity());
+  query.bindValue(":unit", object->getUnit());
+  query.bindValue(":is_recipe", object->getIsRecipe());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to save recipe ingredient"
+               << query.lastError().text();
+  } else {
+    qDebug() << "Successfully saved recipeingredient to database";
+  }
+}
+
+void SqliteDbHandler::SqliteSaver::visit(QRecipe *object) {
+  // Ingredient portion of recipe
+  visit(static_cast<QIngredient *>(object));
+
+  // Recipe portion
+  QSqlQuery query;
+
+  query.prepare("INSERT INTO recipes (id, prep_time, notes) VALUES (:id, "
+                ":prep_time, :notes)");
+  query.bindValue(":id", object->getId().toString());
+  query.bindValue(":prep_time", object->getPrepTime());
+  query.bindValue(":notes", object->getNotes());
+
+  if (!query.exec()) {
+    throw std::runtime_error(QString("Failed to save recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  // Instructions
+  QStringList instructions = object->getInstructions();
+  for (int i = 0; i < instructions.size(); ++i) {
+    query.prepare("INSERT INTO recipe_instructions "
+                  "(recipe_id, instruction, step_order) "
+                  "VALUES (:recipe_id, :instruction, :step_order)");
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":instruction", instructions[i]);
+    query.bindValue(":step_order", i);
+
+    if (!query.exec()) {
+      throw std::runtime_error(QString("Failed to save recipe instruction: %1")
+                                   .arg(query.lastError().text())
+                                   .toStdString());
+    }
+  }
+
+  // Equipment
+  QStringList equipment = object->getEquipment();
+  for (const QString &eq : equipment) {
+    query.prepare("INSERT INTO recipe_equipment "
+                  "(recipe_id, equipment) "
+                  "VALUES (:recipe_id, :equipment)");
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":equipment", eq);
+
+    if (!query.exec()) {
+      throw std::runtime_error(QString("Failed to save recipe equipment: %1")
+                                   .arg(query.lastError().text())
+                                   .toStdString());
+    }
+  }
+
+  // Recipe Ingredients
+  for (const auto &ingredientId : object->getIngredientIds()) {
+    query.prepare("INSERT INTO recipe_ingredient_associations (recipe_id, "
+                  "recipe_ingredient_id) "
+                  "VALUES (:recipe_id, :recipe_ingredient_id)");
+
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":recipe_ingredient_id", ingredientId.toString());
+
+    if (!query.exec()) {
+      throw std::runtime_error(
+          QString("Failed to save recipe ingredient association: %1")
+              .arg(query.lastError().text())
+              .toStdString());
+    }
+  }
+
+  qDebug() << "Successfully saved recipe to database";
+}
 
 SqliteDbHandler::SqliteUpdater::SqliteUpdater(SqliteDbHandler *handler,
                                               QObject *parent)

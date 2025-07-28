@@ -9,7 +9,7 @@ RecipeIngredientFactory::createObject(const QVariantMap &data) {
 
   QRecipeIngredient *newRI = new QRecipeIngredient(
       data["ingredientId"].toUuid(), data["unit"].value<Units>(),
-      data["quantity"].toDouble());
+      data["quantity"].toDouble(), data["isRecipe"].toBool());
 
   emit recipeIngredientCreated(newRI);
   return newRI;
@@ -20,7 +20,8 @@ RecipeIngredientFactory::loadObject(const QVariantMap &data) {
 
   QRecipeIngredient *newRI = new QRecipeIngredient(
       data["id"].toUuid(), data["ingredientId"].toUuid(),
-      data["unit"].value<Units>(), data["quantity"].toDouble());
+      data["unit"].value<Units>(), data["quantity"].toDouble(),
+      data["isRecipe"].toBool());
 
   emit recipeIngredientLoaded(newRI);
   return newRI;
