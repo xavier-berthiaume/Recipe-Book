@@ -4,9 +4,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>21</x>
+      <x>0</x>
       <y>238</y>
-      <w>287</w>
+      <w>329</w>
       <h>308</h>
     </coordinates>
     <panel_attributes>&lt;&lt;interface&gt;&gt;
@@ -16,9 +16,9 @@
 
 /+ saveObject(QObject *) : bool/
 /+ updateObject(QObject *) : bool/
-/+ readObject(ObjectType, QUuid) : QObject */
-/+ readObjectRange(ObjectType, int, int) : QList&lt;QObject *&gt;/
-/+ readAllObjects(ObjectType) : QList&lt;QObject *&gt;/
+/+ readObject(ObjectType, QUuid) : QVariantMap/
+/+ readObjectRange(ObjectType, int, int) : QList&lt;QVariantMap&gt;/
+/+ readAllObjects(ObjectType) : QList&lt;QVariantMap&gt;/
 /+ removeObject(QObject *) : bool/
 
 /+ beginTransaction() : void/
@@ -27,7 +27,6 @@
 
 /+ saver() : DatabaseVisitor */
 /+ updater() : DatabaseVisitor */
-/+ reader() : DatabaseVisitor */
 /+ deleter() : DatabaseVisitor */
 --
 &lt;&lt;enum&gt;&gt;
@@ -41,16 +40,18 @@ ObjectType
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>378</x>
+      <x>392</x>
       <y>252</y>
-      <w>259</w>
+      <w>252</w>
       <h>287</h>
     </coordinates>
     <panel_attributes>SqliteDbHandler
 --
 - m_db : QSqlDatabase
 --
-- initializeDatabase() : void
+- createTables() : void
+- openDatabase() : void
+- closeDatabase() : void
 --
 &lt;&lt;inner classes inherit AbstractSqliteVisitor&gt;&gt;
 {innerclass
@@ -58,9 +59,6 @@ SqliteSaver
 innerclass}
 {innerclass
 SqliteUpdater
-innerclass}
-{innerclass
-SqliteReader
 innerclass}
 {innerclass
 SqliteDeleter
@@ -422,24 +420,24 @@ RecipeCache&lt;QRecipe&gt;
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>301</x>
+      <x>322</x>
       <y>308</y>
-      <w>91</w>
+      <w>84</w>
       <h>21</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
+      <x>637</x>
       <y>308</y>
-      <w>189</w>
+      <w>182</w>
       <h>133</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;250.0;10.0;250.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;240.0;10.0;240.0;170.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
@@ -488,6 +486,18 @@ Eventually it might be a good idea to cook up some way of organizing the caches 
     <panel_attributes>After spending some time thinking about it, it's complete overkill to build some sort of cache for software of this magnitude. Even if a user has thousands of recipes, these data structures are so simple and can be retrieved in so few operations that it's a little ridiculous to implement some hardcore super-templated and specialized solution. I'm leaving everything I've made so far in the project; but not implementing further.
 style=wordwrap
 fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>21</x>
+      <y>119</y>
+      <w>294</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>style=wordwrap
+When loading from the database, leave the task of object creation to the factory classes. When loading, simply load the data, shove it in a QVariantMap, and let the factory class deal with creating the actual object.</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

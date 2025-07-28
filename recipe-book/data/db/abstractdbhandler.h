@@ -26,16 +26,15 @@ public:
 
   virtual void saveObject(Storable *toSave) = 0;
   virtual void updateObject(Storable *toUpdate) = 0;
-  virtual Storable *readObject(ObjectTypes type, const QUuid &id) = 0;
-  virtual QList<Storable *> readObjectRange(ObjectTypes type, int offset,
-                                            int count) = 0;
-  virtual QList<Storable *> readAllObjects(ObjectTypes type) = 0;
+  virtual QVariantMap readObject(ObjectTypes type, const QUuid &id) = 0;
+  virtual QList<QVariantMap> readObjectRange(ObjectTypes type, int offset,
+                                             int count) = 0;
+  virtual QList<QVariantMap> readAllObjects(ObjectTypes type) = 0;
   virtual bool removeObject(Storable *object) = 0;
 
   // Getters for the different database visitor objects
   virtual DatabaseVisitor *getSaver() = 0;
   virtual DatabaseVisitor *getUpdater() = 0;
-  virtual DatabaseVisitor *getReader() = 0;
   virtual DatabaseVisitor *getDeleter() = 0;
 };
 

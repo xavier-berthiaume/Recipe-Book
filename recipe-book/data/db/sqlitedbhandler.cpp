@@ -1,14 +1,15 @@
 #include "sqlitedbhandler.h"
+#include "abstractdbhandler.h"
 
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
+#include <qcontainerfwd.h>
 #include <stdexcept>
 
 SqliteDbHandler::SqliteDbHandler(const QString &path, QObject *parent)
     : AbstractDbHandler(parent),
       m_saver(new SqliteDbHandler::SqliteSaver(this, this)),
       m_updater(new SqliteDbHandler::SqliteUpdater(this, this)),
-      m_reader(new SqliteDbHandler::SqliteReader(this, this)),
       m_deleter(new SqliteDbHandler::SqliteDeleter(this, this)) {
 
   m_db = QSqlDatabase::addDatabase("QSQLITE");
@@ -32,7 +33,6 @@ bool SqliteDbHandler::rollbackTransaction() { return m_db.rollback(); }
 bool SqliteDbHandler::commitTransaction() { return m_db.commit(); }
 
 bool SqliteDbHandler::openDatabase() {
-
   if (!m_db.isOpen()) {
     if (!m_db.open()) {
       qCritical() << "Error opening db:" << m_db.lastError().text();
@@ -47,7 +47,6 @@ bool SqliteDbHandler::openDatabase() {
 }
 
 void SqliteDbHandler::closeDatabase() {
-
   if (m_db.isOpen()) {
     m_db.close();
   }
@@ -205,16 +204,171 @@ void SqliteDbHandler::updateObject(Storable *object) {
   }
 }
 
-Storable *SqliteDbHandler::readObject(ObjectTypes type, const QUuid &id) {
-  return nullptr;
-}
+QVariantMap SqliteDbHandler::readObject(ObjectTypes type, const QUuid &id) {
+  switch (type) {
+  case PROFILEOBJECT:
+    return readProfile(id);
+  case INGREDIENTOBJECT:
+    return readIngredient(id);
+  case RECIPEINGREDIENTOBJECT:
+    return readRecipeIngredient(id);
+  case RECIPEOBJECT:
+    return readRecipe(id);
+  }
 
-QList<Storable *> SqliteDbHandler::readObjectRange(ObjectTypes type, int offset,
-                                                   int count) {
+  qWarning() << "Tried reading invalid object type from database";
   return {};
 }
 
-QList<Storable *> SqliteDbHandler::readAllObjects(ObjectTypes type) {
+QVariantMap SqliteDbHandler::readProfile(const QUuid &id) {
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM profiles WHERE id = :id");
+  query.bindValue(":id", id.toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read profile with id:" << id.toString() << "-"
+               << query.lastError().text();
+    return {};
+  }
+
+  if (!query.next()) {
+    qDebug() << "No profile found with ID:" << id.toString();
+    return {};
+  }
+
+  return {{"id", id}, {"username", query.value("username").toString()}};
+}
+
+QVariantMap SqliteDbHandler::readIngredient(const QUuid &id) {
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM ingredients WHERE id = :id");
+  query.bindValue(":id", id.toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read ingredient with id:" << id.toString() << "-"
+               << query.lastError().text();
+    return {};
+  }
+
+  if (!query.next()) {
+    qWarning() << "No ingredient found with ID:" << id.toString();
+    return {};
+  }
+
+  QUuid creator_id = QUuid::fromString(query.value("creator_id").toString());
+  QString name = query.value("name").toString();
+  QString description = query.value("description").toString();
+
+  return {{"id", id},
+          {"creatorId", creator_id},
+          {"name", name},
+          {"description", description}};
+}
+
+QVariantMap SqliteDbHandler::readRecipeIngredient(const QUuid &id) {
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM recipe_ingredients WHERE id = :id");
+  query.bindValue(":id", id.toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read recipe ingredient with id:" << id.toString()
+               << "-" << query.lastError().text();
+    return {};
+  }
+
+  if (!query.next()) {
+    qWarning() << "No recipe ingredient found with ID:" << id.toString();
+    return {};
+  }
+
+  Units unit = QRecipeIngredient::stringToUnits(query.value("unit").toString());
+
+  return {{"id", id},
+          {"ingredientId", query.value("ingredient_id").toUuid()},
+          {"unit", unit},
+          {"quantity", query.value("quantity").toDouble()},
+          {"isRecipe", query.value("is_recipe").toBool()}};
+}
+
+QVariantMap SqliteDbHandler::readRecipe(const QUuid &id) {
+  QVariantMap data;
+
+  // Read the ingredient portion of the recipe
+  data = readIngredient(id);
+
+  QSqlQuery query;
+  query.prepare("SELECT * FROM recipes WHERE id = :id");
+  query.bindValue(":id", id.toString());
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read recipe:" << query.lastError().text();
+    return {};
+  }
+
+  data["notes"] = query.value("notes").toString();
+  data["prepTime"] = query.value("prep_time").toUInt();
+
+  QStringList instructions, equipment;
+  query.prepare("SELECT instruction FROM recipe_instructions "
+                "WHERE recipe_id = :recipe_id ORDER BY step_order");
+  query.bindValue(":recipe_id", id.toString());
+
+  if (query.exec()) {
+    while (query.next()) {
+      instructions.append(query.value("instruction").toString());
+    }
+  } else {
+    qWarning() << "Failed to load instructions:" << query.lastError().text();
+    return {};
+  }
+
+  query.prepare("SELECT equipment FROM recipe_equipment "
+                "WHERE recipe_id = :recipe_id");
+  query.bindValue(":recipe_id", id.toString());
+
+  if (query.exec()) {
+    while (query.next()) {
+      equipment.append(query.value("equipment").toString());
+    }
+  } else {
+    qWarning() << "Failed to load equipment:" << query.lastError().text();
+    return {};
+  }
+
+  data["instructions"] = instructions;
+  data["equipment"] = equipment;
+
+  QVariantList riIds;
+  query.prepare(
+      "SELECT recipe_ingredient_id FROM recipe_ingredient_associations "
+      "WHERE recipe_id = :recipe_id");
+  query.bindValue(":recipe_id", id.toString());
+
+  if (query.exec()) {
+    while (query.next()) {
+      QUuid riId = query.value("recipe_ingredient_id").toUuid();
+      riIds.push_back(riId);
+    }
+  } else {
+    qWarning() << "Failed to load recipe ingredients:"
+               << query.lastError().text();
+    return {};
+  }
+
+  data["recipeIngredientIds"] = riIds;
+
+  return data;
+}
+
+QList<QVariantMap> SqliteDbHandler::readObjectRange(ObjectTypes type,
+                                                    int offset, int count) {
+  return {};
+}
+
+QList<QVariantMap> SqliteDbHandler::readAllObjects(ObjectTypes type) {
   return {};
 }
 
@@ -223,8 +377,6 @@ bool SqliteDbHandler::removeObject(Storable *object) { return true; }
 DatabaseVisitor *SqliteDbHandler::getSaver() { return m_saver; }
 
 DatabaseVisitor *SqliteDbHandler::getUpdater() { return m_updater; }
-
-DatabaseVisitor *SqliteDbHandler::getReader() { return m_reader; }
 
 DatabaseVisitor *SqliteDbHandler::getDeleter() { return m_deleter; }
 
@@ -271,11 +423,12 @@ void SqliteDbHandler::SqliteSaver::visit(QRecipeIngredient *object) {
 
   query.prepare(
       "INSERT INTO recipe_ingredients (id, ingredient_id, quantity, unit, "
-      "is_recipe) VALUES (:id, :ingredient_id, :quantity, :unit, :is_recipe)");
+      "is_recipe) VALUES (:id, :ingredient_id, :quantity, :unit, "
+      ":is_recipe)");
   query.bindValue(":id", object->getId().toString());
   query.bindValue(":ingredient_id", object->getIngredientId().toString());
   query.bindValue(":quantity", object->getQuantity());
-  query.bindValue(":unit", object->getUnit());
+  query.bindValue(":unit", QRecipeIngredient::unitToString(object->getUnit()));
   query.bindValue(":is_recipe", object->getIsRecipe());
 
   if (!query.exec()) {
@@ -339,7 +492,7 @@ void SqliteDbHandler::SqliteSaver::visit(QRecipe *object) {
   }
 
   // Recipe Ingredients
-  for (const auto &ingredientId : object->getIngredientIds()) {
+  for (const QUuid &ingredientId : object->getIngredientIds()) {
     query.prepare("INSERT INTO recipe_ingredient_associations (recipe_id, "
                   "recipe_ingredient_id) "
                   "VALUES (:recipe_id, :recipe_ingredient_id)");
@@ -367,9 +520,9 @@ SqliteDbHandler::SqliteUpdater::~SqliteUpdater() {}
 void SqliteDbHandler::SqliteUpdater::visit(QProfile *object) {
   QSqlQuery query;
 
-  query.prepare(
-      "UPDATE profiles SET username = :username, updated_at = CURRENT_TIMESTAMP"
-      "WHERE id=:id");
+  query.prepare("UPDATE profiles SET username = :username, updated_at = "
+                "CURRENT_TIMESTAMP"
+                "WHERE id=:id");
   query.bindValue(":username", object->getUsername());
   query.bindValue(":id", object->getId().toString());
 
@@ -418,7 +571,8 @@ void SqliteDbHandler::SqliteUpdater::visit(QRecipeIngredient *object) {
   QSqlQuery query;
 
   query.prepare(
-      "UPDATE recipe_ingredients SET ingredient_id = :ingredient_id, quantity "
+      "UPDATE recipe_ingredients SET ingredient_id = :ingredient_id, "
+      "quantity "
       "= :quantity, unit = :unit, is_recipe = :is_recipe WHERE id = :id");
   query.bindValue(":ingredient_id", object->getIngredientId().toString());
   query.bindValue(":quantity", object->getQuantity());
@@ -514,21 +668,35 @@ void SqliteDbHandler::SqliteUpdater::visit(QRecipe *object) {
   }
 
   // TODO: Update recipe ingredients associated to the recipe
+  // Delete the existing associations and simply re-create new ones
+  query.prepare(
+      "DELETE * FROM recipe_ingredient_associations WHERE recipe_id = :id");
+  query.bindValue(":id", object->getId().toString());
+
+  if (!query.exec()) {
+    qWarning()
+        << "Failed to remove old recipe to recipe ingredient associations";
+    throw std::runtime_error(QString("Failed to update recipe: %1")
+                                 .arg(query.lastError().text())
+                                 .toStdString());
+  }
+
+  for (const QUuid &ingredientId : object->getIngredientIds()) {
+    query.prepare("INSERT INTO recipe_ingredient_associations (recipe_id, "
+                  "recipe_ingredient_id) "
+                  "VALUES (:recipe_id, :recipe_ingredient_id)");
+
+    query.bindValue(":recipe_id", object->getId().toString());
+    query.bindValue(":recipe_ingredient_id", ingredientId.toString());
+
+    if (!query.exec()) {
+      throw std::runtime_error(
+          QString("Failed to update recipe ingredient association: %1")
+              .arg(query.lastError().text())
+              .toStdString());
+    }
+  }
 }
-
-SqliteDbHandler::SqliteReader::SqliteReader(SqliteDbHandler *handler,
-                                            QObject *parent)
-    : DatabaseVisitor(parent), m_handler(handler) {}
-
-SqliteDbHandler::SqliteReader::~SqliteReader() {}
-
-void SqliteDbHandler::SqliteReader::visit(QProfile *object) {}
-
-void SqliteDbHandler::SqliteReader::visit(QIngredient *object) {}
-
-void SqliteDbHandler::SqliteReader::visit(QRecipeIngredient *object) {}
-
-void SqliteDbHandler::SqliteReader::visit(QRecipe *object) {}
 
 SqliteDbHandler::SqliteDeleter::SqliteDeleter(SqliteDbHandler *handler,
                                               QObject *parent)

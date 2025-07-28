@@ -4,6 +4,7 @@
 #include "abstractdbhandler.h"
 
 #include <QtSql/QSqlDatabase>
+#include <quuid.h>
 
 class SqliteDbHandler : public AbstractDbHandler {
   Q_OBJECT
@@ -36,20 +37,6 @@ class SqliteDbHandler : public AbstractDbHandler {
     void visit(QRecipe *) override;
   };
 
-  // Reads objects from database
-  class SqliteReader : public DatabaseVisitor {
-    SqliteDbHandler *m_handler;
-
-  public:
-    explicit SqliteReader(SqliteDbHandler *handler, QObject *parent = nullptr);
-    ~SqliteReader();
-
-    void visit(QProfile *) override;
-    void visit(QIngredient *) override;
-    void visit(QRecipeIngredient *) override;
-    void visit(QRecipe *) override;
-  };
-
   // Deletes objects in database
   class SqliteDeleter : public DatabaseVisitor {
     SqliteDbHandler *m_handler;
@@ -68,9 +55,13 @@ class SqliteDbHandler : public AbstractDbHandler {
   bool openDatabase();
   void closeDatabase();
 
+  QVariantMap readProfile(const QUuid &id);
+  QVariantMap readIngredient(const QUuid &id);
+  QVariantMap readRecipeIngredient(const QUuid &id);
+  QVariantMap readRecipe(const QUuid &id);
+
   SqliteSaver *m_saver;
   SqliteUpdater *m_updater;
-  SqliteReader *m_reader;
   SqliteDeleter *m_deleter;
 
   QSqlDatabase m_db;
@@ -86,15 +77,14 @@ public:
 
   void saveObject(Storable *toSave) override;
   void updateObject(Storable *toUpdate) override;
-  Storable *readObject(ObjectTypes type, const QUuid &id) override;
-  QList<Storable *> readObjectRange(ObjectTypes type, int offset,
-                                    int count) override;
-  QList<Storable *> readAllObjects(ObjectTypes type) override;
+  QVariantMap readObject(ObjectTypes type, const QUuid &id) override;
+  QList<QVariantMap> readObjectRange(ObjectTypes type, int offset,
+                                     int count) override;
+  QList<QVariantMap> readAllObjects(ObjectTypes type) override;
   bool removeObject(Storable *object) override;
 
   DatabaseVisitor *getSaver() override;
   DatabaseVisitor *getUpdater() override;
-  DatabaseVisitor *getReader() override;
   DatabaseVisitor *getDeleter() override;
 };
 

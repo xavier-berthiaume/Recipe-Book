@@ -1,3 +1,4 @@
+#include "data/db/abstractdbhandler.h"
 #include "data/db/sqlitedbhandler.h"
 #include "ui/mainwindow.h"
 
@@ -8,36 +9,11 @@
 #include <QTranslator>
 #include <QVariantMap>
 
-int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-
-  ProfileFactory profileFactory;
-  IngredientFactory ingredientFactory;
-  RecipeIngredientFactory recipeIngredientFactory;
-  RecipeFactory recipeFactory;
-
-  SqliteDbHandler database = SqliteDbHandler("./test.sqlite");
-
-  QTranslator translator;
-  const QStringList uiLanguages = QLocale::system().uiLanguages();
-  for (const QString &locale : uiLanguages) {
-    const QString baseName = "recipe-book_" + QLocale(locale).name();
-    if (translator.load(":/i18n/" + baseName)) {
-      a.installTranslator(&translator);
-      break;
-    }
-  }
-  MainWindow w;
-  w.show();
-  return a.exec();
-}
-
 void testSavingToDatabase(ProfileFactory &profileFactory,
                           IngredientFactory &ingredientFactory,
                           RecipeIngredientFactory &recipeIngredientFactory,
                           RecipeFactory &recipeFactory,
                           SqliteDbHandler &database) {
-
   QVariantMap profileData = {{"username", "xavier"}};
   QProfile *profile = profileFactory.createObject(profileData);
 
@@ -71,4 +47,52 @@ void testSavingToDatabase(ProfileFactory &profileFactory,
   database.saveObject(ingredient);
   database.saveObject(ri);
   database.saveObject(recipe);
+}
+
+void testReadingFromDatabase(SqliteDbHandler &database) {
+  qDebug() << "Reading profile from database"
+           << database.readObject(
+                  PROFILEOBJECT,
+                  QUuid::fromString("{1b2a8739-9d68-4600-80fd-cadcb6afce83}"));
+
+  qDebug() << "Reading ingredient from database"
+           << database.readObject(
+                  INGREDIENTOBJECT,
+                  QUuid::fromString("{8c1d45b1-aea5-4457-88dc-83c264a7a9d9}"));
+
+  qDebug() << "Reading recipe ingredient from database"
+           << database.readObject(
+                  RECIPEINGREDIENTOBJECT,
+                  QUuid::fromString("{f3a9b809-c4b9-4d21-8331-bb6ec6bfcca2}"));
+
+  qDebug() << "Reading recipe from database"
+           << database.readObject(
+                  RECIPEOBJECT,
+                  QUuid::fromString("{01615daa-27ec-4e81-9d8a-a11a25b68ea8}"));
+}
+
+int main(int argc, char *argv[]) {
+  QApplication a(argc, argv);
+
+  ProfileFactory profileFactory;
+  IngredientFactory ingredientFactory;
+  RecipeIngredientFactory recipeIngredientFactory;
+  RecipeFactory recipeFactory;
+
+  SqliteDbHandler database = SqliteDbHandler("./test.sqlite");
+
+  testReadingFromDatabase(database);
+
+  QTranslator translator;
+  const QStringList uiLanguages = QLocale::system().uiLanguages();
+  for (const QString &locale : uiLanguages) {
+    const QString baseName = "recipe-book_" + QLocale(locale).name();
+    if (translator.load(":/i18n/" + baseName)) {
+      a.installTranslator(&translator);
+      break;
+    }
+  }
+  MainWindow w;
+  w.show();
+  return a.exec();
 }
