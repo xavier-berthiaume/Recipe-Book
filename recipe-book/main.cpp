@@ -9,12 +9,13 @@
 #include <QTranslator>
 #include <QVariantMap>
 
-void testSavingToDatabase(ProfileFactory &profileFactory,
+void testSavingToDatabase(const QString &uniqueUsername,
+                          ProfileFactory &profileFactory,
                           IngredientFactory &ingredientFactory,
                           RecipeIngredientFactory &recipeIngredientFactory,
                           RecipeFactory &recipeFactory,
                           SqliteDbHandler &database) {
-  QVariantMap profileData = {{"username", "xavier"}};
+  QVariantMap profileData = {{"username", uniqueUsername}};
   QProfile *profile = profileFactory.createObject(profileData);
 
   QVariantMap ingredientData = {{"creatorId", profile->getId()},
@@ -71,6 +72,20 @@ void testReadingFromDatabase(SqliteDbHandler &database) {
                   QUuid::fromString("{01615daa-27ec-4e81-9d8a-a11a25b68ea8}"));
 }
 
+void testBatchReadingFromDatabase(SqliteDbHandler &database) {
+  qDebug() << "Reading 10 profiles from database"
+           << database.readObjectRange(PROFILEOBJECT, 0, 10);
+
+  qDebug() << "Reading 15 ingredients from database"
+           << database.readObjectRange(INGREDIENTOBJECT, 0, 15);
+
+  qDebug() << "Reading 4 recipe ingredients from database"
+           << database.readObjectRange(RECIPEINGREDIENTOBJECT, 0, 4);
+
+  qDebug() << "Reading 2 recipes from database"
+           << database.readObjectRange(RECIPEOBJECT, 0, 2);
+}
+
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
 
@@ -81,8 +96,6 @@ int main(int argc, char *argv[]) {
 
   SqliteDbHandler database = SqliteDbHandler("./test.sqlite");
 
-  testReadingFromDatabase(database);
-
   QTranslator translator;
   const QStringList uiLanguages = QLocale::system().uiLanguages();
   for (const QString &locale : uiLanguages) {
@@ -92,7 +105,9 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
+
   MainWindow w;
   w.show();
+
   return a.exec();
 }

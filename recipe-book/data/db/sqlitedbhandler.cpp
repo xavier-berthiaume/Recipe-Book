@@ -4,6 +4,7 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
 #include <qcontainerfwd.h>
+#include <qlogging.h>
 #include <stdexcept>
 
 SqliteDbHandler::SqliteDbHandler(const QString &path, QObject *parent)
@@ -308,6 +309,7 @@ QVariantMap SqliteDbHandler::readRecipe(const QUuid &id) {
     return {};
   }
 
+  query.next();
   data["notes"] = query.value("notes").toString();
   data["prepTime"] = query.value("prep_time").toUInt();
 
@@ -365,7 +367,135 @@ QVariantMap SqliteDbHandler::readRecipe(const QUuid &id) {
 
 QList<QVariantMap> SqliteDbHandler::readObjectRange(ObjectTypes type,
                                                     int offset, int count) {
-  return {};
+  switch (type) {
+  case PROFILEOBJECT:
+    return readProfilesRange(offset, count);
+  case INGREDIENTOBJECT:
+    return readIngredientsRange(offset, count);
+  case RECIPEINGREDIENTOBJECT:
+    return readRecipeIngredientsRange(offset, count);
+  case RECIPEOBJECT:
+    return readRecipesRange(offset, count);
+  default:
+    qWarning() << "Tried reading invalid object type range from database";
+    return {};
+  }
+}
+
+QList<QVariantMap> SqliteDbHandler::readProfilesRange(int offset, int count) {
+  QList<QVariantMap> result;
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM profiles ORDER BY created_at DESC LIMIT :count "
+                "OFFSET :offset");
+  query.bindValue(":count", count);
+  query.bindValue(":offset", offset);
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read profiles range:" << query.lastError().text();
+    return result;
+  }
+
+  while (query.next()) {
+    QUuid id = query.value("id").toUuid();
+    result.append(
+        {{"id", id}, {"username", query.value("username").toString()}});
+  }
+
+  return result;
+}
+
+QList<QVariantMap> SqliteDbHandler::readIngredientsRange(int offset,
+                                                         int count) {
+  QList<QVariantMap> result;
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM ingredients ORDER BY created_at DESC LIMIT "
+                ":count OFFSET :offset");
+  query.bindValue(":count", count);
+  query.bindValue(":offset", offset);
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read ingredients range:"
+               << query.lastError().text();
+    return result;
+  }
+
+  while (query.next()) {
+    QUuid id = query.value("id").toUuid();
+    QUuid creatorId = query.value("creator_id").toUuid();
+    QString name = query.value("name").toString();
+    QString description = query.value("description").toString();
+
+    result.append({{"id", id},
+                   {"creatorId", creatorId},
+                   {"name", name},
+                   {"description", description}});
+  }
+
+  return result;
+}
+
+QList<QVariantMap> SqliteDbHandler::readRecipeIngredientsRange(int offset,
+                                                               int count) {
+  QList<QVariantMap> result;
+  QSqlQuery query;
+
+  query.prepare("SELECT * FROM recipe_ingredients ORDER BY created_at DESC "
+                "LIMIT :count OFFSET :offset");
+  query.bindValue(":count", count);
+  query.bindValue(":offset", offset);
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read recipe ingredients range:"
+               << query.lastError().text();
+    return result;
+  }
+
+  while (query.next()) {
+    QUuid id = query.value("id").toUuid();
+    QUuid ingredientId = query.value("ingredient_id").toUuid();
+
+    result.append({{"id", id},
+                   {"ingredient_id", ingredientId},
+                   {"quantity", query.value("quantity").toDouble()},
+                   {"unit", query.value("unit").toString()}});
+  }
+
+  return result;
+}
+
+QList<QVariantMap> SqliteDbHandler::readRecipesRange(int offset, int count) {
+  QList<QVariantMap> result;
+  QSqlQuery query;
+
+  // First get the recipe IDs in the requested range
+  query.prepare("SELECT id FROM recipes ORDER BY created_at DESC LIMIT :count "
+                "OFFSET :offset");
+  query.bindValue(":count", count);
+  query.bindValue(":offset", offset);
+
+  if (!query.exec()) {
+    qWarning() << "Failed to read recipe IDs range:"
+               << query.lastError().text();
+    return result;
+  }
+
+  // Collect all recipe IDs
+  QList<QUuid> recipeIds;
+  while (query.next()) {
+    recipeIds.append(QUuid::fromString(query.value("id").toString()));
+  }
+
+  // Now read each recipe individually
+  for (const QUuid &id : recipeIds) {
+    QVariantMap recipe = readRecipe(id);
+    if (!recipe.isEmpty()) {
+      result.append(recipe);
+    }
+  }
+
+  return result;
 }
 
 QList<QVariantMap> SqliteDbHandler::readAllObjects(ObjectTypes type) {

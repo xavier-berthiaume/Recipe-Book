@@ -60,6 +60,11 @@ class SqliteDbHandler : public AbstractDbHandler {
   QVariantMap readRecipeIngredient(const QUuid &id);
   QVariantMap readRecipe(const QUuid &id);
 
+  QList<QVariantMap> readProfilesRange(int offset, int count);
+  QList<QVariantMap> readIngredientsRange(int offset, int count);
+  QList<QVariantMap> readRecipeIngredientsRange(int offset, int count);
+  QList<QVariantMap> readRecipesRange(int offset, int count);
+
   SqliteSaver *m_saver;
   SqliteUpdater *m_updater;
   SqliteDeleter *m_deleter;
