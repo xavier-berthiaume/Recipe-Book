@@ -2,16 +2,10 @@
 #define ABSTRACTDBHANDLER_H
 
 #include "../../models.h"
+#include "../objecttypes.h"
 #include "databasevisitor.h"
 
 #include <QObject>
-
-enum ObjectTypes {
-  PROFILEOBJECT,
-  INGREDIENTOBJECT,
-  RECIPEINGREDIENTOBJECT,
-  RECIPEOBJECT
-};
 
 class AbstractDbHandler : public QObject {
   Q_OBJECT
