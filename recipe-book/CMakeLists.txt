@@ -17,6 +17,9 @@ set(TS_FILES translations/recipe-book_fr_CA.ts)
 set(PROJECT_SOURCES
         main.cpp
         models.h
+        database.h
+        database_visitor_fwd.h
+        objecttypes.h
 
         ui/mainwindow.cpp
         ui/mainwindow.h
@@ -33,6 +36,7 @@ set(PROJECT_SOURCES
         models/qrecipe.h models/qrecipe.cpp
         models/qrecipeingredient.h models/qrecipeingredient.cpp
 
+        models/factorymanager.h models/factorymanager.cpp
         models/genericfactoryss.h
         models/genericfactory.h
         models/profilefactory.h models/profilefactory.cpp
@@ -40,9 +44,14 @@ set(PROJECT_SOURCES
         models/recipefactory.h models/recipefactory.cpp
         models/recipeingredientfactory.h models/recipeingredientfactory.cpp
 
+        data/dataprovider.h data/dataprovider.cpp
+
         data/db/abstractdbhandler.h
         data/db/databasevisitor.h
         data/db/sqlitedbhandler.h data/db/sqlitedbhandler.cpp
+        
+        data/cache/abstractcache.h
+        data/cache/memorycache.h data/cache/memorycache.cpp
         ${TS_FILES}
 )
 

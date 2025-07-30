@@ -17,6 +17,7 @@ QRecipe *RecipeFactory::createObject(const QVariantMap &data) {
       data["instructions"].toStringList(), data["equipment"].toStringList(),
       data["prepTime"].toDouble(), this);
 
+  emit objectCreated(RECIPEOBJECT, newRecipe);
   emit recipeCreated(newRecipe);
   return newRecipe;
 }
@@ -29,12 +30,13 @@ QRecipe *RecipeFactory::loadObject(const QVariantMap &data) {
     ingredientIds.append(idVar.toUuid());
   }
 
-  QRecipe *newRecipe = new QRecipe(
+  QRecipe *loadedRecipe = new QRecipe(
       data["id"].toUuid(), data["creatorId"].toUuid(), data["name"].toString(),
       data["description"].toString(), data["notes"].toString(), ingredientIds,
       data["instructions"].toStringList(), data["equipment"].toStringList(),
       data["prepTime"].toDouble(), this);
 
-  emit recipeLoaded(newRecipe);
-  return newRecipe;
+  emit objectLoaded(RECIPEOBJECT, loadedRecipe);
+  emit recipeLoaded(loadedRecipe);
+  return loadedRecipe;
 }

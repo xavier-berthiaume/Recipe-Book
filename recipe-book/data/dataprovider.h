@@ -1,9 +1,9 @@
 #ifndef DATAPROVIDER_H
 #define DATAPROVIDER_H
 
+#include "../objecttypes.h"
 #include "cache/abstractcache.h"
 #include "db/abstractdbhandler.h"
-#include "objecttypes.h"
 
 #include <QObject>
 
@@ -25,6 +25,14 @@ public:
   void invalidateObject(ObjectTypes type, const QUuid &id);
   void invalidateObjectType(ObjectTypes type);
   void invalidateAll();
+
+public slots:
+  void objectChanged(ObjectTypes type, const QUuid &id);
+  void objectsChanged(ObjectTypes type);
+
+signals:
+  void objectLoaded(ObjectTypes type, const QVariantMap &data);
+  void objectsLoaded(ObjectTypes type, const QList<QVariantMap> &data);
 };
 
 #endif

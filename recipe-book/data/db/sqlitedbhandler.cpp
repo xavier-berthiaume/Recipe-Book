@@ -1,10 +1,10 @@
 #include "sqlitedbhandler.h"
 #include "abstractdbhandler.h"
 
+#include <QDebug>
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
-#include <qcontainerfwd.h>
-#include <qlogging.h>
+
 #include <stdexcept>
 
 SqliteDbHandler::SqliteDbHandler(const QString &path, QObject *parent)

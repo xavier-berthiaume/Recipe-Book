@@ -4,7 +4,6 @@
 #include "abstractdbhandler.h"
 
 #include <QtSql/QSqlDatabase>
-#include <quuid.h>
 
 class SqliteDbHandler : public AbstractDbHandler {
   Q_OBJECT

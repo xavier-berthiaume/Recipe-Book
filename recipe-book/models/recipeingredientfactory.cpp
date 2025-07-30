@@ -11,6 +11,7 @@ RecipeIngredientFactory::createObject(const QVariantMap &data) {
       data["ingredientId"].toUuid(), data["unit"].value<Units>(),
       data["quantity"].toDouble(), data["isRecipe"].toBool());
 
+  emit objectCreated(RECIPEINGREDIENTOBJECT, newRI);
   emit recipeIngredientCreated(newRI);
   return newRI;
 }
@@ -18,11 +19,12 @@ RecipeIngredientFactory::createObject(const QVariantMap &data) {
 QRecipeIngredient *
 RecipeIngredientFactory::loadObject(const QVariantMap &data) {
 
-  QRecipeIngredient *newRI = new QRecipeIngredient(
+  QRecipeIngredient *loadedRI = new QRecipeIngredient(
       data["id"].toUuid(), data["ingredientId"].toUuid(),
       data["unit"].value<Units>(), data["quantity"].toDouble(),
       data["isRecipe"].toBool());
 
-  emit recipeIngredientLoaded(newRI);
-  return newRI;
+  emit objectLoaded(RECIPEINGREDIENTOBJECT, loadedRI);
+  emit recipeIngredientLoaded(loadedRI);
+  return loadedRI;
 }

@@ -7,15 +7,17 @@ QProfile *ProfileFactory::createObject(const QVariantMap &data) {
 
   QProfile *newProfile = new QProfile(data["username"].toString(), this);
 
+  emit objectCreated(PROFILEOBJECT, newProfile);
   emit profileCreated(newProfile);
   return newProfile;
 }
 
 QProfile *ProfileFactory::loadObject(const QVariantMap &data) {
 
-  QProfile *newProfile =
+  QProfile *loadedProfile =
       new QProfile(data["id"].toUuid(), data["username"].toString(), this);
 
-  emit profileLoaded(newProfile);
-  return newProfile;
+  emit objectLoaded(PROFILEOBJECT, loadedProfile);
+  emit profileLoaded(loadedProfile);
+  return loadedProfile;
 }

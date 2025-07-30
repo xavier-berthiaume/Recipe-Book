@@ -1,9 +1,11 @@
 #ifndef ABSTRACTCACHE_H
 #define ABSTRACTCACHE_H
 
-#include "../objecttypes.h"
+#include "../../objecttypes.h"
 
 #include <QObject>
+#include <QUuid>
+#include <QVariantMap>
 
 class AbstractCache : public QObject {
   Q_OBJECT

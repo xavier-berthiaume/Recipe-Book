@@ -2,7 +2,7 @@
 #define ABSTRACTDBHANDLER_H
 
 #include "../../models.h"
-#include "../objecttypes.h"
+#include "../../objecttypes.h"
 #include "databasevisitor.h"
 
 #include <QObject>
@@ -30,6 +30,11 @@ public:
   virtual DatabaseVisitor *getSaver() = 0;
   virtual DatabaseVisitor *getUpdater() = 0;
   virtual DatabaseVisitor *getDeleter() = 0;
+
+public slots:
+  void onObjectCreation(Storable *object) { saveObject(object); }
+  void onObjectUpdate(Storable *object) { updateObject(object); }
+  void onObjectDelete(Storable *object) { removeObject(object); }
 };
 
 #endif

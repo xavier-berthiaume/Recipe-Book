@@ -6,7 +6,7 @@
 
 #include <QVariantMap>
 
-class IngredientFactory : GenericFactory<QIngredient> {
+class IngredientFactory : public GenericFactory<QIngredient> {
   Q_OBJECT
 
 public:

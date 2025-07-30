@@ -1,6 +1,9 @@
 #ifndef GENERICFACTORYSS_H
 #define GENERICFACTORYSS_H
 
+#include "../objecttypes.h"
+#include "storable.h"
+
 #include <QObject>
 
 class GenericFactorySS : public QObject {
@@ -10,8 +13,8 @@ public:
   explicit GenericFactorySS(QObject *parent = nullptr) : QObject(parent) {}
 
 signals:
-  void objectCreated(QObject *object);
-  void objectLoaded(QObject *object);
+  void objectCreated(ObjectTypes type, Storable *object);
+  void objectLoaded(ObjectTypes type, Storable *object);
 };
 
 #endif

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>210</y>
+      <w>480</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/AbstractCache/
+--
+/+ hasObject(ObjectTypes, QUuid) : bool/
+/+ getObject(ObjectTypes, QUuid) : QVariantMap/
+/+ putObject(ObjectTypes, QVariantMap) : void/
+/+ invalidateObject(ObjectTypes, QUuid) : void/
+
+/+ hasQuery(ObjectTypes, int, int) : bool/
+/+ getQuery(ObjectTypes, int, int) : QList&lt;QVariantMap&gt;/
+/+ putObject(ObjectTypes, int, int, QList&lt;QVariantMap&gt;) : void/
+/+ invalidateQueries(ObjectTypes) : void/
+
+/+ invalidateAll() : void/</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>230</y>
+      <w>520</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>MemoryCache
+--
+- QCache&lt;QString, QVariantMap&gt; m_objectCache
+- QCache&lt;QString, QList&lt;QVariantMap&gt; m_queryCache
+
+- QReadWriteLock m_objectLock
+- QReadWriteLock m_queryLock
+--
+- objectKey(ObjectType, QUuid) : QString
+- queryKey(ObjectType, int, int) : QString</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>510</x>
+      <y>330</y>
+      <w>190</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>50</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>QObject</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>270</x>
+      <y>70</y>
+      <w>30</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+</diagram>
