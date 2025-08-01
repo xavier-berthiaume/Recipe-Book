@@ -18,25 +18,13 @@ int main(int argc, char *argv[]) {
 
   AbstractDbHandler *database = new SqliteDbHandler("./test.sqlite");
   MemoryCache *cache = new MemoryCache();
-  DataProvider *provider = new DataProvider(cache, database, &a);
-  database->setParent(provider);
-  cache->setParent(provider);
+  DataProvider provider = DataProvider(cache, database, &a);
+  database->setParent(&provider);
+  cache->setParent(&provider);
 
-  FactoryManager *factories = new FactoryManager(&a);
+  FactoryManager factories = FactoryManager(&a);
 
-  QObject::connect(provider, &DataProvider::objectLoaded, factories,
-                   qOverload<ObjectTypes, const QVariantMap &>(
-                       &FactoryManager::onDataLoaded));
-
-  QObject::connect(provider, &DataProvider::objectsLoaded, factories,
-                   qOverload<ObjectTypes, const QList<QVariantMap> &>(
-                       &FactoryManager::onDataLoaded));
-
-  QObject::connect(factories, &FactoryManager::objectCreated,
-                   [database, provider](ObjectTypes type, Storable *object) {
-                     database->onObjectCreation(object);
-                     provider->objectsChanged(type);
-                   });
+  MainWindow w;
 
   QTranslator translator;
   const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -48,7 +36,46 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  MainWindow w;
+  QObject::connect(&provider, &DataProvider::objectLoaded, &factories,
+                   qOverload<ObjectTypes, const QVariantMap &>(
+                       &FactoryManager::onDataLoaded));
+
+  QObject::connect(&provider, &DataProvider::objectsLoaded, &factories,
+                   qOverload<ObjectTypes, const QList<QVariantMap> &>(
+                       &FactoryManager::onDataLoaded));
+
+  QObject::connect(
+      &factories, &FactoryManager::objectCreated,
+      [database, &provider, &w](ObjectTypes type, Storable *object) {
+        database->onObjectCreation(object);
+        w.handleObjectCreated(type, object);
+        provider.objectsChanged(type);
+      });
+
+  QObject::connect(&factories, &FactoryManager::objectLoaded, &w,
+                   &MainWindow::handleObjectLoaded);
+
+  QObject::connect(&w, &MainWindow::requestObject, &provider,
+                   &DataProvider::objectRequested);
+
+  QObject::connect(&w, &MainWindow::requestObjects, &provider,
+                   &DataProvider::objectsRequested);
+
+  QObject::connect(&w, &MainWindow::createObjectRequested, &factories,
+                   &FactoryManager::onFormSubmitted);
+
+  QObject::connect(&w, &MainWindow::updateObjectRequested,
+                   [database, &provider](ObjectTypes type, Storable *object) {
+                     database->updateObject(object);
+                     provider.invalidateObject(type, object->getId());
+                   });
+
+  QObject::connect(&w, &MainWindow::deleteObjectRequested,
+                   [database, &provider](ObjectTypes type, Storable *object) {
+                     database->removeObject(object);
+                     provider.invalidateObjectType(type);
+                   });
+
   w.show();
 
   return a.exec();

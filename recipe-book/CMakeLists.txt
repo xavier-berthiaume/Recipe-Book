@@ -21,9 +21,11 @@ set(PROJECT_SOURCES
         database_visitor_fwd.h
         objecttypes.h
 
-        ui/mainwindow.cpp
-        ui/mainwindow.h
-        ui/mainwindow.ui
+        ui/mainwindow.ui ui/mainwindow.h ui/mainwindow.cpp
+        ui/abstractform.h
+        ui/abstractview.h
+        ui/profileform.h ui/profileform.cpp ui/profileform.ui
+        ui/profileview.h ui/profileview.cpp ui/profileview.ui
 
         models/ingredient.h models/ingredient.cpp
         models/profile.h models/profile.cpp
@@ -83,6 +85,11 @@ else()
 endif()
 
 target_link_libraries(recipe-book PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt${QT_VERSION_MAJOR}::Sql)
+
+target_include_directories(recipe-book PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
+)
+
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

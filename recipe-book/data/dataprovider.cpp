@@ -1,6 +1,7 @@
 #include "dataprovider.h"
 
 #include <QDebug>
+#include <quuid.h>
 
 DataProvider::DataProvider(AbstractCache *cache, AbstractDbHandler *db,
                            QObject *parent)
@@ -56,6 +57,14 @@ void DataProvider::invalidateObjectType(ObjectTypes type) {
 }
 
 void DataProvider::invalidateAll() { m_cache->invalidateAll(); }
+
+void DataProvider::objectRequested(ObjectTypes type, const QUuid &id) {
+  getObject(type, id);
+}
+
+void DataProvider::objectsRequested(ObjectTypes type, int offset, int limit) {
+  getObjects(type, offset, limit);
+}
 
 void DataProvider::objectChanged(ObjectTypes type, const QUuid &id) {
   invalidateObject(type, id);

@@ -27,6 +27,8 @@ public:
   void invalidateAll();
 
 public slots:
+  void objectRequested(ObjectTypes type, const QUuid &id);
+  void objectsRequested(ObjectTypes type, int offset = 0, int limit = 10);
   void objectChanged(ObjectTypes type, const QUuid &id);
   void objectsChanged(ObjectTypes type);
 
