@@ -13,7 +13,7 @@ class ProfileForm : public AbstractForm {
   Q_OBJECT
 
   bool validateForm() override;
-  QVariantMap extractFormData() override;
+  void extractFormData() override;
   void populateForm(const QVariantMap &data) override;
   void clearForm() override;
   void initialize();

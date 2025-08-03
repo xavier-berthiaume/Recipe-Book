@@ -502,7 +502,26 @@ QList<QVariantMap> SqliteDbHandler::readAllObjects(ObjectTypes type) {
   return {};
 }
 
-bool SqliteDbHandler::removeObject(Storable *object) { return true; }
+void SqliteDbHandler::removeObject(Storable *object) {
+  if (!object)
+    return;
+
+  try {
+    if (!beginTransaction()) {
+      throw std::runtime_error("Failed to begin transaction");
+    }
+
+    object->accept(m_deleter);
+
+    if (!commitTransaction()) {
+      throw std::runtime_error("Failed to commit transaction");
+    }
+  } catch (const std::exception &e) {
+    rollbackTransaction();
+    qWarning() << "Deletion failed:" << e.what();
+    return;
+  }
+}
 
 DatabaseVisitor *SqliteDbHandler::getSaver() { return m_saver; }
 
@@ -651,8 +670,7 @@ void SqliteDbHandler::SqliteUpdater::visit(QProfile *object) {
   QSqlQuery query;
 
   query.prepare("UPDATE profiles SET username = :username, updated_at = "
-                "CURRENT_TIMESTAMP"
-                "WHERE id=:id");
+                "CURRENT_TIMESTAMP WHERE id=:id");
   query.bindValue(":username", object->getUsername());
   query.bindValue(":id", object->getId().toString());
 

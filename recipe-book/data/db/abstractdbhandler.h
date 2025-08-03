@@ -24,7 +24,7 @@ public:
   virtual QList<QVariantMap> readObjectRange(ObjectTypes type, int offset,
                                              int count) = 0;
   virtual QList<QVariantMap> readAllObjects(ObjectTypes type) = 0;
-  virtual bool removeObject(Storable *object) = 0;
+  virtual void removeObject(Storable *object) = 0;
 
   // Getters for the different database visitor objects
   virtual DatabaseVisitor *getSaver() = 0;

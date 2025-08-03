@@ -2,13 +2,7 @@
 #include "ui_profileform.h"
 
 ProfileForm::ProfileForm(Storable *object, QWidget *parent)
-    : AbstractForm(PROFILEOBJECT, object, parent), ui(new Ui::ProfileForm) {
-
-  QProfile *profile = castObject<QProfile>(object);
-  QVariantMap data;
-  data["username"] = profile->getUsername();
-  populateForm(data);
-}
+    : AbstractForm(PROFILEOBJECT, object, parent), ui(new Ui::ProfileForm) {}
 
 ProfileForm::ProfileForm(QWidget *parent)
     : AbstractForm(PROFILEOBJECT, parent), ui(new Ui::ProfileForm) {}
@@ -42,13 +36,13 @@ void ProfileForm::initialize() {
     if (!validateForm())
       return;
 
-    QVariantMap data = extractFormData();
+    extractFormData();
     if (isEditMode()) {
-      qDebug() << "Submitted form to update profile" << data["id"].toString();
-      emit updateRequested(objectType(), m_currentObject, data);
+      qDebug() << "Submitted form to update profile" << m_data["id"].toString();
+      emit updateRequested(objectType(), m_currentObject, m_data);
     } else {
       qDebug() << "Submitted form to create new profile";
-      emit createRequested(objectType(), data);
+      emit createRequested(objectType(), m_data);
     }
   });
 
@@ -63,15 +57,13 @@ bool ProfileForm::validateForm() {
   return true;
 }
 
-QVariantMap ProfileForm::extractFormData() {
-  QVariantMap data;
+void ProfileForm::extractFormData() {
 
-  data["username"] = m_usernameEdit->text();
-
-  return data;
+  m_data["username"] = m_usernameEdit->text();
 }
 
 void ProfileForm::populateForm(const QVariantMap &data) {
+  m_data = data;
   m_usernameEdit->setText(data["username"].toString());
 }
 

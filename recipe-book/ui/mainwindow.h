@@ -17,16 +17,23 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow {
   Q_OBJECT
 
+  // Sets the initial view as profile view, loads objects from database,
+  // enables/disables certain widgets based on state
+  void setupInitialState();
+
   Ui::MainWindow *ui;
 
   QProfile *m_selectedUser;
 
+  QStatusBar *m_status;
   QTabWidget *m_viewSelector;
   ProfileView *m_profileView;
 
 public:
   MainWindow(QWidget *parent = nullptr);
   ~MainWindow();
+
+  void launchWindow();
 
 public slots:
   void handleObjectCreated(ObjectTypes type, Storable *object);

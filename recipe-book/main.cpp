@@ -72,11 +72,14 @@ int main(int argc, char *argv[]) {
 
   QObject::connect(&w, &MainWindow::deleteObjectRequested,
                    [database, &provider](ObjectTypes type, Storable *object) {
+                     qDebug() << "Passing on object deletion request for type"
+                              << static_cast<int>(type) << "and id"
+                              << object->getId();
                      database->removeObject(object);
                      provider.invalidateObjectType(type);
                    });
 
-  w.show();
+  w.launchWindow();
 
   return a.exec();
 }

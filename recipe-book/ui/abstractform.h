@@ -12,7 +12,7 @@ class AbstractForm : public QDialog {
 
 protected:
   virtual bool validateForm() = 0;
-  virtual QVariantMap extractFormData() = 0;
+  virtual void extractFormData() = 0;
   virtual void populateForm(const QVariantMap &data) = 0;
   virtual void clearForm() = 0;
 
@@ -26,6 +26,7 @@ protected:
 
   ObjectTypes m_objectType;
   bool m_editMode = false;
+  QVariantMap m_data;
   Storable *m_currentObject = nullptr;
 
 public:

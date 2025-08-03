@@ -59,10 +59,14 @@ void DataProvider::invalidateObjectType(ObjectTypes type) {
 void DataProvider::invalidateAll() { m_cache->invalidateAll(); }
 
 void DataProvider::objectRequested(ObjectTypes type, const QUuid &id) {
+  qDebug() << "Individual object requested with type" << static_cast<int>(type)
+           << "and id" << id.toString();
   getObject(type, id);
 }
 
 void DataProvider::objectsRequested(ObjectTypes type, int offset, int limit) {
+  qDebug() << "Objects requested with type" << static_cast<int>(type)
+           << "and offset, limit of" << offset << limit;
   getObjects(type, offset, limit);
 }
 

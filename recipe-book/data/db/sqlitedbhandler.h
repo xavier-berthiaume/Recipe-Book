@@ -85,7 +85,7 @@ public:
   QList<QVariantMap> readObjectRange(ObjectTypes type, int offset,
                                      int count) override;
   QList<QVariantMap> readAllObjects(ObjectTypes type) override;
-  bool removeObject(Storable *object) override;
+  void removeObject(Storable *object) override;
 
   DatabaseVisitor *getSaver() override;
   DatabaseVisitor *getUpdater() override;

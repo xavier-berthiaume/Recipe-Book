@@ -26,6 +26,9 @@ set(PROJECT_SOURCES
         ui/abstractview.h
         ui/profileform.h ui/profileform.cpp ui/profileform.ui
         ui/profileview.h ui/profileview.cpp ui/profileview.ui
+        ui/genericlistmodel.h
+        ui/profilelistmodel.h ui/profilelistmodel.cpp
+        ui/profilelistdelegate.h ui/profilelistdelegate.cpp
 
         models/ingredient.h models/ingredient.cpp
         models/profile.h models/profile.cpp
