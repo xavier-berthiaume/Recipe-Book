@@ -36,15 +36,18 @@ public:
   void launchWindow();
 
 public slots:
+  void handleObjectsCounted(ObjectTypes type, int count);
   void handleObjectCreated(ObjectTypes type, Storable *object);
   void handleObjectLoaded(ObjectTypes type, Storable *object);
 
   // Ui related slots are private
 private slots:
+  void handleProfileSelected(QProfile *profile);
 
 signals:
   void requestObject(ObjectTypes type, const QUuid &id);
   void requestObjects(ObjectTypes type, int offset = 0, int limit = 10);
+  void requestObjectsCounted(ObjectTypes type);
   void createObjectRequested(ObjectTypes type, const QVariantMap &data);
   void updateObjectRequested(ObjectTypes type, Storable *object);
   void deleteObjectRequested(ObjectTypes type, Storable *object);

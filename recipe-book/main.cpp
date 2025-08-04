@@ -79,6 +79,12 @@ int main(int argc, char *argv[]) {
                      provider.invalidateObjectType(type);
                    });
 
+  QObject::connect(&w, &MainWindow::requestObjectsCounted, &provider,
+                   &DataProvider::objectCountRequested);
+
+  QObject::connect(&provider, &DataProvider::objectsCounted, &w,
+                   &MainWindow::handleObjectsCounted);
+
   w.launchWindow();
 
   return a.exec();

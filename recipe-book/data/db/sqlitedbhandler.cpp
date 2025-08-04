@@ -498,8 +498,85 @@ QList<QVariantMap> SqliteDbHandler::readRecipesRange(int offset, int count) {
   return result;
 }
 
+// TODO: IMPLEMENT ALONGSIDE HELPER METHODS
 QList<QVariantMap> SqliteDbHandler::readAllObjects(ObjectTypes type) {
   return {};
+}
+
+int SqliteDbHandler::countProfiles() {
+  qDebug() << "Counting profiles in database";
+  int count = 0;
+  QSqlQuery query;
+
+  if (!query.exec("SELECT COUNT(*) FROM profiles")) {
+    qWarning() << "Failed to count from profiles table: "
+               << query.lastError().text();
+    return 0;
+  }
+
+  if (query.next()) {
+    return query.value(0).toInt();
+  }
+
+  return count;
+}
+
+int SqliteDbHandler::countIngredients() {
+  qDebug() << "Counting ingredients in database";
+  int count = 0;
+  QSqlQuery query;
+
+  if (!query.exec("SELECT COUNT(*) FROM ingredients")) {
+    qWarning() << "Failed to count from ingredients table: "
+               << query.lastError().text();
+    return 0;
+  }
+
+  if (query.next()) {
+    return query.value(0).toInt();
+  }
+
+  return count;
+}
+
+int SqliteDbHandler::countRecipes() {
+  qDebug() << "Counting recipe in database";
+  int count = 0;
+  QSqlQuery query;
+
+  if (!query.exec("SELECT COUNT(*) FROM recipes")) {
+    qWarning() << "Failed to count from recipes table: "
+               << query.lastError().text();
+    return 0;
+  }
+
+  if (query.next()) {
+    return query.value(0).toInt();
+  }
+
+  return count;
+}
+
+int SqliteDbHandler::countObjectRows(ObjectTypes type) {
+  switch (type) {
+  case PROFILEOBJECT:
+    return countProfiles();
+    break;
+
+  case INGREDIENTOBJECT:
+    return countIngredients();
+    break;
+
+  case RECIPEOBJECT:
+    return countRecipes();
+    break;
+
+  default:
+    qWarning() << "Tried to count invalid object type";
+    break;
+  }
+
+  return 0;
 }
 
 void SqliteDbHandler::removeObject(Storable *object) {

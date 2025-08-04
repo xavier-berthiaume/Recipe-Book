@@ -58,6 +58,11 @@ void DataProvider::invalidateObjectType(ObjectTypes type) {
 
 void DataProvider::invalidateAll() { m_cache->invalidateAll(); }
 
+void DataProvider::objectCountRequested(ObjectTypes type) {
+  qDebug() << "Received count signal for object type" << static_cast<int>(type);
+  emit objectsCounted(type, m_db->countObjectRows(type));
+}
+
 void DataProvider::objectRequested(ObjectTypes type, const QUuid &id) {
   qDebug() << "Individual object requested with type" << static_cast<int>(type)
            << "and id" << id.toString();

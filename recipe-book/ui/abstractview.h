@@ -15,6 +15,7 @@ public:
   // In derived classes, don't mark these functions as slots, just throw them in
   // as normal public functions and add the override keyword.
 public slots:
+  virtual void handleObjectsCounted(ObjectTypes type, int count) = 0;
   virtual void handleObjectCreated(ObjectTypes type, Storable *object) = 0;
   virtual void handleObjectLoaded(ObjectTypes type, Storable *object) = 0;
 

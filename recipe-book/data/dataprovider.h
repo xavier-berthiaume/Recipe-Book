@@ -27,12 +27,14 @@ public:
   void invalidateAll();
 
 public slots:
+  void objectCountRequested(ObjectTypes type);
   void objectRequested(ObjectTypes type, const QUuid &id);
   void objectsRequested(ObjectTypes type, int offset = 0, int limit = 10);
   void objectChanged(ObjectTypes type, const QUuid &id);
   void objectsChanged(ObjectTypes type);
 
 signals:
+  void objectsCounted(ObjectTypes type, int count);
   void objectLoaded(ObjectTypes type, const QVariantMap &data);
   void objectsLoaded(ObjectTypes type, const QList<QVariantMap> &data);
 };

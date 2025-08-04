@@ -64,6 +64,11 @@ class SqliteDbHandler : public AbstractDbHandler {
   QList<QVariantMap> readRecipeIngredientsRange(int offset, int count);
   QList<QVariantMap> readRecipesRange(int offset, int count);
 
+  int countProfiles();
+  int countIngredients();
+  // No need to count recipe ingredients
+  int countRecipes();
+
   SqliteSaver *m_saver;
   SqliteUpdater *m_updater;
   SqliteDeleter *m_deleter;
@@ -85,6 +90,7 @@ public:
   QList<QVariantMap> readObjectRange(ObjectTypes type, int offset,
                                      int count) override;
   QList<QVariantMap> readAllObjects(ObjectTypes type) override;
+  int countObjectRows(ObjectTypes type) override;
   void removeObject(Storable *object) override;
 
   DatabaseVisitor *getSaver() override;
