@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ProfileForm</class>
- <widget class="QDialog" name="ProfileForm">
+ <class>IngredientForm</class>
+ <widget class="QDialog" name="IngredientForm">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -24,12 +24,12 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>22</pointsize>
+       <pointsize>20</pointsize>
        <bold>true</bold>
       </font>
      </property>
      <property name="text">
-      <string>Create a New Profile</string>
+      <string>Create a New Ingredient</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -37,22 +37,26 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="usernameLabel">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="nameLabel">
        <property name="text">
-        <string>Enter profile username</string>
+        <string>Name</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLineEdit" name="usernameEdit"/>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="nameEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="descriptionLabel">
+       <property name="text">
+        <string>Description</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPlainTextEdit" name="descriptionEdit"/>
      </item>
     </layout>
    </item>
@@ -73,7 +77,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>ProfileForm</receiver>
+   <receiver>IngredientForm</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -89,7 +93,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>ProfileForm</receiver>
+   <receiver>IngredientForm</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

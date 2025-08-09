@@ -1,14 +1,15 @@
-#ifndef PROFILELISTDELEGATE_H
-#define PROFILELISTDELEGATE_H
+#ifndef INGREDIENTLISTDELEGATE_H
+#define INGREDIENTLISTDELEGATE_H
 
 #include <QPainter>
 #include <QStyledItemDelegate>
+#include <qstyleoption.h>
 
-class ProfileListDelegate : public QStyledItemDelegate {
+class IngredientListDelegate : public QStyledItemDelegate {
   Q_OBJECT
 
 public:
-  explicit ProfileListDelegate(QObject *parent = nullptr);
+  explicit IngredientListDelegate(QObject *parent = nullptr);
 
   void paint(QPainter *painter, const QStyleOptionViewItem &option,
              const QModelIndex &index) const override;
@@ -17,4 +18,4 @@ public:
                  const QModelIndex &index) const override;
 };
 
-#endif // PROFILELISTDELEGATE_H
+#endif

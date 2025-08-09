@@ -22,13 +22,23 @@ set(PROJECT_SOURCES
         objecttypes.h
 
         ui/mainwindow.ui ui/mainwindow.h ui/mainwindow.cpp
+
         ui/abstractform.h
-        ui/abstractview.h
         ui/profileform.h ui/profileform.cpp ui/profileform.ui
+        ui/ingredientform.h ui/ingredientform.cpp ui/ingredientform.ui
+
+        ui/abstractview.h
         ui/profileview.h ui/profileview.cpp ui/profileview.ui
+        ui/ingredientview.h ui/ingredientview.cpp ui/ingredientview.ui
+
         ui/genericlistmodel.h
         ui/profilelistmodel.h ui/profilelistmodel.cpp
+        ui/ingredientlistmodel.h ui/ingredientlistmodel.cpp
+
         ui/profilelistdelegate.h ui/profilelistdelegate.cpp
+        ui/ingredientlistdelegate.h ui/ingredientlistdelegate.cpp
+
+        ui/displayingredientview.h ui/displayingredientview.cpp ui/displayingredientview.ui
 
         models/ingredient.h models/ingredient.cpp
         models/profile.h models/profile.cpp

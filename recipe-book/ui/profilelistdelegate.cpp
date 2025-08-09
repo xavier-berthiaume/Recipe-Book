@@ -29,6 +29,8 @@ void ProfileListDelegate::paint(QPainter *painter,
 
   painter->setFont(font);
   painter->drawText(usernameRect, username, Qt::AlignLeft | Qt::AlignVCenter);
+
+  painter->restore();
 }
 
 QSize ProfileListDelegate::sizeHint(const QStyleOptionViewItem &option,

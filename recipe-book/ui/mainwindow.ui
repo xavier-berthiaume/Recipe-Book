@@ -35,16 +35,16 @@
       </widget>
       <widget class="QWidget" name="ingredientTab">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <attribute name="title">
         <string>Ingredients</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
-         <widget class="QWidget" name="ingredientView" native="true">
+         <widget class="IngredientView" name="ingredientView" native="true">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -84,6 +84,12 @@
    <class>ProfileView</class>
    <extends>QWidget</extends>
    <header>profileview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>IngredientView</class>
+   <extends>QWidget</extends>
+   <header>ingredientview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

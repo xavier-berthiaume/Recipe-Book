@@ -4,14 +4,16 @@ ProfileListModel::ProfileListModel(QObject *parent)
     : GenericListModel<QProfile>(parent) {}
 
 // TODO IMPLEMENT ALONGSIDE SIGNALS
-void ProfileListModel::connectModelSignals(QProfile *model) const {}
+void ProfileListModel::connectModelSignals(QProfile *model) const {
+  // connect(model, &QProfile::usernameChanged, this, );
+}
 
 QHash<int, QByteArray> ProfileListModel::roleNames() const {
   return {{Roles::UsernameRole, "Username"}, {Roles::IdRole, "ID"}};
 }
 
 QVariant ProfileListModel::data(const QModelIndex &index, int role) const {
-  if (!index.isValid() && index.row() >= m_modelList.size())
+  if (!index.isValid() || index.row() >= m_modelList.size())
     return QVariant();
 
   QProfile *profile = m_modelList.at(index.row());
@@ -39,7 +41,6 @@ QProfile *ProfileListModel::getProfile(const QModelIndex &index) const {
 }
 
 void ProfileListModel::modifyModel(int index, const QVariant &data, int role) {
-
   QModelIndex indx = this->index(index);
   if (!indx.isValid() || index >= m_modelList.size())
     return;
@@ -48,13 +49,20 @@ void ProfileListModel::modifyModel(int index, const QVariant &data, int role) {
 
   switch (role) {
   case ProfileListModel::UsernameRole:
-    if (profile->getUsername() != data.toString()) {
-      profile->setUsername(data.toString());
-      emit dataChanged(indx, indx);
-    }
+    profile->setUsername(data.toString());
     break;
 
   default:
+    qWarning() << "Tried setting an invalid field for QProfile";
     break;
   }
+}
+
+void ProfileListModel::clearModel() {
+    qDebug() << "Clearing profile model";
+
+    beginResetModel();
+    qDeleteAll(m_modelList);
+    m_modelList.clear();
+    endResetModel();
 }

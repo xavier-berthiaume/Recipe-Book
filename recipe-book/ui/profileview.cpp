@@ -23,9 +23,16 @@ ProfileView::ProfileView(QWidget *parent)
 
   m_loadedCountIndicator = findChild<QLabel *>("loadedCountIndicator");
   m_totalCountIndicator = findChild<QLabel *>("totalCountIndicator");
+
+  checkLoadedStatus();
 }
 
 ProfileView::~ProfileView() { delete ui; }
+
+void ProfileView::clearModel() {
+  m_profileModel->clearModel();
+  setLoadedCount();
+}
 
 void ProfileView::handleObjectsCounted(ObjectTypes type, int count) {
   m_totalCount = count;
@@ -54,10 +61,7 @@ void ProfileView::handleObjectLoaded(ObjectTypes type, Storable *object) {
   case PROFILEOBJECT:
     m_profileModel->addModel(qobject_cast<QProfile *>(object));
     setLoadedCount();
-
-    if (m_totalCount == m_profileModel->rowCount()) {
-      m_loadMoreButton->setEnabled(false);
-    }
+    checkLoadedStatus();
     break;
 
   default:
@@ -203,4 +207,8 @@ void ProfileView::selectProfile(const QModelIndex &index) {
     m_loginButton->setEnabled(false);
     emit selectedProfileChanged(clickedProfile);
   }
+}
+
+void ProfileView::checkLoadedStatus() {
+  m_loadMoreButton->setEnabled(!(m_totalCount == m_profileModel->rowCount()));
 }

@@ -1,8 +1,8 @@
-#ifndef PROFILEVIEW_H
-#define PROFILEVIEW_H
+#ifndef INGREDIENTVIEW_H
+#define INGREDIENTVIEW_H
 
 #include "abstractview.h"
-#include "profilelistmodel.h"
+#include "ingredientlistmodel.h"
 
 #include <QLabel>
 #include <QListView>
@@ -10,53 +10,47 @@
 #include <QToolButton>
 
 namespace Ui {
-class ProfileView;
+class IngredientView;
 }
 
-class ProfileView : public AbstractView {
+class IngredientView : public AbstractView {
   Q_OBJECT
 
-  void selectProfile(const QModelIndex &index = QModelIndex());
   void setLoadedCount();
   void checkLoadedStatus();
   void incrementTotalCount();
   void decrementTotalCount();
 
-  Ui::ProfileView *ui;
+  Ui::IngredientView *ui;
 
-  QProfile *m_selectedProfile;
-  ProfileListModel *m_profileModel;
+  IngredientListModel *m_ingredientModel;
 
   QListView *m_listView;
   QToolButton *m_loadMoreButton;
   QToolButton *m_editButton;
   QToolButton *m_deleteButton;
-  QPushButton *m_loginButton;
+  QPushButton *m_detailsButton;
   QLabel *m_loadedCountIndicator;
   QLabel *m_totalCountIndicator;
 
   int m_totalCount = 0;
 
 public:
-  explicit ProfileView(QWidget *parent = nullptr);
-  ~ProfileView();
+  explicit IngredientView(QWidget *parent = nullptr);
+  ~IngredientView();
 
   void clearModel() override;
 
   void handleObjectsCounted(ObjectTypes type, int count) override;
   void handleObjectCreated(ObjectTypes type, Storable *object) override;
   void handleObjectLoaded(ObjectTypes type, Storable *object) override;
-
-private slots:
+  private slots:
   void on_createButton_clicked();
-  void on_profileListView_clicked(const QModelIndex &index);
+      void on_loadMoreButton_clicked();
   void on_deleteButton_clicked();
-  void on_editButton_clicked();
-  void on_loginButton_clicked();
-  void on_loadMoreButton_clicked();
-
-signals:
-  void selectedProfileChanged(QProfile *profile);
+      void on_editButton_clicked();
+  void on_ingredientListView_clicked(const QModelIndex &index);
+      void on_detailsButton_clicked();
 };
 
-#endif // PROFILEVIEW_H
+#endif // INGREDIENTVIEW_H

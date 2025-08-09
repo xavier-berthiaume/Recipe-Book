@@ -12,6 +12,9 @@ class ProfileForm;
 class ProfileForm : public AbstractForm {
   Q_OBJECT
 
+  explicit ProfileForm(Storable *object, QWidget *parent = nullptr);
+  explicit ProfileForm(QWidget *parent = nullptr);
+
   bool validateForm() override;
   void extractFormData() override;
   void populateForm(const QVariantMap &data) override;
@@ -20,9 +23,6 @@ class ProfileForm : public AbstractForm {
 
   Ui::ProfileForm *ui;
   QLineEdit *m_usernameEdit;
-
-  explicit ProfileForm(Storable *object, QWidget *parent = nullptr);
-  explicit ProfileForm(QWidget *parent = nullptr);
 
 public:
   // We use factory methods here since they might need to call the virtual

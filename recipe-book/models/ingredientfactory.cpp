@@ -5,7 +5,6 @@ IngredientFactory::IngredientFactory(QObject *parent)
     : GenericFactory<QIngredient>(parent) {}
 
 QIngredient *IngredientFactory::createObject(const QVariantMap &data) {
-
   QIngredient *newIngredient =
       new QIngredient(data["creatorId"].toUuid(), data["name"].toString(),
                       data["description"].toString(), this);

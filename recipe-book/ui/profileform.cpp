@@ -30,6 +30,7 @@ ProfileForm *ProfileForm::editForm(Storable *object, QWidget *parent) {
 
 void ProfileForm::initialize() {
   ui->setupUi(this);
+
   m_usernameEdit = findChild<QLineEdit *>("usernameEdit");
 
   connect(this, &QDialog::accepted, [this]() {
@@ -64,7 +65,7 @@ void ProfileForm::extractFormData() {
 
 void ProfileForm::populateForm(const QVariantMap &data) {
   m_data = data;
-  m_usernameEdit->setText(data["username"].toString());
+  m_usernameEdit->setText(m_data["username"].toString());
 }
 
 void ProfileForm::clearForm() { m_usernameEdit->clear(); }

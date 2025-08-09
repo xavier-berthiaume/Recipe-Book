@@ -90,5 +90,8 @@ in using anything more robust.
 
 ```ui.uxf``` UML of the different support classes used by Qt's MVC framework. Contains the different child classes for the QAbstractListModel and QStyledItemDelegate classes.
 
-```data.uxf``` UML of the data layer of the application. Contains information about the software's cache, as well as the database layer and the visitor class that streamlines saving different object types.
+```data.uxf``` *Now Deprecated, see db.uxf or cache.uxf instead* UML of the data layer of the application. Contains information about the software's cache, as well as the database layer and the visitor class that streamlines saving different object types.
 
+```db.uxf``` UML of the database layer.
+
+```cache.uxf``` UML of the cache layer.

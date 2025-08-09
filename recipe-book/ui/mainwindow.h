@@ -3,6 +3,7 @@
 
 #include "../models.h"
 #include "../objecttypes.h"
+#include "ingredientview.h"
 #include "profileview.h"
 
 #include <QMainWindow>
@@ -23,11 +24,12 @@ class MainWindow : public QMainWindow {
 
   Ui::MainWindow *ui;
 
-  QProfile *m_selectedUser;
+  QUuid m_selectedUserId;
 
   QStatusBar *m_status;
   QTabWidget *m_viewSelector;
   ProfileView *m_profileView;
+  IngredientView *m_ingredientView;
 
 public:
   MainWindow(QWidget *parent = nullptr);
@@ -43,6 +45,8 @@ public slots:
   // Ui related slots are private
 private slots:
   void handleProfileSelected(QProfile *profile);
+
+  void on_viewNavigator_currentChanged(int index);
 
 signals:
   void requestObject(ObjectTypes type, const QUuid &id);

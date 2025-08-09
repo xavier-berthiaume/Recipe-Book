@@ -42,7 +42,7 @@ public:
   ObjectTypes objectType() const { return m_objectType; }
 
 signals:
-  void createRequested(ObjectTypes type, const QVariantMap &data);
+  void createRequested(ObjectTypes type, QVariantMap &data);
   void updateRequested(ObjectTypes type, Storable *object,
                        const QVariantMap &data);
 };

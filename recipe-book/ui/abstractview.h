@@ -12,6 +12,8 @@ class AbstractView : public QWidget {
 public:
   explicit AbstractView(QWidget *parent = nullptr) : QWidget(parent) {}
 
+  virtual void clearModel() = 0;
+
   // In derived classes, don't mark these functions as slots, just throw them in
   // as normal public functions and add the override keyword.
 public slots:
@@ -22,7 +24,8 @@ public slots:
 signals:
   void requestObject(ObjectTypes type, const QUuid &id);
   void requestObjects(ObjectTypes type, int offset = 0, int limit = 10);
-  void createObjectRequested(ObjectTypes type, const QVariantMap &data);
+  void requestObjectsCount(ObjectTypes type);
+  void createObjectRequested(ObjectTypes type, QVariantMap &data);
   void updateObjectRequested(ObjectTypes type, Storable *object);
   void deleteObjectRequested(ObjectTypes type, Storable *object);
 };
