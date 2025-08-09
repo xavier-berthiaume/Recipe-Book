@@ -53,18 +53,31 @@ void IngredientView::handleObjectCreated(ObjectTypes type, Storable *object) {
 }
 
 void IngredientView::handleObjectLoaded(ObjectTypes type, Storable *object) {
-  qDebug() << "Adding ingredient to list model";
+    QList<QWidget*> children = findChildren<QWidget*>();
 
-  switch (type) {
-  case INGREDIENTOBJECT:
-    m_ingredientModel->addModel(qobject_cast<QIngredient *>(object));
-    setLoadedCount();
-    checkLoadedStatus();
-    break;
+    switch (type) {
+    case INGREDIENTOBJECT:
+        qDebug() << "Adding ingredient to list model";
+        m_ingredientModel->addModel(qobject_cast<QIngredient *>(object));
+        setLoadedCount();
+        checkLoadedStatus();
+        break;
 
-  default:
-    break;
-  }
+    case PROFILEOBJECT:
+        qDebug() << "Adding to ingredient detailed view profile with id" << object->getId().toString();
+
+        for(QWidget *child : children) {
+            DisplayIngredientView* dialog = qobject_cast<DisplayIngredientView*>(child);
+            if (dialog) {
+                qDebug() << "Found ingredient detail dialog, passing profile";
+                QProfile* profile = qobject_cast<QProfile*>(object);
+                dialog->setCreatorName(profile);
+            }
+        }
+
+    default:
+        break;
+    }
 }
 
 void IngredientView::setLoadedCount() {
@@ -153,5 +166,6 @@ void IngredientView::on_detailsButton_clicked()
 
     DisplayIngredientView *detailView = new DisplayIngredientView(ingredientToRead, this);
     detailView->show();
+    emit requestObject(PROFILEOBJECT, ingredientToRead->getCreatorId());
 }
 

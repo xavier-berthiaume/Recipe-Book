@@ -17,12 +17,16 @@ class DisplayIngredientView : public QDialog
 
     Ui::DisplayIngredientView *ui;
 
+    QIngredient *m_ingredient;
     QLabel *m_nameLabel;
+    QLabel *m_creatorLabel;
     QTextBrowser *m_descriptionBrowser;
 
 public:
     explicit DisplayIngredientView(QIngredient *ingredient, QWidget *parent = nullptr);
     ~DisplayIngredientView();
+
+    void setCreatorName(QProfile *creator);
 };
 
 #endif // DISPLAYINGREDIENTVIEW_H

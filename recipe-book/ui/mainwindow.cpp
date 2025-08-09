@@ -68,6 +68,8 @@ MainWindow::MainWindow(QWidget *parent)
 
   connect(m_ingredientView, &IngredientView::requestObjects, this,
           &MainWindow::requestObjects);
+
+  connect(m_ingredientView, &IngredientView::requestObject, this, &MainWindow::requestObject);
 }
 
 MainWindow::~MainWindow() { delete ui; }

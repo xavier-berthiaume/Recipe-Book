@@ -23,17 +23,30 @@
       </font>
      </property>
      <property name="toolTip">
-      <string notr="true"/>
+      <string/>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string notr="true">TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="creatorLabel">
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string notr="true">TextLabel</string>
      </property>
     </widget>
    </item>
    <item>
     <widget class="QTextBrowser" name="descriptionBrowser">
      <property name="toolTip">
-      <string notr="true"/>
+      <string/>
      </property>
     </widget>
    </item>
