@@ -14,7 +14,6 @@ IngredientView::IngredientView(QWidget *parent)
   m_listView->setItemDelegate(new IngredientListDelegate(this));
 
   m_loadMoreButton = findChild<QToolButton *>("loadMoreButton");
-
   m_editButton = findChild<QToolButton *>("editButton");
   m_deleteButton = findChild<QToolButton *>("deleteButton");
   m_detailsButton = findChild<QPushButton *>("detailsButton");

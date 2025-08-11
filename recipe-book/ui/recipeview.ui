@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>IngredientView</class>
- <widget class="QWidget" name="IngredientView">
+ <class>RecipeView</class>
+ <widget class="QWidget" name="RecipeView">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>689</width>
-    <height>559</height>
+    <width>759</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,12 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QListView" name="ingredientListView"/>
+    <widget class="QListView" name="listView"/>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="countLabel">
+      <widget class="QLabel" name="label">
        <property name="text">
         <string>Showing</string>
        </property>
@@ -28,16 +28,13 @@
      </item>
      <item>
       <widget class="QLabel" name="loadedCountIndicator">
-       <property name="toolTip">
-        <string/>
-       </property>
        <property name="text">
         <string notr="true">0</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="countLabel_2">
+      <widget class="QLabel" name="label_3">
        <property name="text">
         <string>of</string>
        </property>
@@ -45,9 +42,6 @@
      </item>
      <item>
       <widget class="QLabel" name="totalCountIndicator">
-       <property name="toolTip">
-        <string/>
-       </property>
        <property name="text">
         <string notr="true">0</string>
        </property>
@@ -57,9 +51,6 @@
       <widget class="QToolButton" name="loadMoreButton">
        <property name="enabled">
         <bool>false</bool>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load more ingredients&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>...</string>
@@ -87,9 +78,6 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;View the currently selected ingredients description&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
        <property name="text">
         <string>View Details</string>
        </property>
@@ -97,9 +85,6 @@
      </item>
      <item>
       <widget class="QToolButton" name="createButton">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Create a new ingredient&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
        <property name="text">
         <string>...</string>
        </property>
@@ -113,9 +98,6 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Edit the currently selected ingredient&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
        <property name="text">
         <string>...</string>
        </property>
@@ -128,9 +110,6 @@
       <widget class="QToolButton" name="deleteButton">
        <property name="enabled">
         <bool>false</bool>
-       </property>
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the currently selected ingredient&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
         <string>...</string>

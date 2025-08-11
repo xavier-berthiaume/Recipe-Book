@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
   m_viewSelector = findChild<QTabWidget *>("viewNavigator");
   m_profileView = findChild<ProfileView *>("profileView");
   m_ingredientView = findChild<IngredientView *>("ingredientView");
+  m_recipeView = findChild<RecipeView *>("recipeView");
 
   connect(m_profileView, &ProfileView::createObjectRequested, this,
           &MainWindow::createObjectRequested);
@@ -69,7 +70,39 @@ MainWindow::MainWindow(QWidget *parent)
   connect(m_ingredientView, &IngredientView::requestObjects, this,
           &MainWindow::requestObjects);
 
-  connect(m_ingredientView, &IngredientView::requestObject, this, &MainWindow::requestObject);
+  connect(m_ingredientView, &IngredientView::requestObject, this,
+          &MainWindow::requestObject);
+
+  connect(m_recipeView, &RecipeView::createObjectRequested,
+          [this](ObjectTypes type, QVariantMap &data) {
+            if (!m_selectedUserId.isNull()) {
+              QUuid userId = this->m_selectedUserId;
+              qDebug()
+                  << QString(
+                         "User %1 is logged in, creating recipe using their ID")
+                         .arg(userId.toString());
+              data["creatorId"] = userId;
+            } else {
+              qWarning() << "No user currently selected, using an empty QUuid "
+                            "to create recipe";
+              data["creatorId"] = QUuid().toString();
+            }
+          });
+
+  connect(m_recipeView, &RecipeView::updateObjectRequested, this,
+          &MainWindow::updateObjectRequested);
+
+  connect(m_recipeView, &RecipeView::deleteObjectRequested, this,
+          &MainWindow::deleteObjectRequested);
+
+  connect(m_recipeView, &RecipeView::requestObjectsCount, this,
+          &MainWindow::requestObjectsCounted);
+
+  connect(m_recipeView, &RecipeView::requestObjects, this,
+          &MainWindow::requestObjects);
+
+  connect(m_recipeView, &RecipeView::requestObject, this,
+          &MainWindow::requestObject);
 }
 
 MainWindow::~MainWindow() { delete ui; }

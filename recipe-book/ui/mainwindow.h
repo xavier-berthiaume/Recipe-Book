@@ -5,6 +5,7 @@
 #include "../objecttypes.h"
 #include "ingredientview.h"
 #include "profileview.h"
+#include "recipeview.h"
 
 #include <QMainWindow>
 #include <QVariantMap>
@@ -30,6 +31,7 @@ class MainWindow : public QMainWindow {
   QTabWidget *m_viewSelector;
   ProfileView *m_profileView;
   IngredientView *m_ingredientView;
+  RecipeView *m_recipeView;
 
 public:
   MainWindow(QWidget *parent = nullptr);

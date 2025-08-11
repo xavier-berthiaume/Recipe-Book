@@ -63,10 +63,10 @@ void IngredientListModel::modifyModel(int index, const QVariant &data,
 }
 
 void IngredientListModel::clearModel() {
-    qDebug() << "Clearing ingredient model";
+  qDebug() << "Clearing ingredient model";
 
-    beginResetModel();
-    qDeleteAll(m_modelList);
-    m_modelList.clear();
-    endResetModel();
+  beginResetModel();
+  qDeleteAll(m_modelList);
+  m_modelList.clear();
+  endResetModel();
 }

@@ -21,7 +21,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="profileTab">
        <attribute name="title">
@@ -59,7 +59,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QWidget" name="recipeView" native="true"/>
+         <widget class="RecipeView" name="recipeView" native="true"/>
         </item>
        </layout>
       </widget>
@@ -90,6 +90,12 @@
    <class>IngredientView</class>
    <extends>QWidget</extends>
    <header>ingredientview.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>RecipeView</class>
+   <extends>QWidget</extends>
+   <header>recipeview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

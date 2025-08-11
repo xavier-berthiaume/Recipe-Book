@@ -86,6 +86,9 @@
      </item>
      <item>
       <widget class="QToolButton" name="loadMoreButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load more profiles&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
