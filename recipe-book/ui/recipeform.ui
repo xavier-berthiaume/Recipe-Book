@@ -97,6 +97,9 @@
        </item>
        <item>
         <widget class="QToolButton" name="addInstructionButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>...</string>
          </property>
@@ -166,7 +169,10 @@
         </spacer>
        </item>
        <item>
-        <widget class="QToolButton" name="createEquipmentButton">
+        <widget class="QToolButton" name="addEquipmentButton">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>...</string>
          </property>

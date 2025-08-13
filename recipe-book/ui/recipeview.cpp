@@ -1,6 +1,7 @@
 #include "recipeview.h"
 #include "recipelistdelegate.h"
 #include "ui_recipeview.h"
+#include "recipeform.h"
 
 RecipeView::RecipeView(QWidget *parent)
     : AbstractView(parent), ui(new Ui::RecipeView),
@@ -76,3 +77,13 @@ void RecipeView::handleObjectLoaded(ObjectTypes type, Storable *object) {
     break;
   }
 }
+
+void RecipeView::on_createButton_clicked()
+{
+    RecipeForm *form = RecipeForm::createForm(this);
+
+    connect(form, &RecipeForm::createRequested, this, &RecipeView::createObjectRequested);
+
+    form->exec();
+}
+

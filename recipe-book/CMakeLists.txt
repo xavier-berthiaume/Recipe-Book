@@ -44,6 +44,8 @@ set(PROJECT_SOURCES
 
         ui/displayingredientview.h ui/displayingredientview.cpp ui/displayingredientview.ui
 
+        ui/stringeditdialog.h ui/stringeditdialog.cpp
+
         models/ingredient.h models/ingredient.cpp
         models/profile.h models/profile.cpp
         models/recipe.h models/recipe.cpp
@@ -78,6 +80,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(recipe-book
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ui/recipeingredientform.h ui/recipeingredientform.cpp ui/recipeingredientform.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET recipe-book APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

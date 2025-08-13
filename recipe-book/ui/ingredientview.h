@@ -51,6 +51,7 @@ public:
       void on_editButton_clicked();
   void on_ingredientListView_clicked(const QModelIndex &index);
       void on_detailsButton_clicked();
+  void on_ingredientListView_doubleClicked(const QModelIndex &index);
 };
 
 #endif // INGREDIENTVIEW_H

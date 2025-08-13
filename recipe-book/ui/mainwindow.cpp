@@ -111,8 +111,10 @@ void MainWindow::setupInitialState() {
   qDebug() << "Setting up main window initial state";
   m_viewSelector->setCurrentIndex(0);
 
+  /*
   emit requestObjects(PROFILEOBJECT);
   emit requestObjectsCounted(PROFILEOBJECT);
+*/
 }
 
 void MainWindow::launchWindow() {

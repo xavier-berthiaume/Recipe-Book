@@ -155,6 +155,10 @@ void IngredientView::on_ingredientListView_clicked(const QModelIndex &index)
   m_detailsButton->setEnabled(index.isValid());
 }
 
+void IngredientView::on_ingredientListView_doubleClicked(const QModelIndex &index)
+{
+    on_detailsButton_clicked();
+}
 
 void IngredientView::on_detailsButton_clicked()
 {
@@ -167,4 +171,5 @@ void IngredientView::on_detailsButton_clicked()
     detailView->show();
     emit requestObject(PROFILEOBJECT, ingredientToRead->getCreatorId());
 }
+
 

@@ -46,6 +46,7 @@ public:
   void handleObjectLoaded(ObjectTypes type, Storable *object) override;
 
 private slots:
+  void on_createButton_clicked();
 };
 
 #endif // RECIPEVIEW_H
