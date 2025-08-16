@@ -36,6 +36,7 @@ class QRecipeIngredient : public Storable {
 public:
   static QString unitToString(Units unit);
   static Units stringToUnits(const QString &unit);
+  static QMap<QString, Units> getUnitList();
 
   explicit QRecipeIngredient(const QUuid &ingredientId, Units unit,
                              double quantity, bool isRecipe,

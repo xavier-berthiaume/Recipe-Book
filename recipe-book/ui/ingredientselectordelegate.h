@@ -1,15 +1,15 @@
-#ifndef INGREDIENTLISTDELEGATE_H
-#define INGREDIENTLISTDELEGATE_H
+#ifndef INGREDIENTSELECTORDELEGATE_H
+#define INGREDIENTSELECTORDELEGATE_H
 
 #include <QPainter>
 #include <QStyleOption>
 #include <QStyledItemDelegate>
 
-class IngredientListDelegate : public QStyledItemDelegate {
+class IngredientSelectorDelegate : public QStyledItemDelegate {
   Q_OBJECT
 
 public:
-  explicit IngredientListDelegate(QObject *parent = nullptr);
+  explicit IngredientSelectorDelegate(QObject *parent = nullptr);
 
   void paint(QPainter *painter, const QStyleOptionViewItem &option,
              const QModelIndex &index) const override;

@@ -27,6 +27,7 @@ set(PROJECT_SOURCES
         ui/profileform.h ui/profileform.cpp ui/profileform.ui
         ui/ingredientform.h ui/ingredientform.cpp ui/ingredientform.ui
         ui/recipeform.h ui/recipeform.cpp ui/recipeform.ui
+        ui/recipeingredientform.h ui/recipeingredientform.cpp ui/recipeingredientform.ui
 
         ui/abstractview.h
         ui/profileview.h ui/profileview.cpp ui/profileview.ui
@@ -41,6 +42,7 @@ set(PROJECT_SOURCES
         ui/profilelistdelegate.h ui/profilelistdelegate.cpp
         ui/ingredientlistdelegate.h ui/ingredientlistdelegate.cpp
         ui/recipelistdelegate.h ui/recipelistdelegate.cpp
+        ui/ingredientselectordelegate.h ui/ingredientselectordelegate.cpp
 
         ui/displayingredientview.h ui/displayingredientview.cpp ui/displayingredientview.ui
 
@@ -80,7 +82,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(recipe-book
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        ui/recipeingredientform.h ui/recipeingredientform.cpp ui/recipeingredientform.ui
 
     )
 # Define target properties for Android with Qt 6 as:

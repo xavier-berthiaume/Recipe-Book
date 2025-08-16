@@ -45,6 +45,9 @@ signals:
   void createRequested(ObjectTypes type, QVariantMap &data);
   void updateRequested(ObjectTypes type, Storable *object,
                        const QVariantMap &data);
+  void requestObject(ObjectTypes type, const QUuid &id);
+  void requestObjects(ObjectTypes type, int offset = 0, int limit = 10);
+  void requestObjectsCount(ObjectTypes type);
 };
 
 #endif // ABSTRACTFORM_H

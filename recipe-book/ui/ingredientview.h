@@ -44,13 +44,14 @@ public:
   void handleObjectsCounted(ObjectTypes type, int count) override;
   void handleObjectCreated(ObjectTypes type, Storable *object) override;
   void handleObjectLoaded(ObjectTypes type, Storable *object) override;
-  private slots:
+
+private slots:
   void on_createButton_clicked();
-      void on_loadMoreButton_clicked();
+  void on_loadMoreButton_clicked();
   void on_deleteButton_clicked();
-      void on_editButton_clicked();
+  void on_editButton_clicked();
   void on_ingredientListView_clicked(const QModelIndex &index);
-      void on_detailsButton_clicked();
+  void on_detailsButton_clicked();
   void on_ingredientListView_doubleClicked(const QModelIndex &index);
 };
 

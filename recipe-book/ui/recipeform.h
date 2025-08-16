@@ -2,11 +2,12 @@
 #define RECIPEFORM_H
 
 #include "abstractform.h"
+#include "recipeingredientform.h"
 
 #include <QDialog>
-#include <QListWidget>
 #include <QLineEdit>
 #include <QListView>
+#include <QListWidget>
 #include <QPlainTextEdit>
 
 namespace Ui {
@@ -24,6 +25,8 @@ class RecipeForm : public AbstractForm {
   void populateForm(const QVariantMap &data) override;
   void clearForm() override;
   void initialize();
+
+  RecipeIngredientForm *m_ingredientForm = nullptr;
 
   QLineEdit *m_nameEdit;
   QPlainTextEdit *m_descriptionEdit;
@@ -50,18 +53,24 @@ public:
   static RecipeForm *editForm(Storable *object, QWidget *parent);
 
   ~RecipeForm();
-  private slots:
-  void on_instructionEdit_textChanged(const QString &arg1);
-      void on_equipmentEdit_textChanged(const QString &arg1);
 
+public slots:
+  void handleObjectsCounted(ObjectTypes type, int count);
+  void handleObjectCreated(ObjectTypes type, Storable *object);
+  void handleObjectLoaded(ObjectTypes type, Storable *object);
+
+private slots:
   void addInstructionToList();
-      void addEquipmentToList();
+  void addEquipmentToList();
+  void on_instructionEdit_textChanged(const QString &arg1);
+  void on_equipmentEdit_textChanged(const QString &arg1);
   void on_instructionList_itemSelectionChanged();
-      void on_equipmentList_itemSelectionChanged();
+  void on_equipmentList_itemSelectionChanged();
   void on_deleteInstructionButton_clicked();
-      void on_deleteEquipmentButton_clicked();
+  void on_deleteEquipmentButton_clicked();
   void on_editInstructionButton_clicked();
-      void on_editEquipmentButton_clicked();
+  void on_editEquipmentButton_clicked();
+  void on_createRecipeIngredientButton_clicked();
 };
 
 #endif // RECIPEFORM_H

@@ -51,6 +51,13 @@ Units QRecipeIngredient::stringToUnits(const QString &unit) {
   return INVALID;
 }
 
+QMap<QString, Units> QRecipeIngredient::getUnitList() {
+  return {{"", UNITLESS},      {"kg", KILOGRAMS},  {"g", GRAMS},
+          {"mg", MILLIGRAMS},  {"L", LITERS},      {"cL", CENTILITERS},
+          {"mL", MILLILITERS}, {"gal", GALLONS},   {"pt", PINTS},
+          {"cups", CUPS},      {"tsp", TEASPOONS}, {"tbl", TABLESPOONS}};
+}
+
 QRecipeIngredient::QRecipeIngredient(const QUuid &ingredientId, Units unit,
                                      double quantity, bool isRecipe,
                                      QObject *parent)
