@@ -88,6 +88,11 @@ bool QRecipeIngredient::getIsRecipe() const {
   return m_ingredient.getIsRecipe();
 }
 
+void QRecipeIngredient::setIngredientId(const QUuid &ingredientId) {
+  m_ingredient.setIngredientId(ingredientId.toString().toStdString());
+  emit ingredientIdChanged();
+}
+
 void QRecipeIngredient::setIngredientId(const QString &ingredientId) {
   if (ingredientId == QString::fromStdString(m_ingredient.getIngredientId()))
     return;

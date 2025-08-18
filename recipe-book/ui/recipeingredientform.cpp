@@ -12,6 +12,28 @@ RecipeIngredientForm::RecipeIngredientForm(Storable *object, QWidget *parent)
 
 RecipeIngredientForm::~RecipeIngredientForm() { delete ui; }
 
+int RecipeIngredientForm::exec() {
+
+  qDebug() << "Sending requests for ingredients and recipes";
+  emit requestObjects(INGREDIENTOBJECT);
+  emit requestObjectsCount(INGREDIENTOBJECT);
+  emit requestObjects(RECIPEOBJECT);
+  emit requestObjectsCount(RECIPEOBJECT);
+
+  if (m_currentObject != nullptr) {
+    QUuid ingredientId =
+        qobject_cast<QRecipeIngredient *>(m_currentObject)->getIngredientId();
+    ObjectTypes type = INGREDIENTOBJECT;
+    if (qobject_cast<QRecipeIngredient *>(m_currentObject)->getIsRecipe()) {
+      type = RECIPEOBJECT;
+    }
+
+    emit requestObject(type, ingredientId);
+  }
+
+  return AbstractForm::exec();
+}
+
 bool RecipeIngredientForm::validateForm() {
   if (m_quantityEdit->value() <= 0.0)
     return false;
@@ -28,18 +50,32 @@ bool RecipeIngredientForm::validateForm() {
   return true;
 }
 
-void RecipeIngredientForm::extractFormData() {}
+void RecipeIngredientForm::extractFormData() {
+  QTabWidget *selector = findChild<QTabWidget *>("tabWidget");
+  QListView *activeList = selector->currentWidget()->findChild<QListView *>();
+  QUuid ingredientId;
+
+  if (selector->currentIndex() == 0) {
+    qDebug() << "Current list index" << activeList->currentIndex().row();
+    ingredientId =
+        m_ingredientModel
+            ->data(activeList->currentIndex(), IngredientListModel::IdRole)
+            .toUuid();
+    m_data["isRecipe"] = false;
+  } else if (selector->currentIndex() == 1) {
+    ingredientId =
+        m_recipeModel->data(activeList->currentIndex(), RecipeListModel::IdRole)
+            .toUuid();
+    m_data["isRecipe"] = true;
+  }
+
+  m_data["ingredientId"] = ingredientId;
+  m_data["unit"] = m_unitList->currentItem()->data(Qt::UserRole);
+  m_data["quantity"] = m_quantityEdit->value();
+}
 
 void RecipeIngredientForm::populateForm(const QVariantMap &data) {
   m_quantityEdit->setValue(data["quantity"].toDouble());
-
-  QUuid ingredientId = data["ingredientId"].toUuid();
-  ObjectTypes type = INGREDIENTOBJECT;
-  if (data["isRecipe"].toBool()) {
-    type = RECIPEOBJECT;
-  }
-
-  emit requestObject(type, ingredientId);
 
   Units unit = data["unit"].value<Units>();
   for (int i = 0; i < m_unitList->count(); ++i) {
@@ -101,11 +137,6 @@ void RecipeIngredientForm::initialize() {
   m_tabs = findChild<QTabWidget *>("tabWidget");
   m_tabs->setCurrentIndex(0);
 
-  emit requestObjects(INGREDIENTOBJECT);
-  emit requestObjectsCount(INGREDIENTOBJECT);
-  emit requestObjects(RECIPEOBJECT);
-  emit requestObjectsCount(RECIPEOBJECT);
-
   QMap<QString, Units> units = QRecipeIngredient::getUnitList();
   m_unitList->clear();
 
@@ -130,7 +161,7 @@ void RecipeIngredientForm::initialize() {
     }
   });
 
-  connect(this, &QDialog::reject, [this]() { clearForm(); });
+  connect(this, &QDialog::rejected, [this]() { clearForm(); });
 }
 
 RecipeIngredientForm *RecipeIngredientForm::createForm(QWidget *parent) {
@@ -160,10 +191,12 @@ RecipeIngredientForm *RecipeIngredientForm::editForm(Storable *object,
 void RecipeIngredientForm::handleObjectsCounted(ObjectTypes type, int count) {
   switch (type) {
   case INGREDIENTOBJECT:
+    qDebug() << "Received ingredient count" << count;
     m_ingredientCount = count;
     break;
 
   case RECIPEOBJECT:
+    qDebug() << "Received recipe count" << count;
     m_recipeCount = count;
     break;
 
@@ -176,10 +209,12 @@ void RecipeIngredientForm::handleObjectLoaded(ObjectTypes type,
                                               Storable *object) {
   switch (type) {
   case INGREDIENTOBJECT:
+    qDebug() << "Loaded ingredient" << object->getId().toString();
     m_ingredientModel->addModel(qobject_cast<QIngredient *>(object));
     break;
 
   case RECIPEOBJECT:
+    qDebug() << "Loaded recipe" << object->getId().toString();
     m_recipeModel->addModel(qobject_cast<QRecipe *>(object));
     break;
 

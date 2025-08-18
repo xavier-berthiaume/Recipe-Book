@@ -87,6 +87,8 @@ MainWindow::MainWindow(QWidget *parent)
                             "to create recipe";
               data["creatorId"] = QUuid().toString();
             }
+
+            emit createObjectRequested(type, data);
           });
 
   connect(m_recipeView, &RecipeView::updateObjectRequested, this,

@@ -21,7 +21,7 @@ void IngredientSelectorDelegate::paint(QPainter *painter,
                       ? option.palette.highlightedText().color()
                       : option.palette.text().color());
 
-  QRect nameRect = option.rect.adjusted(5, 5, -100, 5);
+  QRect nameRect = option.rect.adjusted(5, 0, -100, 0);
   QFont font;
   font.setBold(false);
   font.setPointSize(12);

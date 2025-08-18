@@ -51,6 +51,7 @@ public:
   double getQuantity() const;
   bool getIsRecipe() const;
 
+  void setIngredientId(const QUuid &id);
   void setIngredientId(const QString &ingredientId);
   void setUnit(Units unit);
   void setQuantity(double quantity);

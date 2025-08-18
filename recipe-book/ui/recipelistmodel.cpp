@@ -30,6 +30,8 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const {
     return recipe->getEquipment();
   case IngredientsRole:
     return QVariant::fromValue(recipe->getIngredientIds());
+  case IdRole:
+    return recipe->getId();
   default:
     return QVariant();
   }

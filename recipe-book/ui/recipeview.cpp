@@ -1,7 +1,7 @@
 #include "recipeview.h"
+#include "recipeform.h"
 #include "recipelistdelegate.h"
 #include "ui_recipeview.h"
-#include "recipeform.h"
 
 RecipeView::RecipeView(QWidget *parent)
     : AbstractView(parent), ui(new Ui::RecipeView),
@@ -48,11 +48,21 @@ void RecipeView::clearModel() {
 }
 
 void RecipeView::handleObjectsCounted(ObjectTypes type, int count) {
+  if (m_recipeForm != nullptr) {
+    m_recipeForm->handleObjectsCounted(type, count);
+    return;
+  }
+
   m_totalCount = count;
   m_totalCountIndicator->setText(QString::number(m_totalCount));
 }
 
 void RecipeView::handleObjectCreated(ObjectTypes type, Storable *object) {
+  if (m_recipeForm != nullptr) {
+    m_recipeForm->handleObjectLoaded(type, object);
+    return;
+  }
+
   switch (type) {
   case RECIPEOBJECT:
     m_recipeModel->addModel(qobject_cast<QRecipe *>(object));
@@ -66,6 +76,11 @@ void RecipeView::handleObjectCreated(ObjectTypes type, Storable *object) {
 }
 
 void RecipeView::handleObjectLoaded(ObjectTypes type, Storable *object) {
+  if (m_recipeForm != nullptr) {
+    m_recipeForm->handleObjectLoaded(type, object);
+    return;
+  }
+
   switch (type) {
   case RECIPEOBJECT:
     m_recipeModel->addModel(qobject_cast<QRecipe *>(object));
@@ -78,12 +93,19 @@ void RecipeView::handleObjectLoaded(ObjectTypes type, Storable *object) {
   }
 }
 
-void RecipeView::on_createButton_clicked()
-{
-    RecipeForm *form = RecipeForm::createForm(this);
+void RecipeView::on_createButton_clicked() {
+  m_recipeForm = RecipeForm::createForm(this);
 
-    connect(form, &RecipeForm::createRequested, this, &RecipeView::createObjectRequested);
+  connect(m_recipeForm, &RecipeForm::createRequested, this,
+          &RecipeView::createObjectRequested);
+  connect(m_recipeForm, &RecipeForm::requestObject, this,
+          &RecipeView::requestObject);
+  connect(m_recipeForm, &RecipeForm::requestObjects, this,
+          &RecipeView::requestObjects);
+  connect(m_recipeForm, &RecipeForm::requestObjectsCount, this,
+          &RecipeView::requestObjectsCount);
 
-    form->exec();
+  m_recipeForm->exec();
+
+  m_recipeForm = nullptr;
 }
-

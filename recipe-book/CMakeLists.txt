@@ -38,11 +38,13 @@ set(PROJECT_SOURCES
         ui/profilelistmodel.h ui/profilelistmodel.cpp
         ui/ingredientlistmodel.h ui/ingredientlistmodel.cpp
         ui/recipelistmodel.h ui/recipelistmodel.cpp
+        ui/recipeingredientlistmodel.h ui/recipeingredientlistmodel.cpp
 
         ui/profilelistdelegate.h ui/profilelistdelegate.cpp
         ui/ingredientlistdelegate.h ui/ingredientlistdelegate.cpp
         ui/recipelistdelegate.h ui/recipelistdelegate.cpp
         ui/ingredientselectordelegate.h ui/ingredientselectordelegate.cpp
+        ui/recipeingredientlistdelegate.h ui/recipeingredientlistdelegate.cpp
 
         ui/displayingredientview.h ui/displayingredientview.cpp ui/displayingredientview.ui
 

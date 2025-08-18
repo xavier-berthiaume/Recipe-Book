@@ -23,6 +23,9 @@ QVariant IngredientListModel::data(const QModelIndex &index, int role) const {
   case DescriptionRole:
     return ingredient->getDescription();
 
+  case IdRole:
+    return ingredient->getId();
+
   default:
     return QVariant();
   }

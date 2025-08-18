@@ -1,5 +1,6 @@
 #include "recipeform.h"
 #include "recipeingredientform.h"
+#include "recipeingredientlistdelegate.h"
 #include "stringeditdialog.h"
 #include "ui_recipeform.h"
 
@@ -34,7 +35,23 @@ RecipeForm *RecipeForm::editForm(Storable *object, QWidget *parent) {
   // data["recipeIngredients"] = recipe->getIngredientIds();
 
   form->populateForm(data);
+
+  // Load all the recipe ingredients
+  for (const QUuid &id : recipe->getIngredientIds()) {
+    form->emit requestObject(RECIPEINGREDIENTOBJECT, id);
+  }
+
   return form;
+}
+
+QStringList RecipeForm::getListWidgetItems(QListWidget *list) {
+  QStringList ret;
+
+  for (int i = 0; i < list->count(); i++) {
+    ret.append(list->item(i)->text());
+  }
+
+  return ret;
 }
 
 bool RecipeForm::validateForm() {
@@ -48,11 +65,41 @@ bool RecipeForm::validateForm() {
   return true;
 }
 
-void RecipeForm::extractFormData() {}
+void RecipeForm::extractFormData() {
+  m_data["name"] = m_nameEdit->text();
+  m_data["description"] = m_descriptionEdit->toPlainText();
+  m_data["notes"] = m_notesEdit->toPlainText();
+
+  QStringList instructions, equipment;
+  instructions = getListWidgetItems(m_instructionWidget);
+  equipment = getListWidgetItems(m_equipmentWidget);
+
+  m_data["instructions"] = instructions;
+  m_data["equipment"] = equipment;
+
+  QList<QUuid> ingredientIds;
+  ingredientIds.reserve(m_recipeIngredientModel->rowCount());
+  for (int i = 0; i < m_recipeIngredientModel->rowCount(); i++) {
+    ingredientIds.append(m_recipeIngredientModel
+                             ->data(m_recipeIngredientModel->index(i, 0),
+                                    RecipeIngredientListModel::IdRole)
+                             .toUuid());
+  }
+
+  m_data["recipeIngredientIds"] = QVariant::fromValue(ingredientIds);
+}
 
 void RecipeForm::populateForm(const QVariantMap &data) {}
 
-void RecipeForm::clearForm() {}
+void RecipeForm::clearForm() {
+  m_nameEdit->clear();
+  m_descriptionEdit->clear();
+  m_notesEdit->clear();
+
+  m_instructionWidget->clear();
+  m_equipmentWidget->clear();
+  m_recipeIngredientModel->clearModel();
+}
 
 void RecipeForm::initialize() {
   ui->setupUi(this);
@@ -73,7 +120,11 @@ void RecipeForm::initialize() {
   m_equipmentEditButton = findChild<QToolButton *>("editEquipmentButton");
   m_equipmentRemove = findChild<QToolButton *>("deleteEquipmentButton");
 
+  m_recipeIngredientModel = new RecipeIngredientListModel(this);
   m_recipeIngredientList = findChild<QListView *>("recipeIngredientList");
+  m_recipeIngredientList->setModel(m_recipeIngredientModel);
+  m_recipeIngredientList->setItemDelegate(
+      new RecipeIngredientListDelegate(this));
 
   connect(m_instructionCreate, &QToolButton::clicked, this,
           &RecipeForm::addInstructionToList);
@@ -102,9 +153,16 @@ void RecipeForm::initialize() {
 // For these public slots, pass data to ingredient form if it's open
 void RecipeForm::handleObjectsCounted(ObjectTypes type, int count) {
   if (m_ingredientForm != nullptr) {
+    qDebug() << "Passing on data from count objects of type"
+             << static_cast<int>(type);
+    m_ingredientForm->handleObjectsCounted(type, count);
+    return;
   }
 
+  // We don't actually need this switch, but I'm keeping it just in case for
+  // future use
   switch (type) {
+    break;
 
   default:
     break;
@@ -112,8 +170,14 @@ void RecipeForm::handleObjectsCounted(ObjectTypes type, int count) {
 }
 
 void RecipeForm::handleObjectCreated(ObjectTypes type, Storable *object) {
-
   switch (type) {
+  case RECIPEINGREDIENTOBJECT:
+    m_recipeIngredientModel->addModel(
+        qobject_cast<QRecipeIngredient *>(object));
+    emit requestObject(
+        INGREDIENTOBJECT,
+        qobject_cast<QRecipeIngredient *>(object)->getIngredientId());
+    break;
 
   default:
     break;
@@ -121,8 +185,25 @@ void RecipeForm::handleObjectCreated(ObjectTypes type, Storable *object) {
 }
 
 void RecipeForm::handleObjectLoaded(ObjectTypes type, Storable *object) {
+  if (m_ingredientForm != nullptr) {
+    qDebug() << "Passing on data from load object" << object->getId().toString()
+             << "of type" << static_cast<int>(type);
+    m_ingredientForm->handleObjectLoaded(type, object);
+  }
 
   switch (type) {
+  case RECIPEINGREDIENTOBJECT:
+    m_recipeIngredientModel->addModel(
+        qobject_cast<QRecipeIngredient *>(object));
+    emit requestObject(
+        INGREDIENTOBJECT,
+        qobject_cast<QRecipeIngredient *>(object)->getIngredientId());
+    break;
+
+  case INGREDIENTOBJECT:
+    m_recipeIngredientModel->addIngredientToCache(
+        qobject_cast<QIngredient *>(object));
+    break;
 
   default:
     break;

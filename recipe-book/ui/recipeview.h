@@ -2,6 +2,7 @@
 #define RECIPEVIEW_H
 
 #include "abstractview.h"
+#include "recipeform.h"
 #include "recipelistmodel.h"
 
 #include <QLabel>
@@ -21,7 +22,7 @@ class RecipeView : public AbstractView {
   void incrementTotalCount();
   void decrementTotalCount();
 
-  Ui::RecipeView *ui;
+  RecipeForm *m_recipeForm = nullptr;
 
   RecipeListModel *m_recipeModel;
 
@@ -32,6 +33,8 @@ class RecipeView : public AbstractView {
   QToolButton *m_detailsButton;
   QLabel *m_loadedCountIndicator;
   QLabel *m_totalCountIndicator;
+
+  Ui::RecipeView *ui;
 
   int m_totalCount = 0;
 

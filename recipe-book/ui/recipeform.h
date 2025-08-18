@@ -3,6 +3,7 @@
 
 #include "abstractform.h"
 #include "recipeingredientform.h"
+#include "recipeingredientlistmodel.h"
 
 #include <QDialog>
 #include <QLineEdit>
@@ -20,6 +21,7 @@ class RecipeForm : public AbstractForm {
   explicit RecipeForm(QWidget *parent = nullptr);
   explicit RecipeForm(Storable *object, QWidget *parent = nullptr);
 
+  QStringList getListWidgetItems(QListWidget *list);
   bool validateForm() override;
   void extractFormData() override;
   void populateForm(const QVariantMap &data) override;
@@ -45,6 +47,7 @@ class RecipeForm : public AbstractForm {
   QToolButton *m_equipmentRemove;
 
   QListView *m_recipeIngredientList;
+  RecipeIngredientListModel *m_recipeIngredientModel;
 
   Ui::RecipeForm *ui;
 

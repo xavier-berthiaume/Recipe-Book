@@ -48,6 +48,8 @@ public:
   static RecipeIngredientForm *createForm(QWidget *parent);
   static RecipeIngredientForm *editForm(Storable *object, QWidget *parent);
 
+  int exec() override;
+
   ~RecipeIngredientForm();
 
 public slots:
