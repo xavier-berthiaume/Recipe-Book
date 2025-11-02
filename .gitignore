@@ -86,3 +86,6 @@ Thumbs.db
 # Logs and temp files
 *.log
 *.tmp
+
+# Doxygen documentation
+docs/doxygen/*
