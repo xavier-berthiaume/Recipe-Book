@@ -1,0 +1,1 @@
+This is the root directory for the softwares source code. The entrypoint of the application is main.cpp, from which all the different subdirectories will provide different modules that provide the softwares functionality.
