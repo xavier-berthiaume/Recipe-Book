@@ -30,7 +30,7 @@
  * their recipes according to their real-world experience, deleting any content,
  * be it an ingredient, recipe or a whole profile is a hard deletion.
  *
- * @note This class is movable and copyable.
+ * @note This class is movable and copyable but cannot be assigned.
  * @see Storable
  * @see Profile
  */
@@ -41,6 +41,7 @@ class AbstractStorable : public Storable {
   const QUuid m_created_by_id;
   const QDateTime m_creation_date;
   QDateTime m_update_date;
+  bool m_was_modified;
 
 protected:
   explicit AbstractStorable(QObject *parent = nullptr);
@@ -56,10 +57,10 @@ protected:
       QUuid identifier, QUuid created_by_id,
       QDateTime creation_date = QDateTime::currentDateTime(),
       QDateTime update_date = QDateTime::currentDateTime(),
-      QObject *parent = nullptr)
+      QObject *parent = nullptr, bool was_modified = false)
       : Storable(parent), m_id(identifier), m_created_by_id(created_by_id),
         m_creation_date(std::move(creation_date)),
-        m_update_date(std::move(update_date)) {}
+        m_update_date(std::move(update_date)), m_was_modified(was_modified) {}
 
 public:
   ~AbstractStorable() override = default;
@@ -68,20 +69,19 @@ public:
   AbstractStorable(const AbstractStorable &other) noexcept
       : AbstractStorable(other.getId(), getCreatedByID(),
                          other.getCreationDate(), other.getUpdateDate(),
-                         other.parent()) {}
+                         other.parent(), other.getWasModified()) {}
 
   /** @brief Move constructor */
   AbstractStorable(AbstractStorable &&other) noexcept
       : AbstractStorable(other.getId(), getCreatedByID(),
                          other.getCreationDate(), other.getUpdateDate(),
-                         other.parent()) {}
+                         other.parent(), other.getWasModified()) {}
 
   /** @brief Deleted copy assignment operator */
   auto operator=(const AbstractStorable &) -> AbstractStorable = delete;
 
   /** @brief Move assignment operator */
-  auto operator=(AbstractStorable &&other) noexcept
-      -> AbstractStorable & = delete;
+  auto operator=(AbstractStorable &&other) -> AbstractStorable & = delete;
 
   /** @brief Getter for object id. */
   [[nodiscard]] auto getId() const -> QUuid { return m_id; }
@@ -99,6 +99,9 @@ public:
   [[nodiscard]] auto getUpdateDate() const -> QDateTime {
     return m_update_date;
   }
+
+  /** @brief Getter to know if the object's data has been modified or not */
+  [[nodiscard]] auto getWasModified() const -> bool { return m_was_modified; }
 
   /** @brief Setter for the objects update date and time. */
   void setUpdateDate(const QDateTime &date) { m_update_date = date; }

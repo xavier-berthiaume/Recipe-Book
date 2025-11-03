@@ -24,7 +24,7 @@ class DatabaseVisitor;
  * When copying or moving an object that inherits from Storable, the copy or
  * destination object will have the same parent as the original object.
  *
- * @note This class is movable and copyable.
+ * @note This class is movable and copyable but cannot be assigned.
  * @see DatabaseVisitor
  */
 class Storable : public QObject {
