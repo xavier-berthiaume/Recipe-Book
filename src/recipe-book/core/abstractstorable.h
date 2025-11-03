@@ -21,7 +21,7 @@
  * - m_created_by_id : The unique identifier to the profile that created the
  * object. Marked const since it shouldn't be changed once set.
  * - m_creation_date : A timestamp of the creation date in the database. This
- * field should be empty on creating a new object.
+ * field should be empty on creating a new object. Marked as const.
  * - m_update_date : A timestamp of the last time the object was updated. This
  * field should be empty on creating a new object.
  *
@@ -30,7 +30,7 @@
  * their recipes according to their real-world experience, deleting any content,
  * be it an ingredient, recipe or a whole profile is a hard deletion.
  *
- * @note This class is non-copyable and non-movable.
+ * @note This class is movable and copyable.
  * @see Storable
  * @see Profile
  */
@@ -39,7 +39,7 @@ class AbstractStorable : public Storable {
 
   const QUuid m_id;
   const QUuid m_created_by_id;
-  QDateTime m_creation_date;
+  const QDateTime m_creation_date;
   QDateTime m_update_date;
 
 protected:
@@ -64,34 +64,41 @@ protected:
 public:
   ~AbstractStorable() override = default;
 
-  /** @brief Deleted copy constructor */
-  AbstractStorable(const AbstractStorable &) = delete;
-
-  /** @brief Deleted copy constructor */
-  auto operator=(const AbstractStorable &) -> AbstractStorable = delete;
+  /** @brief Copy constructor */
+  AbstractStorable(const AbstractStorable &other) noexcept
+      : AbstractStorable(other.getId(), getCreatedByID(),
+                         other.getCreationDate(), other.getUpdateDate(),
+                         other.parent()) {}
 
   /** @brief Move constructor */
   AbstractStorable(AbstractStorable &&other) noexcept
-      : Storable(other.parent()), m_id(other.m_id),
-        m_created_by_id(other.m_created_by_id),
-        m_creation_date(std::move(other.m_creation_date)),
-        m_update_date(std::move(other.m_update_date)) {}
+      : AbstractStorable(other.getId(), getCreatedByID(),
+                         other.getCreationDate(), other.getUpdateDate(),
+                         other.parent()) {}
 
-  /** @brief Move constructor */
-  auto operator=(AbstractStorable &&other) noexcept -> AbstractStorable &;
+  /** @brief Deleted copy assignment operator */
+  auto operator=(const AbstractStorable &) -> AbstractStorable = delete;
+
+  /** @brief Move assignment operator */
+  auto operator=(AbstractStorable &&other) noexcept
+      -> AbstractStorable & = delete;
 
   /** @brief Getter for object id. */
-  [[nodiscard]] auto getId() -> QUuid { return m_id; }
+  [[nodiscard]] auto getId() const -> QUuid { return m_id; }
 
   /** @brief Getter for the id of the profile responsible for object creation.
    */
-  [[nodiscard]] auto getCreatedByID() -> QUuid { return m_created_by_id; }
+  [[nodiscard]] auto getCreatedByID() const -> QUuid { return m_created_by_id; }
 
   /** @brief Getter for the objects creation date and time in the database. */
-  [[nodiscard]] auto getCreationDate() -> QDateTime { return m_creation_date; }
+  [[nodiscard]] auto getCreationDate() const -> QDateTime {
+    return m_creation_date;
+  }
 
   /** @brief Getter for the objects update date and time in the database. */
-  [[nodiscard]] auto getUpdateDate() -> QDateTime { return m_update_date; }
+  [[nodiscard]] auto getUpdateDate() const -> QDateTime {
+    return m_update_date;
+  }
 
   /** @brief Setter for the objects update date and time. */
   void setUpdateDate(const QDateTime &date) { m_update_date = date; }

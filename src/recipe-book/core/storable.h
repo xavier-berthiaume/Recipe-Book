@@ -21,7 +21,10 @@ class DatabaseVisitor;
  * The actual database operations are written in the derived DatabaseVisitor
  * class implementations.
  *
- * @note This class is non-copyable and non-movable.
+ * When copying or moving an object that inherits from Storable, the copy or
+ * destination object will have the same parent as the original object.
+ *
+ * @note This class is movable and copyable.
  * @see DatabaseVisitor
  */
 class Storable : public QObject {
@@ -33,18 +36,25 @@ protected:
 public:
   ~Storable() override = default;
 
-  /** @brief Deleted copy constructor */
-  Storable(const Storable &) = delete;
+  /** @brief Copy constructor */
+  Storable(const Storable &other) : Storable(other.parent()) {}
 
-  /** @brief Deleted copy constructor */
-  auto operator=(const Storable &) -> Storable = delete;
+  /** @brief Copy assignment operator */
+  auto operator=(const Storable &other) noexcept -> Storable & {
+    if (this != &other) {
+      this->setParent(other.parent());
+    }
 
-  /** @brief Deleted move constructor */
+    return *this;
+  }
+
+  /** @brief Move constructor */
   Storable(Storable &&other) noexcept : Storable(other.parent()) {}
 
-  /** @brief Deleted move constructor */
+  /** @brief Move assignment operator */
   auto operator=(Storable &&other) noexcept -> Storable & {
     if (this != &other) {
+      this->setParent(other.parent());
     }
 
     return *this;
