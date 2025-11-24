@@ -1,7 +1,6 @@
 #include "configmanager.h"
 #include "glibmm/error.h"
 
-#include <iostream>
 #include <string>
 
 ConfigManager *ConfigManager::m_instance = nullptr;
@@ -9,7 +8,9 @@ ConfigManager *ConfigManager::m_instance = nullptr;
 std::string ConfigManager::get_config_path() {
   // Get XDG config directory
   std::string config_dir =
-      std::string(g_get_user_config_dir()) + "/recipe-book/";
+      std::string(g_get_user_config_dir()) + "/" + APPLICATION_ID + "/";
+
+  g_debug("Found config directory at %s", config_dir.c_str());
 
   // Create directory if it doesn't exist
   Glib::RefPtr<Gio::File> dir = Gio::File::create_for_path(config_dir);
@@ -21,31 +22,36 @@ std::string ConfigManager::get_config_path() {
 }
 
 void ConfigManager::save_config() {
+  g_debug("Saving config file");
   std::string path = get_config_path();
   try {
     m_keyfile->save_to_file(path);
     m_wasModified = false;
+    g_info("Current software configuration successfully saved to config file");
   } catch (const Glib::Error &ex) {
-    std::cerr << "Error saving config:" << ex.what() << std::endl;
+    g_error("Error saving config: %s", ex.what());
   }
 }
 
 void ConfigManager::load_config() {
+  g_debug("Loading config file");
   std::string path = get_config_path();
   if (!Glib::file_test(path, Glib::FileTest::EXISTS)) {
-    std::cout << "Config file not found" << std::endl;
+    g_warning("Config file not found");
     throw Glib::Error();
   }
 
   try {
     m_keyfile->load_from_file(path);
+    g_info("Loaded software configuration from config file successfully");
   } catch (const Glib::Error &ex) {
-    std::cerr << "Error loading config:" << ex.what() << std::endl;
+    g_error("Error loading config: %s", ex.what());
     throw ex;
   }
 }
 
 void ConfigManager::create_config() {
+  g_debug("Creating a new config KeyFile with default values");
   set<std::string>("General", "Language", "us_EN");
 
   set<std::string>("Display", "Theme", "dark");
@@ -58,7 +64,6 @@ ConfigManager::ConfigManager() {
 
   // First we try to load the config
   try {
-    std::cout << "Trying to load config" << std::endl;
     load_config();
 
     // If the file doesn't load, we create a config with default values
@@ -66,7 +71,6 @@ ConfigManager::ConfigManager() {
     // The error is already printed out in the load_config() function, so no
     // need to print it out again here.
   } catch (const Glib::Error &ex) {
-    std::cout << "Trying to create a new config" << std::endl;
     create_config();
     save_config();
   }

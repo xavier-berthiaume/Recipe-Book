@@ -1,5 +1,5 @@
 /**
- * @file Header file for the ConfigManager class
+ * @file configmanager.h
  * @brief Utility class that stores in memory config data. Saves and loades the
  * data to a file in the users ~/.config folder, in a subdirectory named
  * recipe-book.
@@ -9,7 +9,6 @@
 
 #include <glibmm.h>
 #include <gtkmm-4.0/gtkmm.h>
-#include <iostream>
 #include <string>
 
 /**
@@ -107,7 +106,7 @@ public:
         return m_keyfile->get_string(section, key);
       }
     } catch (const Glib::Error &ex) {
-      std::cerr << "Error reading from config:" << ex.what() << std::endl;
+      g_error("Error reading from config: %s", ex.what());
     }
   }
 
@@ -137,7 +136,7 @@ public:
         m_wasModified = true;
       }
     } catch (const Glib::Error &ex) {
-      std::cerr << "Error setting config:" << ex.what() << std::endl;
+      g_error("Error setting config: %s", ex.what());
     }
   }
 
