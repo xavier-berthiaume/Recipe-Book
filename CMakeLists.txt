@@ -38,6 +38,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTKMM REQUIRED gtkmm-4.0 glibmm-2.68 giomm-2.68)
 
+find_program(CLANG_FORMAT "clang-format")
+find_program(CLANG_TIDY "clang-tidy")
+
 add_executable(${PROJECT_NAME} 
   src/main.cpp
 
@@ -47,11 +50,25 @@ add_executable(${PROJECT_NAME}
 )
 
 # Include directories and link libraries
-# It is highly reccomended to use the -DCMAKE_EXPORT_COMPILE_COMMANDS=1 compilation 
+# It is highly recommended to use the -DCMAKE_EXPORT_COMPILE_COMMANDS=1 compilation 
 # flag to avoid having your IDE throwing errors about not finding the GTK or GTKmm libraries.
 target_include_directories(${PROJECT_NAME} PRIVATE ${GTKMM_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} ${GTKMM_LIBRARIES})
 target_compile_options(${PROJECT_NAME} PRIVATE ${GTKMM_CFLAGS_OTHER})
+
+if(CLANG_FORMAT)
+    add_custom_target(format
+      COMMAND ${CLANG_FORMAT} -i ${PROJECT_SOURCES}
+        COMMENT "Formatting all source files with clang-format..."
+    )
+endif()
+
+if(CLANG_TIDY)
+    get_filename_component(PROJECT_ROOT "${CMAKE_SOURCE_DIR}" ABSOLUTE)
+    set(CLANG_TIDY_WRAPPER "${PROJECT_ROOT}/run_clang_tidy.sh")
+    
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_WRAPPER}")
+endif()
 
 # Set up unit tests
 include(FetchContent)
