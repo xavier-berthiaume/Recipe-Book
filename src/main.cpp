@@ -10,10 +10,11 @@ public:
 
 MainWindow::MainWindow() {
   set_title("Recipe Book");
-  set_default_size(300, 400);
+  set_default_size(ConfigManager::getInstance().get("Display", "Width", 500),
+                   ConfigManager::getInstance().get("Display", "Height", 500));
 }
 
-int main(int argc, char **argv) {
+auto main(int argc, char **argv) -> int {
   LoggingManager::init();
 
   g_message("Recipe Book application starting (built with log level: %s)",

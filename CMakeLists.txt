@@ -47,6 +47,18 @@ add_executable(${PROJECT_NAME}
   src/utils/configmanager.h src/utils/configmanager.cpp
   src/utils/loggingmanager.h src/utils/loggingmanager.cpp
   src/utils/uuid.h src/utils/uuid.cpp
+
+  src/core/storable.h
+  src/core/abstractstorable.h
+  src/core/abstractingredient.h
+  src/core/abstractingredientdecorator.h
+  src/core/ingredient.h src/core/ingredient.cpp
+  src/core/recipe.h src/core/recipe.cpp
+)
+
+target_include_directories(${PROJECT_NAME} 
+    PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Include directories and link libraries

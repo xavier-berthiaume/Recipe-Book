@@ -53,6 +53,8 @@ void ConfigManager::load_config() {
 void ConfigManager::create_config() {
   g_debug("Creating a new config KeyFile with default values");
   set<std::string>("General", "Language", "us_EN");
+  set("General", "MaxDescriptionLength", 999);
+  set("General", "MaxFlavorLength", 999);
 
   set<std::string>("Display", "Theme", "dark");
   set("Display", "Width", 500);
