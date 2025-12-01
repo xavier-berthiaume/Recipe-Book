@@ -41,9 +41,7 @@ pkg_check_modules(GTKMM REQUIRED gtkmm-4.0 glibmm-2.68 giomm-2.68)
 find_program(CLANG_FORMAT "clang-format")
 find_program(CLANG_TIDY "clang-tidy")
 
-add_executable(${PROJECT_NAME} 
-  src/main.cpp
-
+add_library(core_lib STATIC 
   src/utils/configmanager.h src/utils/configmanager.cpp
   src/utils/loggingmanager.h src/utils/loggingmanager.cpp
   src/utils/uuid.h src/utils/uuid.cpp
@@ -56,16 +54,39 @@ add_executable(${PROJECT_NAME}
   src/core/recipe.h src/core/recipe.cpp
 )
 
-target_include_directories(${PROJECT_NAME} 
+target_include_directories(core_lib 
     PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_include_directories(core_lib PRIVATE ${GTKMM_INCLUDE_DIRS})
+target_link_libraries(core_lib ${GTKMM_LIBRARIES})
+target_compile_options(core_lib PRIVATE ${GTKMM_CFLAGS_OTHER})
+
+add_executable(${PROJECT_NAME} 
+  src/main.cpp
+)
+
+add_executable(tests
+  test/test_main.cpp
+  
+  test/utils/uuid_test.cpp
+  test/core/ingredient_test.cpp
+  test/core/recipe_test.cpp
 )
 
 # Include directories and link libraries
 # It is highly recommended to use the -DCMAKE_EXPORT_COMPILE_COMMANDS=1 compilation 
 # flag to avoid having your IDE throwing errors about not finding the GTK or GTKmm libraries.
-target_include_directories(${PROJECT_NAME} PRIVATE ${GTKMM_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} ${GTKMM_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PRIVATE 
+  ${GTKMM_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(${PROJECT_NAME} 
+  ${GTKMM_LIBRARIES} 
+  core_lib
+)
 target_compile_options(${PROJECT_NAME} PRIVATE ${GTKMM_CFLAGS_OTHER})
 
 if(CLANG_FORMAT)
@@ -79,7 +100,14 @@ if(CLANG_TIDY)
     get_filename_component(PROJECT_ROOT "${CMAKE_SOURCE_DIR}" ABSOLUTE)
     set(CLANG_TIDY_WRAPPER "${PROJECT_ROOT}/run_clang_tidy.sh")
     
-    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_WRAPPER}")
+    set_target_properties(${PROJECT_NAME} core_lib PROPERTIES
+        CXX_CLANG_TIDY "${CLANG_TIDY_WRAPPER}"
+    )
+    
+    # Explicitly disable clang-tidy for tests
+    set_target_properties(tests PROPERTIES
+        CXX_CLANG_TIDY ""
+    )
 endif()
 
 # Set up unit tests
@@ -91,30 +119,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_library(core_lib STATIC 
-  src/utils/uuid.h src/utils/uuid.cpp
-)
-
-target_include_directories(core_lib 
-    PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-target_link_libraries(core_lib
-  ${GLIB_LIBRARIES}  
-)
-
-add_executable(tests
-  test/test_main.cpp
-  
-  test/utils/uuid_test.cpp
-)
-
 target_link_libraries(tests
   PRIVATE
     Catch2::Catch2WithMain
     core_lib
-    ${GLIB_LIBRARIES}
+    ${GTKMM_LIBRARIES} 
 )
 
 enable_testing()
@@ -122,3 +131,5 @@ enable_testing()
 add_test(NAME AllUnitTests COMMAND tests)
 
 add_test(NAME UtilityTests COMMAND tests [utils])
+
+add_test(NAME CoreTests COMMAND tests [core])

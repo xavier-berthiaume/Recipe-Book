@@ -13,7 +13,7 @@ AlignOperands:   Align
 AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortEnumsOnASingleLine: InlineOnly 
+AllowShortEnumsOnASingleLine: true 
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: All
@@ -41,7 +41,7 @@ BraceWrapping:
   AfterExternBlock: false
   BeforeCatch:     false
   BeforeElse:      false
-  BeforeLambdaBody: falseAllman
+  BeforeLambdaBody: false 
   BeforeWhile:     false
   IndentBraces:    false
   SplitEmptyFunction: true

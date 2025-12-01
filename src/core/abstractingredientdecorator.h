@@ -18,21 +18,27 @@
  * To implement a decorator that extends the functionality of the Ingredient
  * class, extend this class and use its accessors and mutators.
  */
-class AbstractIngredientDecorator : public AbstractIngredient {
+class AbstractIngredientDecorator : public AbstractIngredient
+{
   std::unique_ptr<Ingredient> m_ingredient;
 
 protected:
   explicit AbstractIngredientDecorator(std::unique_ptr<Ingredient> ingredient)
-      : m_ingredient(std::move(ingredient)) {}
+      : m_ingredient(std::move(ingredient))
+  {
+  }
 
   AbstractIngredientDecorator(const AbstractIngredientDecorator &other)
       : AbstractIngredient(other),
-        m_ingredient(other.m_ingredient ? other.m_ingredient->clone()
-                                        : nullptr) {}
+        m_ingredient(other.m_ingredient ? other.m_ingredient->clone() : nullptr)
+  {
+  }
 
   auto operator=(const AbstractIngredientDecorator &other)
-      -> AbstractIngredientDecorator & {
-    if (this != &other) {
+      -> AbstractIngredientDecorator &
+  {
+    if (this != &other)
+    {
       m_ingredient = other.m_ingredient ? other.m_ingredient->clone() : nullptr;
     }
     return *this;
@@ -54,7 +60,8 @@ public:
    * @return The Id of the base Ingredient object.
    * @see AbstractStorable
    */
-  [[nodiscard]] auto getId() const -> std::string override {
+  [[nodiscard]] auto getId() const -> std::string override
+  {
     return m_ingredient->getId();
   }
 
@@ -66,7 +73,8 @@ public:
    * object.
    * @see AbstractStorable
    */
-  [[nodiscard]] auto getCreatedById() const -> std::string override {
+  [[nodiscard]] auto getCreatedById() const -> std::string override
+  {
     return m_ingredient->getCreatedById();
   }
 
@@ -78,7 +86,8 @@ public:
    * @see AbstractStorable
    * @note The time is stored in unix time.
    */
-  [[nodiscard]] auto getCreationDate() const -> time_t override {
+  [[nodiscard]] auto getCreationDate() const -> time_t override
+  {
     return m_ingredient->getCreationDate();
   }
 
@@ -90,7 +99,8 @@ public:
    * @see AbstractStorable
    * @note The time is stored in unix time.
    */
-  [[nodiscard]] auto getUpdateDate() const -> time_t override {
+  [[nodiscard]] auto getUpdateDate() const -> time_t override
+  {
     return m_ingredient->getUpdateDate();
   }
 
@@ -101,38 +111,48 @@ public:
    * @return The modified status of the base Ingredient object.
    * @see AbstractStorable
    */
-  [[nodiscard]] auto getWasModified() const -> bool override {
+  [[nodiscard]] auto getWasModified() const -> bool override
+  {
     return m_ingredient->getWasModified();
   }
 
-  void setUpdateDate(time_t date) override {
+  void modified() override { m_ingredient->modified(); }
+
+  void setUpdateDate(time_t date) override
+  {
     m_ingredient->setUpdateDate(date);
   }
 
   void setName(std::string name) override { m_ingredient->setName(name); }
 
-  [[nodiscard]] auto getName() const -> std::string override {
+  [[nodiscard]] auto getName() const -> std::string override
+  {
     return m_ingredient->getName();
   }
 
-  void setDescription(std::string description) override {
+  void setDescription(std::string description) override
+  {
     m_ingredient->setDescription(description);
   }
 
-  [[nodiscard]] auto getDescription() const -> std::string override {
+  [[nodiscard]] auto getDescription() const -> std::string override
+  {
     return m_ingredient->getDescription();
   }
 
-  void setFlavor(std::string flavor) override {
+  void setFlavor(std::string flavor) override
+  {
     m_ingredient->setFlavor(flavor);
   }
 
-  [[nodiscard]] auto getFlavor() const -> std::string override {
+  [[nodiscard]] auto getFlavor() const -> std::string override
+  {
     return m_ingredient->getFlavor();
   }
 
   [[nodiscard]] auto getInRecipeList() const
-      -> std::vector<std::string> override {
+      -> std::vector<std::string> override
+  {
     return m_ingredient->getInRecipeList();
   }
 };

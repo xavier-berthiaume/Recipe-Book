@@ -23,7 +23,8 @@
  * @note This class is movable and copyable but cannot be assigned.
  * @see Storable
  */
-class AbstractStorable : public Storable {
+class AbstractStorable : public Storable
+{
 
   /**
    * @brief The unique identifier of the storable object.
@@ -75,7 +76,9 @@ protected:
                              std::chrono::system_clock::now()),
                          std::chrono::system_clock::to_time_t(
                              std::chrono::system_clock::now()),
-                         false) {}
+                         false)
+  {
+  }
 
   /**
    * @brief Parametrized constructor for loading existing objects.
@@ -93,7 +96,9 @@ protected:
                             bool was_modified = false)
       : m_id(std::move(identifier)), m_created_by_id(std::move(created_by_id)),
         m_creation_date(creation_date), m_update_date(update_date),
-        m_was_modified(was_modified) {}
+        m_was_modified(was_modified)
+  {
+  }
 
   AbstractStorable(const AbstractStorable &other) = default;
   auto operator=(const AbstractStorable &other) -> AbstractStorable & = default;
@@ -102,8 +107,10 @@ protected:
       -> AbstractStorable & = default;
 
 public:
-  ~AbstractStorable() override {
-    if (m_was_modified) {
+  ~AbstractStorable() override
+  {
+    if (m_was_modified)
+    {
       // Save this object to the database by force
     }
   }
@@ -124,7 +131,8 @@ public:
    * class, you should override these getters and setters to return the data
    * within the wrapped Ingredient object.
    */
-  [[nodiscard]] virtual auto getCreatedById() const -> std::string {
+  [[nodiscard]] virtual auto getCreatedById() const -> std::string
+  {
     return m_created_by_id;
   }
 
@@ -135,7 +143,8 @@ public:
    * class, you should override these getters and setters to return the data
    * within the wrapped Ingredient object.
    */
-  [[nodiscard]] virtual auto getCreationDate() const -> time_t {
+  [[nodiscard]] virtual auto getCreationDate() const -> time_t
+  {
     return m_creation_date;
   }
 
@@ -145,7 +154,8 @@ public:
    * class, you should override these getters and setters to return the data
    * within the wrapped Ingredient object.
    */
-  [[nodiscard]] virtual auto getUpdateDate() const -> time_t {
+  [[nodiscard]] virtual auto getUpdateDate() const -> time_t
+  {
     return m_update_date;
   }
 
@@ -155,17 +165,30 @@ public:
    * class, you should override these getters and setters to return the data
    * within the wrapped Ingredient object.
    */
-  [[nodiscard]] virtual auto getWasModified() const -> bool {
+  [[nodiscard]] virtual auto getWasModified() const -> bool
+  {
     return m_was_modified;
   }
 
   /** @brief Setter for the objects update date and time. */
-  virtual void setUpdateDate(time_t date) {
+  virtual void setUpdateDate(time_t date)
+  {
     m_update_date = date;
     modified();
   }
 
-  void modified() { m_was_modified = true; }
+  /**
+   * @brief Sets the was_modified field to true no matter the current state.
+   *
+   * Anytime a field is modified using a setter, the modified() function
+   * should be called to let the object remember that it must save itself to the
+   * database before desctruction.
+   *
+   * Marked as virtual so that any classes that eventually inherit from
+   * AbstractStorable can act as decorators and change the modified status of
+   * the object they decorate instead of themselves.
+   */
+  virtual void modified() { m_was_modified = true; }
 };
 
 #endif

@@ -15,10 +15,14 @@
 #include "core/abstractingredientdecorator.h"
 #include "core/ingredient.h"
 
+#include <memory>
+#include <string>
 #include <vector>
 
-class Recipe : public AbstractIngredientDecorator {
+class Recipe : public AbstractIngredientDecorator
+{
   std::vector<std::string> m_instructions;
+  std::vector<std::string> m_ingredient_ids;
 
 public:
   /**
@@ -30,7 +34,8 @@ public:
    * @brief Parametrized constructor
    */
   explicit Recipe(std::unique_ptr<Ingredient> ingredient,
-                  std::vector<std::string> instructions);
+                  std::vector<std::string> instructions = {},
+                  std::vector<std::string> ingredient_ids = {});
 
   Recipe(const Recipe &other) = default;
   auto operator=(const Recipe &other) -> Recipe & = default;
@@ -40,6 +45,8 @@ public:
   ~Recipe() override = default;
 
   [[nodiscard]] auto getInstructionsList() const -> std::vector<std::string>;
+
+  [[nodiscard]] auto getIngredientIds() const -> std::vector<std::string>;
 
   /**
    * @brief Appends an instruction to the current instruction list.
@@ -56,6 +63,10 @@ public:
    * @brief Removes the instruction at the given position of the list.
    */
   void removeInstruction(int position);
+
+  void addIngredient(std::string ingredient_id);
+
+  void removeIngredient(const std::string &ingredient_id);
 
   void accept(DatabaseVisitor *visitor) override;
 };
